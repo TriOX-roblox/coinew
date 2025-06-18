@@ -934,7 +934,7 @@
             document.body.className = currentTheme + '-theme';
             themeToggle.classList.toggle('active', currentTheme === 'light');
             applySkin(currentSkin);
-            updateSkinButtons();
+            updateSkinButtons(); // Initial call
             updateBoostButtons();
             updateActiveBoosts();
             
@@ -961,6 +961,7 @@
                     
                     if (tabName === 'skins') {
                         skinsTab.style.display = 'block';
+                        updateSkinButtons(); // Update skin buttons when skins tab is opened
                     } else if (tabName === 'boosts') {
                         boostsTab.style.display = 'block';
                         updateBoostButtons();
@@ -970,6 +971,7 @@
             
             shopBtn.addEventListener('click', function() {
                 shop.style.display = 'block';
+                updateSkinButtons(); // Update skin buttons when shop is opened
                 updateBoostButtons();
             });
             
@@ -1017,7 +1019,7 @@
             function updateUI() {
                 coinsElement.textContent = coins.toLocaleString();
                 crystalsElement.textContent = crystals.toLocaleString();
-                updateSkinButtons();
+                updateSkinButtons(); // Ensure skin buttons are updated after any UI change that might affect prices/ownership
                 updateBoostButtons();
             }
 
@@ -1026,6 +1028,7 @@
                 circle.classList.add(skinName + '-skin');
                 currentSkin = skinName;
                 localStorage.setItem('skin', currentSkin);
+                updateSkinButtons(); // Update skin buttons after applying a new skin
             }
 
             function updateSkinButtons() {
@@ -1038,7 +1041,11 @@
                         } else {
                             btn.textContent = 'Выбрать';
                             btn.disabled = false;
-                            btn.onclick = () => applySkin(skinId);
+                            // Ensure the onclick event listener is correctly set for owned but not selected skins
+                            btn.onclick = () => {
+                                applySkin(skinId);
+                                updateSkinButtons(); // Update buttons immediately after selection
+                            };
                         }
                     } else {
                         const priceElement = btn.previousElementSibling;
@@ -1048,7 +1055,11 @@
 
                         btn.textContent = 'Купить';
                         btn.disabled = crystals < price;
-                        btn.onclick = () => buySkin(skinId, price, btn);
+                        // Ensure the onclick event listener is correctly set for buying skins
+                        btn.onclick = () => {
+                            buySkin(skinId, price, btn);
+                            updateSkinButtons(); // Update buttons immediately after purchase
+                        };
                     }
                 });
             }
