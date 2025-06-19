@@ -12,7 +12,6 @@
             -ms-user-select: none;
         }
 
-
         :root {
             --bg-color: #121212;
             --text-color: white;
@@ -21,8 +20,6 @@
             --circle-border: rgba(255, 255, 255, 0.1);
             --shop-bg: rgba(0, 0, 0, 0.8);
         }
-
-
 
 
         body {
@@ -40,8 +37,6 @@
         }
 
 
-
-
         body.light-theme {
             --bg-color: #f5f5f5;
             --text-color: #333;
@@ -50,8 +45,6 @@
             --circle-border: rgba(0, 0, 0, 0.1);
             --shop-bg: rgba(255, 255, 255, 0.9);
         }
-
-
 
 
         .refresh-button, .promocode-button-main {
@@ -73,13 +66,9 @@
         }
 
 
-
-
         .refresh-button {
             left: 20px;
         }
-
-
 
 
         .promocode-button-main {
@@ -87,13 +76,9 @@
         }
 
 
-
-
         .refresh-button:hover, .promocode-button-main:hover {
             transform: scale(1.1);
         }
-
-
 
 
         .theme-switcher {
@@ -107,13 +92,9 @@
         }
 
 
-
-
         .theme-label {
             font-size: 20px;
         }
-
-
 
 
         .theme-toggle {
@@ -127,13 +108,9 @@
         }
 
 
-
-
         .theme-toggle.active {
             background-color: #2196F3;
         }
-
-
 
 
         .theme-toggle-handle {
@@ -148,13 +125,9 @@
         }
 
 
-
-
         .theme-toggle.active .theme-toggle-handle {
             transform: translateX(30px);
         }
-
-
 
 
         .stats-container {
@@ -163,8 +136,6 @@
             margin-bottom: 30px;
             z-index: 10;
         }
-
-
 
 
         .currency-box {
@@ -180,8 +151,6 @@
             border: 1px solid var(--currency-border);
             backdrop-filter: blur(5px);
         }
-
-
 
 
         .circle {
@@ -206,8 +175,6 @@
         }
 
 
-
-
         /* СТАНДАРТНЫЙ СКИН */
         .circle.default-skin::before {
             content: '';
@@ -229,8 +196,6 @@
         }
 
 
-
-
         /* ПРЕМИУМ СКИН */
         .circle.premium-skin::before {
             content: '';
@@ -244,8 +209,6 @@
         }
 
 
-
-
         .circle.premium-skin::after {
             content: '';
             position: absolute;
@@ -257,8 +220,6 @@
             opacity: 0.3;
             z-index: -1;
         }
-
-
 
 
         /* ЛЕГЕНДАРНЫЙ СКИН */
@@ -282,8 +243,6 @@
         }
 
 
-
-
         .circle.legendary-skin::after {
             content: '';
             position: absolute;
@@ -293,13 +252,11 @@
             z-index: -1;
         }
 
-
         /* BLACK HOLE SKIN */
         .circle.blackhole-skin {
             background-color: #000;
             box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7); /* Purple glow */
         }
-
 
         .circle.blackhole-skin::before {
             content: '';
@@ -312,12 +269,10 @@
             z-index: -1;
         }
 
-
         @keyframes blackhole-vortex {
             0% { transform: scale(1) rotate(0deg); opacity: 1; }
             100% { transform: scale(1.2) rotate(360deg); opacity: 0.8; }
         }
-
 
         /* CRYSTALMANIA SKIN */
         .circle.crystalmania-skin {
@@ -326,7 +281,6 @@
             box-shadow: 0 0 30px rgba(0, 200, 255, 0.6); /* Blueish glow */
             backdrop-filter: blur(5px); /* Glassy blur */
         }
-
 
         .circle.crystalmania-skin::before {
             content: '';
@@ -340,13 +294,74 @@
             z-index: -1;
         }
 
+        /* NEW SKINS */
+        /* VORTEX SKIN */
+        .circle.vortex-skin {
+            background-image: url('https://i.postimg.cc/k5r9z5N6/vihr.png');
+            background-size: cover;
+            background-position: center;
+            animation: rotate-vortex 5s linear infinite;
+        }
+
+        @keyframes rotate-vortex {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* GLITCH SKIN */
+        .circle.glitch-skin {
+            background-color: #333; /* Dark background for contrast */
+            position: relative;
+            overflow: hidden;
+            animation: glitch-bg 0.8s infinite alternate;
+        }
+
+        .circle.glitch-skin::before,
+        .circle.glitch-skin::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.3); /* Red channel */
+            mix-blend-mode: screen;
+            animation: glitch-effect 1s infinite alternate;
+        }
+
+        .circle.glitch-skin::after {
+            background: rgba(0, 255, 0, 0.3); /* Green channel */
+            animation: glitch-effect-2 1.2s infinite alternate;
+        }
+
+        @keyframes glitch-bg {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        @keyframes glitch-effect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(3px, 0); }
+            80% { transform: translate(1px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-effect-2 {
+            0% { transform: translate(0); }
+            25% { transform: translate(1px, -2px); }
+            50% { transform: translate(-3px, 1px); }
+            75% { transform: translate(2px, 2px); }
+            100% { transform: translate(0); }
+        }
+
+
 
         @keyframes rotate-hue {
             from { filter: hue-rotate(0deg); }
             to { filter: hue-rotate(360deg); }
         }
-
-
 
 
         @keyframes gradient {
@@ -360,8 +375,6 @@
                 background-position: 0% 50%;
             }
         }
-
-
 
 
         /* ОБЩИЕ ЭФФЕКТЫ */
@@ -382,8 +395,6 @@
         }
 
 
-
-
         /* УНИКАЛЬНЫЕ ЭФФЕКТЫ ДЛЯ СКИНОВ */
         .premium-tap-effect {
             position: absolute;
@@ -401,7 +412,6 @@
             top: 0;
         }
 
-
         /* Blackhole tap effect */
         .blackhole-tap-effect {
             position: absolute;
@@ -418,12 +428,10 @@
             top: 0;
         }
 
-
         @keyframes blackhole-tap-animation {
             0% { transform: scale(0); opacity: 1; }
             100% { transform: scale(1.5); opacity: 0; }
         }
-
 
         /* CrystalMania tap effect */
         .crystalmania-tap-effect {
@@ -448,13 +456,68 @@
             filter: blur(2px); /* Soft glow */
         }
 
-
         @keyframes crystalmania-tap-animation {
             0% { transform: scale(0); opacity: 1; }
             100% { transform: scale(1); opacity: 0; }
         }
 
+        /* Vortex tap effect */
+        .vortex-tap-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(135, 206, 250, 0.7) 0%, rgba(0, 100, 200, 0) 70%); /* Blue splash */
+            pointer-events: none;
+            animation: vortex-tap-animation 0.7s forwards;
+            transform: scale(0);
+            opacity: 1;
+            transform-origin: var(--tap-x) var(--tap-y);
+            left: 0;
+            top: 0;
+        }
 
+        @keyframes vortex-tap-animation {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(1.2); opacity: 0; }
+        }
+
+        /* Glitch tap effect */
+        .glitch-tap-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            pointer-events: none;
+            /* No direct background, layers handle it */
+        }
+
+        .glitch-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            animation: glitch-tap-animation 0.6s forwards;
+            opacity: 0.5;
+            transform-origin: var(--tap-x) var(--tap-y);
+        }
+
+        @keyframes glitch-tap-animation {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            30% {
+                transform: translate(var(--tap-x-offset), var(--tap-y-offset));
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(var(--tap-x-offset) * 2), calc(var(--tap-y-offset) * 2));
+                opacity: 0;
+            }
+        }
 
 
         /* Adjusted Premium Hexagon effect */
@@ -463,8 +526,6 @@
             50% { opacity: 1; }
             100% { transform: scale(1.5); opacity: 0; }
         }
-
-
 
 
         .premium-star-effect { /* Renamed to premium-hexagon-effect for clarity */
@@ -480,14 +541,12 @@
             z-index: 10;
         }
 
-
         @keyframes hexagon-animation {
             0% { transform: scale(0.5) rotate(0deg); opacity: 0; }
             20% { transform: scale(1.2) rotate(-20deg); opacity: 1; }
             40% { transform: scale(1) rotate(20deg); opacity: 1; }
             100% { transform: scale(1.5) rotate(0deg); opacity: 0; }
         }
-
 
         .legendary-tap-effect {
             position: absolute;
@@ -506,8 +565,6 @@
         }
 
 
-
-
         .legendary-spark-effect {
             position: absolute;
             width: 10px;
@@ -521,14 +578,10 @@
         }
 
 
-
-
         @keyframes tap-animation {
             0% { transform: scale(0); opacity: 1; }
             100% { transform: scale(1); opacity: 0; }
         }
-
-
 
 
         @keyframes premium-tap-animation {
@@ -536,8 +589,6 @@
             50% { opacity: 1; }
             100% { transform: scale(1.5); opacity: 0; }
         }
-
-
 
 
         @keyframes star-animation {
@@ -548,15 +599,11 @@
         }
 
 
-
-
         @keyframes legendary-tap-animation {
             0% { transform: scale(0); opacity: 1; }
             50% { opacity: 0.8; }
             100% { transform: scale(1.5); opacity: 0; }
         }
-
-
 
 
         @keyframes spark-animation {
@@ -571,8 +618,6 @@
         }
 
 
-
-
         .crystal-effect {
             position: fixed;
             font-size: 36px;
@@ -585,8 +630,6 @@
             filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.8));
             transform-origin: center;
         }
-
-
 
 
         @keyframes crystal-animation {
@@ -614,13 +657,9 @@
         }
 
 
-
-
         .pulse {
             animation: pulse-effect 1s infinite;
         }
-
-
 
 
         @keyframes pulse-effect {
@@ -636,8 +675,6 @@
         }
 
 
-
-
         .coin-effect {
             position: fixed; /* ИЗМЕНЕНО: absolute -> fixed */
             font-size: 24px;
@@ -649,8 +686,6 @@
             z-index: 15;
             transform: translateX(-50%); /* Для центрирования */
         }
-
-
 
 
         @keyframes coin-animation {
@@ -665,16 +700,12 @@
         }
 
 
-
-
         .crystal-icon {
             font-size: 26px;
             color: #00ffff;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
             animation: crystal-icon-pulse 2s infinite;
         }
-
-
 
 
         @keyframes crystal-icon-pulse {
@@ -691,8 +722,6 @@
                 text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
             }
         }
-
-
 
 
         .ban-screen {
@@ -714,15 +743,11 @@
         }
 
 
-
-
         .ban-timer {
             font-size: 48px;
             margin: 20px 0;
             color: red;
         }
-
-
 
 
         .warning {
@@ -737,8 +762,6 @@
             z-index: 50;
             display: none;
         }
-
-
 
 
         .shop-btn {
@@ -761,13 +784,9 @@
         }
 
 
-
-
         .shop-btn:hover {
             transform: scale(1.1);
         }
-
-
 
 
         .shop {
@@ -788,8 +807,6 @@
         }
 
 
-
-
         .shop-header {
             display: flex;
             justify-content: space-between;
@@ -800,14 +817,10 @@
         }
 
 
-
-
         .shop-title {
             font-size: 24px;
             font-weight: bold;
         }
-
-
 
 
         .close-shop {
@@ -817,15 +830,11 @@
         }
 
 
-
-
         .shop-tabs {
             display: flex;
             margin-bottom: 15px;
             border-bottom: 1px solid var(--currency-border);
         }
-
-
 
 
         .shop-tab {
@@ -835,21 +844,15 @@
         }
 
 
-
-
         .shop-tab.active {
             border-bottom: 2px solid #00ffff;
         }
-
-
 
 
         .shop-content {
             max-height: 400px;
             overflow-y: auto;
         }
-
-
 
 
         .shop-item {
@@ -861,20 +864,14 @@
         }
 
 
-
-
         .shop-item:last-child {
             border-bottom: none;
         }
 
 
-
-
         .item-info {
             flex-grow: 1;
         }
-
-
 
 
         .item-name {
@@ -883,14 +880,10 @@
         }
 
 
-
-
         .item-desc {
             font-size: 14px;
             opacity: 0.8;
         }
-
-
 
 
         .item-price {
@@ -901,8 +894,6 @@
             white-space: nowrap;
             margin-left: 15px;
         }
-
-
 
 
         .buy-btn {
@@ -917,13 +908,9 @@
         }
 
 
-
-
         .buy-btn:hover {
             background-color: rgba(0, 200, 255, 0.5);
         }
-
-
 
 
         .buy-btn:disabled {
@@ -931,8 +918,6 @@
             border-color: rgba(100, 100, 100, 0.5);
             cursor: not-allowed;
         }
-
-
 
 
         .active-boost {
@@ -944,8 +929,6 @@
             font-size: 12px;
             margin-left: 5px;
         }
-
-
 
 
         .exchange-btn {
@@ -968,16 +951,12 @@
         }
 
 
-
-
         .exchange-btn:hover {
             transform: scale(1.1);
         }
 
 
-
-
-        .exchange-modal, .promocode-modal {
+        .exchange-modal, .promocode-modal, .admin-panel {
             position: fixed;
             top: 50%;
             left: 50%;
@@ -995,9 +974,7 @@
         }
 
 
-
-
-        .exchange-header, .promocode-header {
+        .exchange-header, .promocode-header, .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1007,23 +984,17 @@
         }
 
 
-
-
-        .exchange-title, .promocode-title {
+        .exchange-title, .promocode-title, .admin-title {
             font-size: 24px;
             font-weight: bold;
         }
 
 
-
-
-        .close-exchange, .close-promocode {
+        .close-exchange, .close-promocode, .close-admin {
             font-size: 20px;
             cursor: pointer;
             padding: 5px;
         }
-
-
 
 
         .exchange-rate {
@@ -1032,9 +1003,7 @@
         }
 
 
-
-
-        .exchange-input, .promocode-input {
+        .exchange-input, .promocode-input, .admin-input {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
@@ -1047,18 +1016,15 @@
         }
 
 
-
-
-        .exchange-action, .promocode-action {
+        .exchange-action, .promocode-action, .admin-action {
             display: flex;
             justify-content: center; /* Центрируем кнопки */
             gap: 10px;
+            flex-wrap: wrap; /* Для кнопок админ панели */
         }
 
 
-
-
-        .exchange-submit, .promocode-submit {
+        .exchange-submit, .promocode-submit, .admin-submit-btn {
             flex-grow: 1;
             background-color: rgba(0, 200, 100, 0.3);
             border: 1px solid rgba(0, 200, 100, 0.5);
@@ -1070,33 +1036,34 @@
         }
 
 
-
-
         .promocode-submit { /* Специфичный стиль для кнопки промокода, если нужно */
             background-color: rgba(0, 200, 255, 0.3);
             border: 1px solid rgba(0, 200, 255, 0.5);
         }
 
+        .admin-submit-btn {
+            background-color: rgba(100, 100, 255, 0.3); /* Admin button color */
+            border: 1px solid rgba(100, 100, 255, 0.5);
+            width: calc(50% - 5px); /* Half width for two buttons per line */
+            margin-bottom: 10px; /* Space between rows */
+        }
 
-
-
-        .exchange-submit:hover, .promocode-submit:hover {
+        .exchange-submit:hover, .promocode-submit:hover, .admin-submit-btn:hover {
             background-color: rgba(0, 200, 100, 0.5);
         }
         .promocode-submit:hover {
             background-color: rgba(0, 200, 255, 0.5);
         }
+        .admin-submit-btn:hover {
+            background-color: rgba(100, 100, 255, 0.5);
+        }
 
 
-
-
-        .exchange-submit:disabled, .promocode-submit:disabled {
+        .exchange-submit:disabled, .promocode-submit:disabled, .admin-submit-btn:disabled {
             background-color: rgba(100, 100, 100, 0.3);
             border-color: rgba(100, 100, 100, 0.5);
             cursor: not-allowed;
         }
-
-
 
 
         .exchange-cancel {
@@ -1110,13 +1077,9 @@
         }
 
 
-
-
         .exchange-cancel:hover {
             background-color: rgba(200, 0, 0, 0.5);
         }
-
-
 
 
         .owned-label {
@@ -1124,8 +1087,6 @@
             font-size: 14px;
             margin-left: 10px;
         }
-
-
 
 
         .boosts-container {
@@ -1137,8 +1098,6 @@
             gap: 10px;
             z-index: 10;
         }
-
-
 
 
         .boost-indicator {
@@ -1153,13 +1112,9 @@
         }
 
 
-
-
         .boost-icon {
             font-size: 16px;
         }
-
-
 
 
         /* Стиль для сообщения промокода внутри модального окна */
@@ -1176,8 +1131,6 @@
     <button class="promocode-button-main" id="promocodeBtn">🎁</button>
 
 
-
-
     <div class="theme-switcher">
         <div class="theme-label">🌙</div>
         <div class="theme-toggle" id="themeToggle">
@@ -1187,17 +1140,11 @@
     </div>
 
 
-
-
     <div class="boosts-container" id="boostsContainer"></div>
-
-
 
 
     <div class="shop-btn" id="shopBtn">🛒</div>
     <div class="exchange-btn" id="exchangeBtn">⇄</div>
-
-
 
 
     <div class="warning" id="warning">Слишком быстро! Прекратите кликать так часто!</div>
@@ -1207,8 +1154,6 @@
         <div>Вам отняли половину монет!</div>
         <div>Осталось секунд:</div>
     </div>
-
-
 
 
     <div class="stats-container">
@@ -1223,11 +1168,7 @@
     </div>
 
 
-
-
     <div class="circle default-skin" id="circle"></div>
-
-
 
 
     <div class="promocode-modal" id="promocodeModal">
@@ -1242,9 +1183,27 @@
         <div id="promocodeMessage" class="promocode-message"></div>
     </div>
 
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <div class="admin-title">Админ-панель</div>
+            <div class="close-admin" id="closeAdminPanel">✕</div>
+        </div>
+        <div class="admin-content">
+            <label for="adminCoinsInput">Монеты:</label>
+            <input type="number" id="adminCoinsInput" class="admin-input" placeholder="Введите количество монет">
+            <div class="admin-action">
+                <button id="setCoinsBtn" class="admin-submit-btn">Установить монеты</button>
+                <button id="addCoinsBtn" class="admin-submit-btn">Добавить монеты</button>
+            </div>
 
-
-
+            <label for="adminCrystalsInput">Кристаллы:</label>
+            <input type="number" id="adminCrystalsInput" class="admin-input" placeholder="Введите количество кристаллов">
+            <div class="admin-action">
+                <button id="setCrystalsBtn" class="admin-submit-btn">Установить кристаллы</button>
+                <button id="addCrystalsBtn" class="admin-submit-btn">Добавить кристаллы</button>
+            </div>
+        </div>
+    </div>
     <div class="shop" id="shop">
         <div class="shop-header">
             <div class="shop-title">Магазин</div>
@@ -1284,7 +1243,7 @@
                         <div class="item-name">Черная дыра</div>
                         <div class="item-desc">Глубокий черный с фиолетовым свечением и эффектом воронки</div>
                     </div>
-                    <div class="item-price">2500 <span class="crystal-icon">✦</span></div>
+                    <div class="item-price">1000 <span class="crystal-icon">✦</span></div>
                     <button class="buy-btn" id="blackholeSkinBtn">Купить</button>
                 </div>
                 <div class="shop-item">
@@ -1294,6 +1253,22 @@
                     </div>
                     <div class="item-price">5000 <span>Đ</span></div>
                     <button class="buy-btn" id="crystalmaniaSkinBtn">Купить</button>
+                </div>
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-name">Водоворот</div>
+                        <div class="item-desc">Вращающийся водоворот с эффектом всплеска воды</div>
+                    </div>
+                    <div class="item-price">1000 <span>Đ</span></div>
+                    <button class="buy-btn" id="vortexSkinBtn">Купить</button>
+                </div>
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-name">Glitch</div>
+                        <div class="item-desc">Мерцающий эффект с RGB разломом при нажатии</div>
+                    </div>
+                    <div class="item-price">2500 <span class="crystal-icon">✦</span></div>
+                    <button class="buy-btn" id="glitchSkinBtn">Купить</button>
                 </div>
             </div>
             <div class="shop-tab-content" id="boostsTab" style="display: none;">
@@ -1326,8 +1301,6 @@
     </div>
 
 
-
-
     <div class="exchange-modal" id="exchangeModal">
         <div class="exchange-header">
             <div class="exchange-title">Обмен кристаллов</div>
@@ -1340,8 +1313,6 @@
             <button class="exchange-cancel" id="exchangeCancel">Отмена</button>
         </div>
     </div>
-
-
 
 
     <script>
@@ -1368,8 +1339,6 @@
             const boostsContainer = document.getElementById('boostsContainer');
 
 
-
-
             // Promo code elements
             const promocodeBtn = document.getElementById('promocodeBtn'); // Новая кнопка
             const promocodeModal = document.getElementById('promocodeModal'); // Модальное окно
@@ -1378,7 +1347,15 @@
             const activatePromocodeBtn = document.getElementById('activatePromocodeBtn');
             const promocodeMessage = document.getElementById('promocodeMessage');
 
-
+            // Admin Panel Elements
+            const adminPanel = document.getElementById('adminPanel');
+            const closeAdminPanel = document.getElementById('closeAdminPanel');
+            const adminCoinsInput = document.getElementById('adminCoinsInput');
+            const setCoinsBtn = document.getElementById('setCoinsBtn');
+            const addCoinsBtn = document.getElementById('addCoinsBtn');
+            const adminCrystalsInput = document.getElementById('adminCrystalsInput');
+            const setCrystalsBtn = document.getElementById('setCrystalsBtn');
+            const addCrystalsBtn = document.getElementById('addCrystalsBtn');
 
 
             // Скины
@@ -1387,16 +1364,14 @@
             const legendarySkinBtn = document.getElementById('legendarySkinBtn');
             const blackholeSkinBtn = document.getElementById('blackholeSkinBtn'); // New skin button
             const crystalmaniaSkinBtn = document.getElementById('crystalmaniaSkinBtn'); // Changed from plasmaSkinBtn
-
-
+            const vortexSkinBtn = document.getElementById('vortexSkinBtn'); // NEW
+            const glitchSkinBtn = document.getElementById('glitchSkinBtn'); // NEW
 
 
             // Бусты
             const multiplierBoostBtn = document.getElementById('multiplierBoostBtn');
             const luckBoostBtn = document.getElementById('luckBoostBtn');
             const autoclickerBoostBtn = document.getElementById('autoclickerBoostBtn');
-
-
 
 
             // Загружаем сохраненные данные
@@ -1406,8 +1381,6 @@
             let currentSkin = localStorage.getItem('skin') || 'default';
             let ownedSkins = JSON.parse(localStorage.getItem('ownedSkins')) || ['default'];
             let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
-
-
 
 
             // Активные бусты (не сохраняем при перезагрузке)
@@ -1421,8 +1394,6 @@
             let banInterval = null; // Для бана
 
 
-
-
             // PROMO CODES CONFIGURATION
             // Easily modify promo codes here
             const promoCodes = {
@@ -1430,11 +1401,10 @@
                 "INEEDMONEY": { type: "coins", value: 50000, message: "Получено 50.000 монет! Удачи!" },
                 "CRYSTALINFECTION": { type: "crystals", value: 25, message: "Получено 25 кристаллов!" },
                 "IAMSUB": { type: "coins", value: 2500, message: "Спасибо за подписку! Получено 2.500 монет!" },
-                "500CRYSTALSECRETCODE": { type: "crystals", value: 500, message: "Найдено! Получено 500 кристаллов!" }
+                "500CRYSTALSECRETCODE": { type: "crystals", value: 500, message: "Найдено! Получено 500 кристаллов!" },
+                "ACTIVATEADMINPANNELCODETRUE": { type: "admin", message: "Админ-панель активирована!", once: true } // New admin promo code
             };
             // END PROMO CODES CONFIGURATION
-
-
 
 
             // Применяем сохранённые настройки
@@ -1445,12 +1415,8 @@
             updateBoostButtons();
 
 
-
-
             coinsElement.textContent = coins.toLocaleString();
             crystalsElement.textContent = crystals.toLocaleString();
-
-
 
 
             themeToggle.addEventListener('click', function() {
@@ -1460,8 +1426,6 @@
                 this.classList.toggle('active');
                 localStorage.setItem('theme', newTheme);
             });
-
-
 
 
             shopTabs.forEach(tab => {
@@ -1482,8 +1446,6 @@
             });
 
 
-
-
             shopBtn.addEventListener('click', function() {
                 shop.style.display = 'block';
                 updateSkinButtons(); // Update skin buttons when shop is opened
@@ -1491,13 +1453,9 @@
             });
 
 
-
-
             closeShop.addEventListener('click', function() {
                 shop.style.display = 'none';
             });
-
-
 
 
             exchangeBtn.addEventListener('click', function() {
@@ -1505,13 +1463,9 @@
             });
 
 
-
-
             closeExchange.addEventListener('click', function() {
                 exchangeModal.style.display = 'none';
             });
-
-
 
 
             exchangeCancel.addEventListener('click', function() {
@@ -1519,14 +1473,10 @@
             });
 
 
-
-
             exchangeInput.addEventListener('input', function() {
                 const value = parseInt(this.value);
                 exchangeSubmit.disabled = isNaN(value) || value <= 0 || value > crystals;
             });
-
-
 
 
             exchangeSubmit.addEventListener('click', function() {
@@ -1543,14 +1493,10 @@
             });
 
 
-
-
             // Promocode logic (within modal)
             promocodeBtn.addEventListener('click', function() {
                 promocodeModal.style.display = 'block';
             });
-
-
 
 
             closePromocode.addEventListener('click', function() {
@@ -1559,20 +1505,16 @@
             });
 
 
-
-
             activatePromocodeBtn.addEventListener('click', function() {
                 const code = promocodeInput.value.trim().toUpperCase();
                 promocodeInput.value = ''; // Clear input field
 
 
-
-
                 if (promoCodes[code]) {
-                    if (usedPromoCodes.includes(code)) {
+                    const promo = promoCodes[code];
+                    if (promo.once && usedPromoCodes.includes(code)) {
                         showPromocodeMessage('Промокод уже был использован.', 'red');
                     } else {
-                        const promo = promoCodes[code];
                         if (promo.type === 'coins') {
                             coins += promo.value;
                             // Анимация эффекта монет будет от центра круга, так как промокод не связан с кликом
@@ -1583,6 +1525,9 @@
                             // Анимация эффекта кристаллов будет от центра круга
                             const circleRect = circle.getBoundingClientRect();
                             createCrystalEffect(circleRect.left + circleRect.width / 2, circleRect.top + circleRect.height / 2, `+${promo.value}✦`);
+                        } else if (promo.type === 'admin') {
+                            promocodeModal.style.display = 'none'; // Close promo modal
+                            adminPanel.style.display = 'block'; // Open admin panel
                         }
                         usedPromoCodes.push(code);
                         saveGameData();
@@ -1595,8 +1540,6 @@
             });
 
 
-
-
             function showPromocodeMessage(message, color) {
                 promocodeMessage.textContent = message;
                 promocodeMessage.style.color = color;
@@ -1607,7 +1550,62 @@
                 // }, 3000);
             }
 
+            // Admin Panel Logic
+            closeAdminPanel.addEventListener('click', () => {
+                adminPanel.style.display = 'none';
+            });
 
+            setCoinsBtn.addEventListener('click', () => {
+                const value = parseInt(adminCoinsInput.value);
+                if (!isNaN(value) && value >= 0) {
+                    coins = value;
+                    saveGameData();
+                    updateUI();
+                    alert(`Монеты установлены на ${value.toLocaleString()}!`);
+                } else {
+                    alert('Введите корректное число для монет.');
+                }
+                adminCoinsInput.value = '';
+            });
+
+            addCoinsBtn.addEventListener('click', () => {
+                const value = parseInt(adminCoinsInput.value);
+                if (!isNaN(value) && value >= 0) {
+                    coins += value;
+                    saveGameData();
+                    updateUI();
+                    alert(`Добавлено ${value.toLocaleString()} монет!`);
+                } else {
+                    alert('Введите корректное число для монет.');
+                }
+                adminCoinsInput.value = '';
+            });
+
+            setCrystalsBtn.addEventListener('click', () => {
+                const value = parseInt(adminCrystalsInput.value);
+                if (!isNaN(value) && value >= 0) {
+                    crystals = value;
+                    saveGameData();
+                    updateUI();
+                    alert(`Кристаллы установлены на ${value.toLocaleString()}!`);
+                } else {
+                    alert('Введите корректное число для кристаллов.');
+                }
+                adminCrystalsInput.value = '';
+            });
+
+            addCrystalsBtn.addEventListener('click', () => {
+                const value = parseInt(adminCrystalsInput.value);
+                if (!isNaN(value) && value >= 0) {
+                    crystals += value;
+                    saveGameData();
+                    updateUI();
+                    alert(`Добавлено ${value.toLocaleString()} кристаллов!`);
+                } else {
+                    alert('Введите корректное число для кристаллов.');
+                }
+                adminCrystalsInput.value = '';
+            });
 
 
             function saveGameData() {
@@ -1619,8 +1617,6 @@
             }
 
 
-
-
             function updateUI() {
                 coinsElement.textContent = coins.toLocaleString();
                 crystalsElement.textContent = crystals.toLocaleString();
@@ -1629,10 +1625,8 @@
             }
 
 
-
-
             function applySkin(skinName) {
-                circle.classList.remove('default-skin', 'premium-skin', 'legendary-skin', 'blackhole-skin', 'plasma-skin', 'crystalmania-skin');
+                circle.classList.remove('default-skin', 'premium-skin', 'legendary-skin', 'blackhole-skin', 'crystalmania-skin', 'vortex-skin', 'glitch-skin');
                 circle.classList.add(skinName + '-skin');
                 currentSkin = skinName;
                 localStorage.setItem('skin', currentSkin);
@@ -1640,17 +1634,16 @@
             }
 
 
-
-
             function updateSkinButtons() {
                 const skins = [
                     { id: 'default', btn: defaultSkinBtn, price: 0, currency: 'coins' },
                     { id: 'premium', btn: premiumSkinBtn, price: 100, currency: 'crystals' },
                     { id: 'legendary', btn: legendarySkinBtn, price: 500, currency: 'crystals' },
-                    { id: 'blackhole', btn: blackholeSkinBtn, price: 2500, currency: 'crystals' },
-                    { id: 'crystalmania', btn: crystalmaniaSkinBtn, price: 5000, currency: 'coins' } // Changed
+                    { id: 'blackhole', btn: blackholeSkinBtn, price: 1000, currency: 'crystals' }, // Price changed
+                    { id: 'crystalmania', btn: crystalmaniaSkinBtn, price: 5000, currency: 'coins' },
+                    { id: 'vortex', btn: vortexSkinBtn, price: 1000, currency: 'coins' }, // NEW
+                    { id: 'glitch', btn: glitchSkinBtn, price: 2500, currency: 'crystals' } // NEW
                 ];
-
 
                 skins.forEach(skin => {
                     if (ownedSkins.includes(skin.id)) {
@@ -1675,12 +1668,9 @@
             }
 
 
-
-
             function buySkin(skinId, price, currency, button) {
                 let canAfford = false;
                 let currencyText = '';
-
 
                 if (currency === 'crystals') {
                     if (crystals >= price) {
@@ -1696,7 +1686,6 @@
                     }
                 }
 
-
                 if (canAfford) {
                     ownedSkins.push(skinId);
                     saveGameData();
@@ -1709,8 +1698,6 @@
             }
 
 
-
-
             function updateBoostButtons() {
                 multiplierBoostBtn.disabled = activeBoosts.some(b => b.type === 'multiplier') || coins < 500;
                 multiplierBoostBtn.textContent = activeBoosts.some(b => b.type === 'multiplier') ? 'Активно' : 'Купить';
@@ -1719,8 +1706,6 @@
                 autoclickerBoostBtn.disabled = activeBoosts.some(b => b.type === 'autoclicker') || coins < 400;
                 autoclickerBoostBtn.textContent = activeBoosts.some(b => b.type === 'autoclicker') ? 'Активно' : 'Купить';
             }
-
-
 
 
             function activateBoost(type, duration, value, cost, buttonElement) {
@@ -1735,12 +1720,8 @@
                 createCoinEffect(rect.left + rect.width / 2, rect.top, `-${cost}Đ`);
 
 
-
-
                 const boost = { type, duration, value, endTime: Date.now() + duration * 1000 };
                 activeBoosts.push(boost);
-
-
 
 
                 if (type === 'multiplier') {
@@ -1755,13 +1736,9 @@
             }
 
 
-
-
             multiplierBoostBtn.addEventListener('click', function() {
                 activateBoost('multiplier', 60, 2, 500, this);
             });
-
-
 
 
             luckBoostBtn.addEventListener('click', function() {
@@ -1769,13 +1746,9 @@
             });
 
 
-
-
             autoclickerBoostBtn.addEventListener('click', function() {
                 activateBoost('autoclicker', 30, 1, 400, this); // 1 клик в секунду
             });
-
-
 
 
             function updateActiveBoosts() {
@@ -1802,8 +1775,6 @@
             }
 
 
-
-
             function renderActiveBoosts() {
                 boostsContainer.innerHTML = '';
                 activeBoosts.forEach(boost => {
@@ -1826,8 +1797,6 @@
                     boostsContainer.appendChild(boostDiv);
 
 
-
-
                     // Update timer every second
                     const interval = setInterval(() => {
                         const newTimeLeft = Math.ceil((boost.endTime - Date.now()) / 1000);
@@ -1842,12 +1811,8 @@
             }
 
 
-
-
             // Update boosts every second
             setInterval(updateActiveBoosts, 1000);
-
-
 
 
             function createCoinEffect(x, y, text) {
@@ -1860,14 +1825,10 @@
                 document.body.appendChild(coinEffect);
 
 
-
-
                 coinEffect.addEventListener('animationend', () => {
                     coinEffect.remove();
                 });
             }
-
-
 
 
             function createCrystalEffect(x, y, text) {
@@ -1879,26 +1840,20 @@
                 document.body.appendChild(crystalEffect);
 
 
-
-
                 crystalEffect.addEventListener('animationend', () => {
                     crystalEffect.remove();
                 });
             }
 
 
-
-
             function handleCircleClick(event) {
                 // Determine click value
                 let clickValue = 1 * coinMultiplier;
-
 
                 // Get click position relative to the circle element
                 const circleRect = circle.getBoundingClientRect();
                 const clickX = event.clientX - circleRect.left;
                 const clickY = event.clientY - circleRect.top;
-
 
                 // Add tap effect based on current skin
                 let tapEffect;
@@ -1906,14 +1861,12 @@
                     tapEffect = document.createElement('div');
                     tapEffect.classList.add('premium-tap-effect');
 
-
                     const hexagonEffect = document.createElement('div');
                     hexagonEffect.classList.add('premium-star-effect'); // Reusing the class name but its hexagon now
                     hexagonEffect.style.left = `${clickX - 25}px`; // Center the hexagon
                     hexagonEffect.style.top = `${clickY - 25}px`;
                     circle.appendChild(hexagonEffect);
                     hexagonEffect.addEventListener('animationend', () => hexagonEffect.remove());
-
 
                 } else if (currentSkin === 'legendary') {
                     tapEffect = document.createElement('div');
@@ -1937,27 +1890,59 @@
                 } else if (currentSkin === 'crystalmania') { // Changed from plasma
                     tapEffect = document.createElement('div');
                     tapEffect.classList.add('crystalmania-tap-effect');
+                } else if (currentSkin === 'vortex') { // NEW
+                    tapEffect = document.createElement('div');
+                    tapEffect.classList.add('vortex-tap-effect');
+                } else if (currentSkin === 'glitch') { // NEW
+                    tapEffect = document.createElement('div');
+                    tapEffect.classList.add('glitch-tap-effect');
+                    // For RGB split, create multiple elements or use filter
+                    // For simplicity, we will create 3 layers for RGB split
+                    const colors = ['red', 'green', 'blue'];
+                    colors.forEach((color, index) => {
+                        const glitchLayer = document.createElement('div');
+                        glitchLayer.classList.add('glitch-layer');
+                        glitchLayer.style.background = color;
+                        glitchLayer.style.mixBlendMode = 'screen'; // Blend modes
+                        // glitchLayer.style.position = 'absolute'; // Already set by glitch-layer class
+                        // glitchLayer.style.width = '100%'; // Already set by glitch-layer class
+                        // glitchLayer.style.height = '100%'; // Already set by glitch-layer class
+                        // glitchLayer.style.borderRadius = '50%'; // Already set by glitch-layer class
+                        // glitchLayer.style.opacity = '0.5'; // Already set by glitch-layer class
+
+                        // Random offset for each color channel
+                        const offsetX = (Math.random() - 0.5) * 20; // Max 10px offset
+                        const offsetY = (Math.random() - 0.5) * 20; // Max 10px offset
+                        glitchLayer.style.setProperty('--tap-x-offset', `${offsetX}px`);
+                        glitchLayer.style.setProperty('--tap-y-offset', `${offsetY}px`);
+                        glitchLayer.style.setProperty('--tap-x', `${clickX}px`); // Needed for transform-origin
+                        glitchLayer.style.setProperty('--tap-y', `${clickY}px`); // Needed for transform-origin
+
+
+                        glitchLayer.style.animation = `glitch-tap-animation 0.6s forwards ${index * 0.05}s`; // Staggered animation
+                        
+                        circle.appendChild(glitchLayer);
+                        glitchLayer.addEventListener('animationend', () => glitchLayer.remove());
+                    });
                 }
                 else {
                     tapEffect = document.createElement('div');
                     tapEffect.classList.add('tap-effect');
                 }
-
-
-                // Set custom properties for positioning tap effects
-                tapEffect.style.setProperty('--tap-x', `${clickX}px`);
-                tapEffect.style.setProperty('--tap-y', `${clickY}px`);
-                circle.appendChild(tapEffect);
-                tapEffect.addEventListener('animationend', () => tapEffect.remove());
-
-
+                
+                // Only append if it's a generic tap effect or specific ones that don't generate layers
+                if (tapEffect && !tapEffect.classList.contains('glitch-tap-effect')) {
+                    // Set custom properties for positioning tap effects
+                    tapEffect.style.setProperty('--tap-x', `${clickX}px`);
+                    tapEffect.style.setProperty('--tap-y', `${clickY}px`);
+                    circle.appendChild(tapEffect);
+                    tapEffect.addEventListener('animationend', () => tapEffect.remove());
+                }
 
 
                 // Update coins
                 coins += clickValue;
                 createCoinEffect(event.clientX, event.clientY, `+${clickValue}Đ`);
-
-
 
 
                 // Chance to get crystal
@@ -1967,12 +1952,8 @@
                 }
 
 
-
-
                 saveGameData();
                 updateUI();
-
-
 
 
                 // Autoclicker detection
@@ -1992,11 +1973,7 @@
             }
 
 
-
-
             circle.addEventListener('click', handleCircleClick);
-
-
 
 
             function startAutoclicker() {
@@ -2009,8 +1986,6 @@
                         const circleRect = circle.getBoundingClientRect();
                         const centerX = circleRect.left + circleRect.width / 2;
                         const centerY = circleRect.top + circleRect.height / 2;
-
-
 
 
                         coins += (1 * coinMultiplier); // Autoclicker gives 1 click worth of coins
@@ -2026,8 +2001,6 @@
             }
 
 
-
-
             function showWarning() {
                 warning.style.display = 'block';
                 clearTimeout(warning.timeout);
@@ -2037,14 +2010,10 @@
             }
 
 
-
-
             function hideWarning() {
                 warning.style.display = 'none';
                 clearTimeout(warning.timeout);
             }
-
-
 
 
             function showBanScreen() {
@@ -2061,8 +2030,6 @@
                     autoclickerInterval = null;
                 }
                 circle.removeEventListener('click', handleCircleClick);
-
-
 
 
                 clearInterval(banInterval);
@@ -2082,782 +2049,3 @@
     </script>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doolcoin</title>
-    <style>
-        * {
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-
-
-        :root {
-            --bg-color: #121212;
-            --text-color: white;
-            --currency-bg: rgba(0, 0, 0, 0.7);
-            --currency-border: rgba(255, 255, 255, 0.1);
-            --circle-border: rgba(255, 255, 255, 0.1);
-            --shop-bg: rgba(0, 0, 0, 0.8);
-        }
-
-
-
-
-        body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow: hidden;
-            transition: background-color 0.5s, color 0.5s;
-        }
-
-
-
-
-        body.light-theme {
-            --bg-color: #f5f5f5;
-            --text-color: #333;
-            --currency-bg: rgba(255, 255, 255, 0.9);
-            --currency-border: rgba(0, 0, 0, 0.1);
-            --circle-border: rgba(0, 0, 0, 0.1);
-            --shop-bg: rgba(255, 255, 255, 0.9);
-        }
-
-
-
-
-        .refresh-button, .promocode-button-main {
-            position: fixed;
-            top: 20px;
-            background-color: var(--currency-bg);
-            color: var(--text-color);
-            border: 1px solid var(--currency-border);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 100;
-            transition: transform 0.2s;
-        }
-
-
-
-
-        .refresh-button {
-            left: 20px;
-        }
-
-
-
-
-        .promocode-button-main {
-            left: 80px; /* Отступ от левой кнопки */
-        }
-
-
-
-
-        .refresh-button:hover, .promocode-button-main:hover {
-            transform: scale(1.1);
-        }
-
-
-
-
-        .theme-switcher {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 100;
-        }
-
-
-
-
-        .theme-label {
-            font-size: 20px;
-        }
-
-
-
-
-        .theme-toggle {
-            position: relative;
-            width: 60px;
-            height: 30px;
-            background-color: #555;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-
-
-
-        .theme-toggle.active {
-            background-color: #2196F3;
-        }
-
-
-
-
-        .theme-toggle-handle {
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px;
-            height: 24px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.3s;
-        }
-
-
-
-
-        .theme-toggle.active .theme-toggle-handle {
-            transform: translateX(30px);
-        }
-
-
-
-
-        .stats-container {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-            z-index: 10;
-        }
-
-
-
-
-        .currency-box {
-            font-size: 24px;
-            background-color: var(--currency-bg);
-            padding: 10px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-color);
-            border: 1px solid var(--currency-border);
-            backdrop-filter: blur(5px);
-        }
-
-
-
-
-        .circle {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            transition: transform 0.1s, box-shadow 0.3s, filter 0.3s;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-            z-index: 5;
-            border: 2px solid var(--circle-border);
-            -webkit-tap-highlight-color: transparent; /* Add this line for WebKit browsers */
-            touch-action: manipulation; /* Add this line for general touch devices */
-        }
-
-
-
-
-        /* СТАНДАРТНЫЙ СКИН */
-        .circle.default-skin::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                rgba(255, 105, 180, 0.8),
-                rgba(255, 165, 0, 0.8),
-                rgba(148, 0, 211, 0.8),
-                rgba(0, 0, 255, 0.8)
-            );
-            background-size: 400% 400%;
-            animation: gradient 8s ease infinite;
-            z-index: -1;
-        }
-
-
-
-
-        /* ПРЕМИУМ СКИН */
-        .circle.premium-skin::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 200, 255, 0.9) 0%, rgba(0, 100, 200, 0.9) 100%);
-            z-index: -1;
-        }
-
-
-
-
-        .circle.premium-skin::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            /* Hexagon pattern */
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25 0L75 0L100 50L75 100L25 100L0 50Z' fill='rgba(255,255,255,0.1)'/%3E%3C/svg%3E");
-            background-size: 40px 40px; /* Adjust size as needed */
-            opacity: 0.3;
-            z-index: -1;
-        }
-
-
-
-
-        /* ЛЕГЕНДАРНЫЙ СКИН */
-        .circle.legendary-skin::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(
-                from 0deg,
-                rgba(255, 215, 0, 0.8),
-                rgba(255, 100, 0, 0.8),
-                rgba(255, 0, 100, 0.8),
-                rgba(255, 0, 200, 0.8),
-                rgba(255, 215, 0, 0.8)
-            );
-            z-index: -1;
-            animation: rotate-hue 5s linear infinite;
-        }
-
-
-
-
-        .circle.legendary-skin::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 60%, rgba(255, 215, 0, 0.3) 100%);
-            z-index: -1;
-        }
-
-
-        /* BLACK HOLE SKIN */
-        .circle.blackhole-skin {
-            background-color: #000;
-            box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7); /* Purple glow */
-        }
-
-
-        .circle.blackhole-skin::before {
-            content: '';
-            position: absolute;
-            width: 150%;
-            height: 150%;
-            border-radius: 50%;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 70%, rgba(0,0,0,1) 100%);
-            animation: blackhole-vortex 4s linear infinite;
-            z-index: -1;
-        }
-
-
-        @keyframes blackhole-vortex {
-            0% { transform: scale(1) rotate(0deg); opacity: 1; }
-            100% { transform: scale(1.2) rotate(360deg); opacity: 0.8; }
-        }
-
-
-        /* CRYSTALMANIA SKIN */
-        .circle.crystalmania-skin {
-            background: rgba(255, 255, 255, 0.1); /* Slightly transparent white for glass effect */
-            border: 2px solid rgba(255, 255, 255, 0.3); /* Lighter border */
-            box-shadow: 0 0 30px rgba(0, 200, 255, 0.6); /* Blueish glow */
-            backdrop-filter: blur(5px); /* Glassy blur */
-        }
-
-
-        .circle.crystalmania-skin::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.4) 0%, transparent 50%); /* Subtle reflection */
-            z-index: -1;
-        }
-
-
-        @keyframes rotate-hue {
-            from { filter: hue-rotate(0deg); }
-            to { filter: hue-rotate(360deg); }
-        }
-
-
-
-
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-
-
-
-        /* ОБЩИЕ ЭФФЕКТЫ */
-        .tap-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
-            pointer-events: none;
-            animation: tap-animation 0.8s forwards;
-            transform: scale(0);
-            opacity: 1;
-            /* Ensure it respects the click position */
-            transform-origin: var(--tap-x) var(--tap-y);
-            left: 0;
-            top: 0;
-        }
-
-
-
-
-        /* УНИКАЛЬНЫЕ ЭФФЕКТЫ ДЛЯ СКИНОВ */
-        .premium-tap-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(0, 200, 255, 0) 70%);
-            pointer-events: none;
-            animation: premium-tap-animation 1s forwards;
-            transform: scale(0);
-            opacity: 1;
-            /* Ensure it respects the click position */
-            transform-origin: var(--tap-x) var(--tap-y);
-            left: 0;
-            top: 0;
-        }
-
-
-        /* Blackhole tap effect */
-        .blackhole-tap-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(200, 0, 255, 0.6) 0%, rgba(0,0,0,0) 70%);
-            pointer-events: none;
-            animation: blackhole-tap-animation 1s forwards;
-            transform: scale(0);
-            opacity: 1;
-            transform-origin: var(--tap-x) var(--tap-y);
-            left: 0;
-            top: 0;
-        }
-
-
-        @keyframes blackhole-tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-
-        /* CrystalMania tap effect */
-        .crystalmania-tap-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(
-                45deg,
-                rgba(255, 105, 180, 0.6),
-                rgba(255, 165, 0, 0.6),
-                rgba(148, 0, 211, 0.6),
-                rgba(0, 0, 255, 0.6)
-            );
-            background-size: 400% 400%;
-            animation: crystalmania-tap-animation 0.8s forwards, gradient 2s ease infinite; /* Use gradient animation too */
-            transform: scale(0);
-            opacity: 1;
-            transform-origin: var(--tap-x) var(--tap-y);
-            left: 0;
-            top: 0;
-            filter: blur(2px); /* Soft glow */
-        }
-
-
-        @keyframes crystalmania-tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(1); opacity: 0; }
-        }
-
-
-
-
-        /* Adjusted Premium Hexagon effect */
-        @keyframes premium-tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            50% { opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-
-
-
-        .premium-star-effect { /* Renamed to premium-hexagon-effect for clarity */
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            /* Hexagon SVG for the effect */
-            background-image: url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25 0L75 0L100 50L75 100L25 100L0 50Z' fill='rgba(255,255,255,0.8)'/%3E%3C/svg%3E");
-            background-size: contain;
-            pointer-events: none;
-            animation: hexagon-animation 1s forwards; /* New animation for hexagons */
-            opacity: 0;
-            z-index: 10;
-        }
-
-
-        @keyframes hexagon-animation {
-            0% { transform: scale(0.5) rotate(0deg); opacity: 0; }
-            20% { transform: scale(1.2) rotate(-20deg); opacity: 1; }
-            40% { transform: scale(1) rotate(20deg); opacity: 1; }
-            100% { transform: scale(1.5) rotate(0deg); opacity: 0; }
-        }
-
-
-        .legendary-tap-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 100, 0, 0) 70%);
-            pointer-events: none;
-            animation: legendary-tap-animation 1s forwards;
-            transform: scale(0);
-            opacity: 1;
-            /* Ensure it respects the click position */
-            transform-origin: var(--tap-x) var(--tap-y);
-            left: 0;
-            top: 0;
-        }
-
-
-
-
-        .legendary-spark-effect {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: gold;
-            pointer-events: none;
-            animation: spark-animation 1s forwards;
-            opacity: 0;
-            z-index: 10;
-        }
-
-
-
-
-        @keyframes tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(1); opacity: 0; }
-        }
-
-
-
-
-        @keyframes premium-tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            50% { opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-
-
-
-        @keyframes star-animation {
-            0% { transform: scale(0.5) rotate(0deg); opacity: 0; }
-            20% { transform: scale(1.2) rotate(-20deg); opacity: 1; }
-            40% { transform: scale(1) rotate(20deg); opacity: 1; }
-            100% { transform: scale(1.5) rotate(0deg); opacity: 0; }
-        }
-
-
-
-
-        @keyframes legendary-tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-
-
-
-        @keyframes spark-animation {
-            0% { transform: translate(0, 0) scale(0); opacity: 0; }
-            20% { opacity: 1; }
-            100% { 
-                transform: translate(
-                    calc((var(--spark-x) - 0.5) * 100px), 
-                    calc((var(--spark-y) - 0.5) * 100px)
-                ) scale(1); opacity: 0; 
-            }
-        }
-
-
-
-
-        .crystal-effect {
-            position: fixed;
-            font-size: 36px;
-            font-weight: bold;
-            color: #00ffff;
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 200, 255, 0.6);
-            pointer-events: none;
-            animation: crystal-animation 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
-            z-index: 20;
-            filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.8));
-            transform-origin: center;
-        }
-
-
-
-
-        @keyframes crystal-animation {
-            0% {
-                transform: translate(0, 0) scale(0.5) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-                transform: translate(0, -10px) scale(0.7) rotate(10deg);
-            }
-            30% {
-                transform: translate(0, -30px) scale(1) rotate(-10deg);
-            }
-            50% {
-                transform: translate(0, -60px) scale(1.2) rotate(10deg);
-            }
-            80% {
-                transform: translate(0, -100px) scale(1.4) rotate(0deg);
-            }
-            100% {
-                transform: translate(0, -150px) scale(1.5) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-
-
-
-        .pulse {
-            animation: pulse-effect 1s infinite;
-        }
-
-
-
-
-        @keyframes pulse-effect {
-            0% {
-                box-shadow: 0 0 10px 0 rgba(0, 200, 255, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 30px 10px rgba(0, 200, 255, 0.8);
-            }
-            100% {
-                box-shadow: 0 0 10px 0 rgba(0, 200, 255, 0.5);
-            }
-        }
-
-
-
-
-        .coin-effect {
-            position: fixed; /* ИЗМЕНЕНО: absolute -> fixed */
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            pointer-events: none;
-            animation: coin-animation 1s forwards;
-            z-index: 15;
-            transform: translateX(-50%); /* Для центрирования */
-        }
-
-
-
-
-        @keyframes coin-animation {
-            0% {
-                transform: translateY(0) scale(1) translateX(-50%);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-80px) scale(1.5) translateX(-50%);
-                opacity: 0;
-            }
-        }
-
-
-
-
-        .crystal-icon {
-            font-size: 26px;
-            color: #00ffff;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-            animation: crystal-icon-pulse 2s infinite;
-        }
-
-
-
-
-        @keyframes crystal-icon-pulse {
-            0% {
-                transform: scale(1);
-                text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-            }
-            50% {
-                transform: scale(1.2);
-                text-shadow: 0 0 20px rgba(0, 255, 255, 1);
-            }
-            100% {
-                transform: scale(1);
-                text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-            }
-        }
-
-
-
-
-        .ban-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            font-size: 24px;
-            text-align: center;
-            display: none;
-        }
-
-
-
-
-        .ban-timer {
-            font-size: 48px;
-            margin: 20px 0;
-            color: red;
-        }
-
-
-
-
-        .warning {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(255, 0, 0, 0.8);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            z-index: 50;
-            display: none;
-        }
-
-
-
-
-        .shop-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: var(--currency-bg);
-            color: var(--text-color);
-            border: 1px solid var(--currency-border);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: transform 0.2s;
-        }
-
-
-
-
-        .shop-btn:hover {
-            transform: scale(1.1);
-        }
-
-
-
-
-        .shop {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: var(--shop-bg);
-            border-radius: 15px;
