@@ -21,7 +21,6 @@
             --shop-bg: rgba(0, 0, 0, 0.8);
         }
 
-
         body {
             font-family: 'Arial', sans-serif;
             display: flex;
@@ -34,8 +33,8 @@
             color: var(--text-color);
             overflow: hidden;
             transition: background-color 0.5s, color 0.5s;
+            position: relative;
         }
-
 
         body.light-theme {
             --bg-color: #f5f5f5;
@@ -46,6 +45,55 @@
             --shop-bg: rgba(255, 255, 255, 0.9);
         }
 
+        /* --- CUSTOM BACKGROUNDS --- */
+        body.space-nebula-bg {
+            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+        }
+
+        body.matrix-bg {
+            background-color: #000;
+            background-image:
+                radial-gradient(rgba(0, 150, 0, 0.75), black 120%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='0' y='20' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3E01%3C/text%3E%3Ctext x='10' y='40' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3EAB%3C/text%3E%3Ctext x='20' y='60' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3E11%3C/text%3E%3Ctext x='30' y='80' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3ECD%3C/text%3E%3Ctext x='40' y='100' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3E00%3C/text%3E%3C/svg%3E");
+            animation: matrix-scroll 5s linear infinite;
+        }
+
+        @keyframes matrix-scroll {
+            from { background-position: 0 0; }
+            to { background-position: 0 -100px; }
+        }
+
+        body.magic-forest-bg {
+             background-color: var(--bg-color);
+        }
+
+        .firefly {
+            position: fixed;
+            left: -10px;
+            top: 50%;
+            width: 5px;
+            height: 5px;
+            background-color: #89f5b2;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #89f5b2, 0 0 20px #89f5b2;
+            animation: firefly-float linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes firefly-float {
+            0% { transform: translateX(0) translateY(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(105vw) translateY(var(--y-end)); opacity: 0; }
+        }
+
+        body.liquid-waves-bg {
+            background: linear-gradient(125deg, #ff3cac, #784ba0, #2b86c5);
+            background-size: 200% 200%;
+            animation: gradient 10s ease infinite;
+        }
+
+        /* --- END CUSTOM BACKGROUNDS --- */
 
         .refresh-button, .promocode-button-main {
             position: fixed;
@@ -65,21 +113,17 @@
             transition: transform 0.2s;
         }
 
-
         .refresh-button {
             left: 20px;
         }
 
-
         .promocode-button-main {
-            left: 80px; /* Отступ от левой кнопки */
+            left: 80px;
         }
-
 
         .refresh-button:hover, .promocode-button-main:hover {
             transform: scale(1.1);
         }
-
 
         .theme-switcher {
             position: fixed;
@@ -89,13 +133,18 @@
             align-items: center;
             gap: 10px;
             z-index: 100;
+            transition: opacity 0.3s;
         }
-
+        
+        .theme-switcher.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
 
         .theme-label {
             font-size: 20px;
         }
-
 
         .theme-toggle {
             position: relative;
@@ -107,11 +156,9 @@
             transition: background-color 0.3s;
         }
 
-
         .theme-toggle.active {
             background-color: #2196F3;
         }
-
 
         .theme-toggle-handle {
             position: absolute;
@@ -124,11 +171,9 @@
             transition: transform 0.3s;
         }
 
-
         .theme-toggle.active .theme-toggle-handle {
             transform: translateX(30px);
         }
-
 
         .stats-container {
             display: flex;
@@ -136,7 +181,6 @@
             margin-bottom: 30px;
             z-index: 10;
         }
-
 
         .currency-box {
             font-size: 24px;
@@ -151,7 +195,6 @@
             border: 1px solid var(--currency-border);
             backdrop-filter: blur(5px);
         }
-
 
         .circle {
             width: 200px;
@@ -170,20 +213,13 @@
             overflow: hidden;
             z-index: 5;
             border: 2px solid var(--circle-border);
-            -webkit-tap-highlight-color: transparent; /* Add this line for WebKit browsers */
-            touch-action: manipulation; /* Add this line for general touch devices */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
-
-        /* СТАНДАРТНЫЙ СКИН */
-        .circle.default-skin::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
+        /* --- SKINS --- */
+        .circle.default-skin {
+             background: linear-gradient(
                 45deg,
                 rgba(255, 105, 180, 0.8),
                 rgba(255, 165, 0, 0.8),
@@ -191,194 +227,206 @@
                 rgba(0, 0, 255, 0.8)
             );
             background-size: 400% 400%;
-            animation: gradient 8s ease infinite;
-            z-index: -1;
+            animation: gradient 8s ease infinite, pulse-subtle 3s infinite;
+        }
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
 
-
-        /* ПРЕМИУМ СКИН */
+        .circle.premium-skin {
+            background: radial-gradient(circle, rgba(0, 200, 255, 0.9) 0%, rgba(0, 100, 200, 0.9) 100%);
+            box-shadow: 0 0 20px #00c8ff, inset 0 0 15px rgba(0, 100, 200, 0.8);
+        }
         .circle.premium-skin::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 200, 255, 0.9) 0%, rgba(0, 100, 200, 0.9) 100%);
-            z-index: -1;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCI+PHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBkPSJNMTUgMEwxMyA0LjVMMy41IDQuNUwxIDguOEwzLjUgMTMuMkwxIDE3LjVMMTMgMTcuNUwxNSAyMkwxNyAyNi41TDI2LjUgMjYuNUwyOSAyMi4yTDI2LjUgMTcuOEwyOSAxMy41TDE3IDEzLjVMMTUgOUwxMyA0LjVMMy41IDQuNU0xNyA5TDI2LjUgOSIgb3BhY2l0eT0iMC41IiAvPjwvc3ZnPg==');
+            animation: pan-bg 20s linear infinite;
+        }
+        @keyframes pan-bg {
+            from { background-position: 0% 0%; }
+            to { background-position: 100% 100%; }
         }
 
-
-        .circle.premium-skin::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            /* Hexagon pattern */
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25 0L75 0L100 50L75 100L25 100L0 50Z' fill='rgba(255,255,255,0.1)'/%3E%3C/svg%3E");
-            background-size: 40px 40px; /* Adjust size as needed */
-            opacity: 0.3;
-            z-index: -1;
-        }
-
-
-        /* ЛЕГЕНДАРНЫЙ СКИН */
-        .circle.legendary-skin::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+        .circle.legendary-skin {
             background: conic-gradient(
                 from 0deg,
-                rgba(255, 215, 0, 0.8),
-                rgba(255, 100, 0, 0.8),
-                rgba(255, 0, 100, 0.8),
-                rgba(255, 0, 200, 0.8),
-                rgba(255, 215, 0, 0.8)
+                gold, orange, red, darkred, red, orange, gold
             );
-            z-index: -1;
-            animation: rotate-hue 5s linear infinite;
+            animation: rotate-hue 4s linear infinite;
+            box-shadow: 0 0 40px gold, inset 0 0 20px darkorange;
         }
-
-
         .circle.legendary-skin::after {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 60%, rgba(255, 215, 0, 0.3) 100%);
-            z-index: -1;
+            width: 5px; height: 5px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 15px 5px white, 0 0 25px 10px gold;
+            animation: legendary-sparkle 1.5s ease-in-out infinite;
+            opacity: 0;
+        }
+        @keyframes legendary-sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
         }
 
-        /* BLACK HOLE SKIN */
         .circle.blackhole-skin {
             background-color: #000;
-            box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7); /* Purple glow */
+            box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7), inset 0 0 40px black;
+            animation: blackhole-pulse 5s infinite ease-in-out;
         }
-
         .circle.blackhole-skin::before {
-            content: '';
-            position: absolute;
-            width: 150%;
-            height: 150%;
-            border-radius: 50%;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 70%, rgba(0,0,0,1) 100%);
-            animation: blackhole-vortex 4s linear infinite;
-            z-index: -1;
+             content: '';
+             position: absolute;
+             width: 110%; height: 110%;
+             background: conic-gradient(from 0deg, transparent 0%, transparent 70%, #9400D3, #4B0082, transparent 100%);
+             animation: blackhole-rotate 8s linear infinite;
+        }
+        @keyframes blackhole-pulse {
+             0%, 100% { transform: scale(1); box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7); }
+             50% { transform: scale(0.98); box-shadow: 0 0 40px 15px rgba(120, 40, 220, 0.7); }
+        }
+        @keyframes blackhole-rotate {
+            from { transform: translate(-5%, -5%) rotate(0deg); } to { transform: translate(-5%, -5%) rotate(360deg); }
         }
 
-        @keyframes blackhole-vortex {
-            0% { transform: scale(1) rotate(0deg); opacity: 1; }
-            100% { transform: scale(1.2) rotate(360deg); opacity: 0.8; }
-        }
-
-        /* CRYSTALMANIA SKIN */
         .circle.crystalmania-skin {
-            background: rgba(255, 255, 255, 0.1); /* Slightly transparent white for glass effect */
-            border: 2px solid rgba(255, 255, 255, 0.3); /* Lighter border */
-            box-shadow: 0 0 30px rgba(0, 200, 255, 0.6); /* Blueish glow */
-            backdrop-filter: blur(5px); /* Glassy blur */
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 200, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .circle.crystalmania-skin:active {
+            transform: scale(0.97);
+            box-shadow: 0 0 50px rgba(255, 105, 180, 0.8), inset 0 0 30px rgba(255, 105, 180, 0.5);
+            border-color: rgba(255, 105, 180, 0.6);
         }
 
-        .circle.crystalmania-skin::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.4) 0%, transparent 50%); /* Subtle reflection */
-            z-index: -1;
-        }
-
-        /* NEW SKINS */
-        /* VORTEX SKIN */
         .circle.vortex-skin {
             background-image: url('https://i.postimg.cc/k5r9z5N6/vihr.png');
             background-size: cover;
             background-position: center;
             animation: rotate-vortex 5s linear infinite;
+            box-shadow: 0 0 30px #4169E1, inset 0 0 25px #00008B;
+        }
+        
+        .circle.glitch-skin {
+            background-color: #111;
+            position: relative;
+            overflow: hidden;
+            animation: glitch-bg-main 5s infinite steps(10);
+        }
+        .circle.glitch-skin::before, .circle.glitch-skin::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #111;
+            clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
+            animation: glitch-move 1s infinite alternate steps(10);
+        }
+        .circle.glitch-skin::after {
+            clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
+            animation-delay: -0.5s;
+        }
+        @keyframes glitch-move {
+            from { transform: translateX(0); } to { transform: translateX(10px); }
+        }
+        @keyframes glitch-bg-main {
+             0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); }
         }
 
+
+        .circle.ocean-skin {
+            background: radial-gradient(circle, #80d0c7 0%, #135d96 100%);
+            border-color: #a4e5de;
+            box-shadow: 0 0 30px rgba(128, 208, 199, 0.7), inset 0 0 20px #135d96;
+        }
+        .circle.ocean-skin::before { /* Caustic light effect */
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 48%,rgba(255,255,255,0.4) 50%,rgba(255,255,255,0) 52%,rgba(255,255,255,0) 100%);
+            background-size: 200% 100%;
+            animation: ocean-caustic 4s linear infinite;
+            mix-blend-mode: overlay;
+        }
+        .circle.ocean-skin::after { /* Bubbles */
+            content: '';
+            position: absolute;
+            width: 10px; height: 10px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            bottom: -20px;
+            left: 30%;
+            box-shadow: 20px -20px 0 2px rgba(255,255,255,0.2), 50px -50px 0 0 rgba(255,255,255,0.3), 80px -90px 0 2px rgba(255,255,255,0.2), 10px -120px 0 1px rgba(255,255,255,0.3);
+            animation: ocean-bubbles 5s linear infinite;
+        }
+
+        @keyframes ocean-caustic {
+            from { background-position: 200% 0; } to { background-position: -200% 0; }
+        }
+        @keyframes ocean-bubbles {
+            to { transform: translateY(-220px); }
+        }
+
+        .circle.hacker-skin {
+            background: #000;
+            border-color: #0f0;
+            box-shadow: 0 0 20px #0f0, inset 0 0 10px #0f0;
+            font-family: monospace;
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0;
+        }
+        .circle.hacker-skin::before { /* Scanline */
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: #0f0;
+            box-shadow: 0 0 5px #0f0;
+            animation: hacker-scan 3s linear infinite;
+        }
+        .circle.hacker-skin::after { /* Text */
+            content: 'Doolcoin v2.1';
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 10px;
+            opacity: 0.7;
+            animation: text-flicker 3s infinite;
+        }
+        @keyframes hacker-scan {
+            from { top: 0%; } to { top: 100%; }
+        }
+        @keyframes text-flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 0.7; }
+            20%, 24%, 55% { opacity: 0.3; }
+        }
+
+        /* --- END SKINS --- */
+        
         @keyframes rotate-vortex {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-
-        /* GLITCH SKIN */
-        .circle.glitch-skin {
-            background-color: #333; /* Dark background for contrast */
-            position: relative;
-            overflow: hidden;
-            animation: glitch-bg 0.8s infinite alternate;
-        }
-
-        .circle.glitch-skin::before,
-        .circle.glitch-skin::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 0, 0, 0.3); /* Red channel */
-            mix-blend-mode: screen;
-            animation: glitch-effect 1s infinite alternate;
-        }
-
-        .circle.glitch-skin::after {
-            background: rgba(0, 255, 0, 0.3); /* Green channel */
-            animation: glitch-effect-2 1.2s infinite alternate;
-        }
-
-        @keyframes glitch-bg {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        @keyframes glitch-effect {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-1px, -1px); }
-            60% { transform: translate(3px, 0); }
-            80% { transform: translate(1px, -2px); }
-            100% { transform: translate(0); }
-        }
-
-        @keyframes glitch-effect-2 {
-            0% { transform: translate(0); }
-            25% { transform: translate(1px, -2px); }
-            50% { transform: translate(-3px, 1px); }
-            75% { transform: translate(2px, 2px); }
-            100% { transform: translate(0); }
-        }
-
-
 
         @keyframes rotate-hue {
             from { filter: hue-rotate(0deg); }
             to { filter: hue-rotate(360deg); }
         }
 
-
         @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-
-        /* ОБЩИЕ ЭФФЕКТЫ */
-        .tap-effect {
+        /* --- TAP EFFECTS --- */
+        .tap-effect { /* Default tap effect */
             position: absolute;
             width: 100%;
             height: 100%;
@@ -387,236 +435,106 @@
             pointer-events: none;
             animation: tap-animation 0.8s forwards;
             transform: scale(0);
-            opacity: 1;
-            /* Ensure it respects the click position */
-            transform-origin: var(--tap-x) var(--tap-y);
-            left: 0;
-            top: 0;
-        }
-
-
-        /* УНИКАЛЬНЫЕ ЭФФЕКТЫ ДЛЯ СКИНОВ */
-        .premium-tap-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(0, 200, 255, 0) 70%);
-            pointer-events: none;
-            animation: premium-tap-animation 1s forwards;
-            transform: scale(0);
-            opacity: 1;
-            /* Ensure it respects the click position */
-            transform-origin: var(--tap-x) var(--tap-y);
-            left: 0;
-            top: 0;
-        }
-
-        /* Blackhole tap effect */
-        .blackhole-tap-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(200, 0, 255, 0.6) 0%, rgba(0,0,0,0) 70%);
-            pointer-events: none;
-            animation: blackhole-tap-animation 1s forwards;
-            transform: scale(0);
-            opacity: 1;
-            transform-origin: var(--tap-x) var(--tap-y);
-            left: 0;
-            top: 0;
-        }
-
-        @keyframes blackhole-tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-        /* CrystalMania tap effect */
-        .crystalmania-tap-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(
-                45deg,
-                rgba(255, 105, 180, 0.6),
-                rgba(255, 165, 0, 0.6),
-                rgba(148, 0, 211, 0.6),
-                rgba(0, 0, 255, 0.6)
-            );
-            background-size: 400% 400%;
-            animation: crystalmania-tap-animation 0.8s forwards, gradient 2s ease infinite; /* Use gradient animation too */
-            transform: scale(0);
-            opacity: 1;
-            transform-origin: var(--tap-x) var(--tap-y);
-            left: 0;
-            top: 0;
-            filter: blur(2px); /* Soft glow */
-        }
-
-        @keyframes crystalmania-tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(1); opacity: 0; }
-        }
-
-        /* Vortex tap effect */
-        .vortex-tap-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(135, 206, 250, 0.7) 0%, rgba(0, 100, 200, 0) 70%); /* Blue splash */
-            pointer-events: none;
-            animation: vortex-tap-animation 0.7s forwards;
-            transform: scale(0);
-            opacity: 1;
-            transform-origin: var(--tap-x) var(--tap-y);
-            left: 0;
-            top: 0;
-        }
-
-        @keyframes vortex-tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(1.2); opacity: 0; }
-        }
-
-        /* Glitch tap effect */
-        .glitch-tap-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            pointer-events: none;
-            /* No direct background, layers handle it */
-        }
-
-        .glitch-layer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            top: 0;
-            left: 0;
-            animation: glitch-tap-animation 0.6s forwards;
-            opacity: 0.5;
             transform-origin: var(--tap-x) var(--tap-y);
         }
-
-        @keyframes glitch-tap-animation {
-            0% {
-                transform: translate(0, 0);
-                opacity: 1;
-            }
-            30% {
-                transform: translate(var(--tap-x-offset), var(--tap-y-offset));
-                opacity: 1;
-            }
-            100% {
-                transform: translate(calc(var(--tap-x-offset) * 2), calc(var(--tap-y-offset) * 2));
-                opacity: 0;
-            }
-        }
-
-
-        /* Adjusted Premium Hexagon effect */
-        @keyframes premium-tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            50% { opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-
-        .premium-star-effect { /* Renamed to premium-hexagon-effect for clarity */
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            /* Hexagon SVG for the effect */
-            background-image: url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25 0L75 0L100 50L75 100L25 100L0 50Z' fill='rgba(255,255,255,0.8)'/%3E%3C/svg%3E");
-            background-size: contain;
-            pointer-events: none;
-            animation: hexagon-animation 1s forwards; /* New animation for hexagons */
-            opacity: 0;
-            z-index: 10;
-        }
-
-        @keyframes hexagon-animation {
-            0% { transform: scale(0.5) rotate(0deg); opacity: 0; }
-            20% { transform: scale(1.2) rotate(-20deg); opacity: 1; }
-            40% { transform: scale(1) rotate(20deg); opacity: 1; }
-            100% { transform: scale(1.5) rotate(0deg); opacity: 0; }
-        }
+        @keyframes tap-animation { from { transform: scale(0); opacity: 1;} to { transform: scale(1); opacity: 0;} }
 
         .legendary-tap-effect {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 8px; height: 8px;
+            background: gold;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 100, 0, 0) 70%);
             pointer-events: none;
-            animation: legendary-tap-animation 1s forwards;
-            transform: scale(0);
-            opacity: 1;
-            /* Ensure it respects the click position */
-            transform-origin: var(--tap-x) var(--tap-y);
-            left: 0;
-            top: 0;
+            box-shadow: 0 0 10px gold, 0 0 20px orange;
+            animation: legendary-spark-fly 0.8s ease-out forwards;
+        }
+        @keyframes legendary-spark-fly {
+            from { transform: scale(1) translate(0, 0); opacity: 1; }
+            to { transform: scale(0) translate(var(--spark-x), var(--spark-y)); opacity: 0; }
+        }
+        
+        .blackhole-tap-effect {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid #9400D3;
+            pointer-events: none;
+            animation: blackhole-implode 0.6s ease-in forwards;
+        }
+        @keyframes blackhole-implode {
+             from { transform: scale(10); opacity: 0.7; }
+             to { transform: scale(0); opacity: 0; }
+        }
+        
+        .crystalmania-tap-effect {
+            position: absolute;
+            width: 15px; height: 15px;
+            background: transparent;
+            border: 2px solid;
+            pointer-events: none;
+            animation: crystal-shatter 0.7s ease-out forwards;
+        }
+        @keyframes crystal-shatter {
+            from { transform: rotate(0) scale(1); opacity: 1; }
+            to { transform: rotate(var(--rot-end)) scale(3); opacity: 0; }
         }
 
+        .vortex-tap-effect {
+             position: absolute;
+             width: 10px; height: 10px;
+             border: 2px solid rgba(137, 207, 240, 0.8);
+             border-radius: 50%;
+             pointer-events: none;
+             animation: vortex-ripple 0.8s linear forwards;
+        }
+        @keyframes vortex-ripple {
+             from { transform: scale(0); opacity: 1; }
+             to { transform: scale(25); opacity: 0; }
+        }
 
-        .legendary-spark-effect {
+        .glitch-tap-effect {
             position: absolute;
+            width: 80px; height: 10px;
+            background: red;
+            pointer-events: none;
+            animation: glitch-flicker 0.4s steps(2, end) forwards;
+        }
+        .glitch-tap-effect.b { background: cyan; animation-delay: 0.05s; }
+        .glitch-tap-effect.c { background: lime; animation-delay: 0.1s; }
+        @keyframes glitch-flicker {
+            to { opacity: 0; transform: scaleX(2); }
+        }
+
+        .ocean-tap-effect { /* Ripple */
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.8);
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: gold;
             pointer-events: none;
-            animation: spark-animation 1s forwards;
-            opacity: 0;
-            z-index: 10;
+            animation: ocean-ripple 0.7s linear forwards;
+        }
+        @keyframes ocean-ripple {
+            from { transform: scale(0); opacity: 1; }
+            to { transform: scale(20); opacity: 0; }
         }
 
-
-        @keyframes tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(1); opacity: 0; }
+        .hacker-tap-effect { /* Digital squares */
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #0f0;
+            box-shadow: 0 0 5px #0f0;
+            pointer-events: none;
+            animation: hacker-square-fly 1s ease-out forwards;
         }
-
-
-        @keyframes premium-tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            50% { opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-
-        @keyframes star-animation {
-            0% { transform: scale(0.5) rotate(0deg); opacity: 0; }
-            20% { transform: scale(1.2) rotate(-20deg); opacity: 1; }
-            40% { transform: scale(1) rotate(20deg); opacity: 1; }
-            100% { transform: scale(1.5) rotate(0deg); opacity: 0; }
-        }
-
-
-        @keyframes legendary-tap-animation {
-            0% { transform: scale(0); opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-
-        @keyframes spark-animation {
-            0% { transform: translate(0, 0) scale(0); opacity: 0; }
-            20% { opacity: 1; }
-            100% { 
-                transform: translate(
-                    calc((var(--spark-x) - 0.5) * 100px), 
-                    calc((var(--spark-y) - 0.5) * 100px)
-                ) scale(1); opacity: 0; 
+        @keyframes hacker-square-fly {
+            from { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+            to { 
+                transform: translate(var(--spark-x), var(--spark-y)) rotate(360deg); 
+                opacity: 0;
             }
         }
-
+        /* --- END TAP EFFECTS --- */
 
         .crystal-effect {
             position: fixed;
@@ -630,7 +548,6 @@
             filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.8));
             transform-origin: center;
         }
-
 
         @keyframes crystal-animation {
             0% {
@@ -656,11 +573,9 @@
             }
         }
 
-
         .pulse {
             animation: pulse-effect 1s infinite;
         }
-
 
         @keyframes pulse-effect {
             0% {
@@ -674,9 +589,8 @@
             }
         }
 
-
         .coin-effect {
-            position: fixed; /* ИЗМЕНЕНО: absolute -> fixed */
+            position: fixed;
             font-size: 24px;
             font-weight: bold;
             color: #ffffff;
@@ -684,9 +598,8 @@
             pointer-events: none;
             animation: coin-animation 1s forwards;
             z-index: 15;
-            transform: translateX(-50%); /* Для центрирования */
+            transform: translateX(-50%);
         }
-
 
         @keyframes coin-animation {
             0% {
@@ -699,14 +612,12 @@
             }
         }
 
-
         .crystal-icon {
             font-size: 26px;
             color: #00ffff;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
             animation: crystal-icon-pulse 2s infinite;
         }
-
 
         @keyframes crystal-icon-pulse {
             0% {
@@ -722,7 +633,6 @@
                 text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
             }
         }
-
 
         .ban-screen {
             position: fixed;
@@ -742,13 +652,11 @@
             display: none;
         }
 
-
         .ban-timer {
             font-size: 48px;
             margin: 20px 0;
             color: red;
         }
-
 
         .warning {
             position: fixed;
@@ -762,7 +670,6 @@
             z-index: 50;
             display: none;
         }
-
 
         .shop-btn {
             position: fixed;
@@ -783,11 +690,9 @@
             transition: transform 0.2s;
         }
 
-
         .shop-btn:hover {
             transform: scale(1.1);
         }
-
 
         .shop {
             position: fixed;
@@ -806,7 +711,6 @@
             border: 1px solid var(--currency-border);
         }
 
-
         .shop-header {
             display: flex;
             justify-content: space-between;
@@ -816,12 +720,10 @@
             padding-bottom: 10px;
         }
 
-
         .shop-title {
             font-size: 24px;
             font-weight: bold;
         }
-
 
         .close-shop {
             font-size: 20px;
@@ -829,13 +731,11 @@
             padding: 5px;
         }
 
-
         .shop-tabs {
             display: flex;
             margin-bottom: 15px;
             border-bottom: 1px solid var(--currency-border);
         }
-
 
         .shop-tab {
             padding: 8px 15px;
@@ -843,17 +743,14 @@
             border-bottom: 2px solid transparent;
         }
 
-
         .shop-tab.active {
             border-bottom: 2px solid #00ffff;
         }
-
 
         .shop-content {
             max-height: 400px;
             overflow-y: auto;
         }
-
 
         .shop-item {
             display: flex;
@@ -863,28 +760,23 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-
         .shop-item:last-child {
             border-bottom: none;
         }
 
-
         .item-info {
             flex-grow: 1;
         }
-
 
         .item-name {
             font-size: 18px;
             margin-bottom: 5px;
         }
 
-
         .item-desc {
             font-size: 14px;
             opacity: 0.8;
         }
-
 
         .item-price {
             display: flex;
@@ -894,7 +786,6 @@
             white-space: nowrap;
             margin-left: 15px;
         }
-
 
         .buy-btn {
             background-color: rgba(0, 200, 255, 0.3);
@@ -907,29 +798,15 @@
             font-size: 14px;
         }
 
-
         .buy-btn:hover {
             background-color: rgba(0, 200, 255, 0.5);
         }
-
 
         .buy-btn:disabled {
             background-color: rgba(100, 100, 100, 0.3);
             border-color: rgba(100, 100, 100, 0.5);
             cursor: not-allowed;
         }
-
-
-        .active-boost {
-            display: inline-block;
-            background-color: rgba(0, 200, 100, 0.3);
-            border: 1px solid rgba(0, 200, 100, 0.5);
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 12px;
-            margin-left: 5px;
-        }
-
 
         .exchange-btn {
             position: fixed;
@@ -950,11 +827,9 @@
             transition: transform 0.2s;
         }
 
-
         .exchange-btn:hover {
             transform: scale(1.1);
         }
-
 
         .exchange-modal, .promocode-modal, .admin-panel {
             position: fixed;
@@ -964,7 +839,7 @@
             background-color: var(--shop-bg);
             border-radius: 15px;
             padding: 20px;
-            width: 300px; /* Уменьшено */
+            width: 300px;
             max-width: 90%;
             z-index: 100;
             box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
@@ -973,11 +848,9 @@
             border: 1px solid var(--currency-border);
         }
 
-        /* Make admin panel draggable header */
         .admin-header {
-            cursor: grab; /* Change cursor on header */
+            cursor: grab;
         }
-
 
         .exchange-header, .promocode-header, .admin-header {
             display: flex;
@@ -988,12 +861,10 @@
             padding-bottom: 10px;
         }
 
-
         .exchange-title, .promocode-title, .admin-title {
             font-size: 24px;
             font-weight: bold;
         }
-
 
         .close-exchange, .close-promocode, .close-admin {
             font-size: 20px;
@@ -1001,12 +872,10 @@
             padding: 5px;
         }
 
-
         .exchange-rate {
             margin-bottom: 20px;
             text-align: center;
         }
-
 
         .exchange-input, .promocode-input, .admin-input {
             width: 100%;
@@ -1017,17 +886,15 @@
             border-radius: 5px;
             color: var(--text-color);
             font-size: 16px;
-            box-sizing: border-box; /* Чтобы padding не увеличивал ширину */
+            box-sizing: border-box;
         }
-
 
         .exchange-action, .promocode-action, .admin-action {
             display: flex;
-            justify-content: center; /* Центрируем кнопки */
+            justify-content: center;
             gap: 10px;
-            flex-wrap: wrap; /* Для кнопок админ панели */
+            flex-wrap: wrap;
         }
-
 
         .exchange-submit, .promocode-submit, .admin-submit-btn {
             flex-grow: 1;
@@ -1040,17 +907,16 @@
             transition: background-color 0.2s;
         }
 
-
-        .promocode-submit { /* Специфичный стиль для кнопки промокода, если нужно */
+        .promocode-submit {
             background-color: rgba(0, 200, 255, 0.3);
             border: 1px solid rgba(0, 200, 255, 0.5);
         }
 
         .admin-submit-btn {
-            background-color: rgba(100, 100, 255, 0.3); /* Admin button color */
+            background-color: rgba(100, 100, 255, 0.3);
             border: 1px solid rgba(100, 100, 255, 0.5);
-            width: calc(50% - 5px); /* Half width for two buttons per line */
-            margin-bottom: 10px; /* Space between rows */
+            width: calc(50% - 5px);
+            margin-bottom: 10px;
         }
 
         .exchange-submit:hover, .promocode-submit:hover, .admin-submit-btn:hover {
@@ -1063,13 +929,11 @@
             background-color: rgba(100, 100, 255, 0.5);
         }
 
-
         .exchange-submit:disabled, .promocode-submit:disabled, .admin-submit-btn:disabled {
             background-color: rgba(100, 100, 100, 0.3);
             border-color: rgba(100, 100, 100, 0.5);
             cursor: not-allowed;
         }
-
 
         .exchange-cancel {
             background-color: rgba(200, 0, 0, 0.3);
@@ -1081,18 +945,9 @@
             transition: background-color 0.2s;
         }
 
-
         .exchange-cancel:hover {
             background-color: rgba(200, 0, 0, 0.5);
         }
-
-
-        .owned-label {
-            color: #00ff00;
-            font-size: 14px;
-            margin-left: 10px;
-        }
-
 
         .boosts-container {
             position: fixed;
@@ -1103,7 +958,6 @@
             gap: 10px;
             z-index: 10;
         }
-
 
         .boost-indicator {
             background-color: var(--currency-bg);
@@ -1116,18 +970,15 @@
             gap: 5px;
         }
 
-
         .boost-icon {
             font-size: 16px;
         }
 
-
-        /* Стиль для сообщения промокода внутри модального окна */
         .promocode-modal .promocode-message {
             margin-top: 15px;
             font-size: 14px;
             text-align: center;
-            min-height: 20px; /* Чтобы предотвратить сдвиги макета */
+            min-height: 20px;
         }
     </style>
 </head>
@@ -1135,8 +986,7 @@
     <button class="refresh-button" onclick="location.reload()">↻</button>
     <button class="promocode-button-main" id="promocodeBtn">🎁</button>
 
-
-    <div class="theme-switcher">
+    <div class="theme-switcher" id="themeSwitcher">
         <div class="theme-label">🌙</div>
         <div class="theme-toggle" id="themeToggle">
             <div class="theme-toggle-handle"></div>
@@ -1144,13 +994,10 @@
         <div class="theme-label">☀️</div>
     </div>
 
-
     <div class="boosts-container" id="boostsContainer"></div>
-
 
     <div class="shop-btn" id="shopBtn">🛒</div>
     <div class="exchange-btn" id="exchangeBtn">⇄</div>
-
 
     <div class="warning" id="warning">Слишком быстро! Прекратите кликать так часто!</div>
     <div class="ban-screen" id="banScreen">
@@ -1159,7 +1006,6 @@
         <div>Вам отняли половину монет!</div>
         <div>Осталось секунд:</div>
     </div>
-
 
     <div class="stats-container">
         <div class="currency-box">
@@ -1172,9 +1018,7 @@
         </div>
     </div>
 
-
     <div class="circle default-skin" id="circle"></div>
-
 
     <div class="promocode-modal" id="promocodeModal">
         <div class="promocode-header">
@@ -1209,6 +1053,7 @@
             </div>
         </div>
     </div>
+    
     <div class="shop" id="shop">
         <div class="shop-header">
             <div class="shop-title">Магазин</div>
@@ -1217,6 +1062,7 @@
         <div class="shop-tabs">
             <div class="shop-tab active" data-tab="skins">Скины</div>
             <div class="shop-tab" data-tab="boosts">Бусты</div>
+            <div class="shop-tab" data-tab="backgrounds">Фоны</div>
         </div>
         <div class="shop-content">
             <div class="shop-tab-content" id="skinsTab">
@@ -1238,7 +1084,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Легендарный</div>
-                        <div class="item-desc">Золотисто-огненный вращающийся градиент</div>
+                        <div class="item-desc">Золотисто-огненный с эффектом частиц</div>
                     </div>
                     <div class="item-price">500 <span class="crystal-icon">✦</span></div>
                     <button class="buy-btn" id="legendarySkinBtn">Купить</button>
@@ -1246,7 +1092,7 @@
                  <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Черная дыра</div>
-                        <div class="item-desc">Глубокий черный с фиолетовым свечением и эффектом воронки</div>
+                        <div class="item-desc">Засасывающий эффект с фиолетовым свечением</div>
                     </div>
                     <div class="item-price">1000 <span class="crystal-icon">✦</span></div>
                     <button class="buy-btn" id="blackholeSkinBtn">Купить</button>
@@ -1254,7 +1100,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">CrystalMania</div>
-                        <div class="item-desc">Абсолютно прозрачный, с цветным свечением при нажатии</div>
+                        <div class="item-desc">Прозрачный, с эффектом осколков при нажатии</div>
                     </div>
                     <div class="item-price">5000 <span>Đ</span></div>
                     <button class="buy-btn" id="crystalmaniaSkinBtn">Купить</button>
@@ -1262,9 +1108,9 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Водоворот</div>
-                        <div class="item-desc">Вращающийся водоворот с эффектом всплеска воды</div>
+                        <div class="item-desc">Вращающийся водоворот с эффектом всплеска</div>
                     </div>
-                    <div class="item-price">1000 <span>Đ</span></div>
+                    <div class="item-price">10000 <span>Đ</span></div>
                     <button class="buy-btn" id="vortexSkinBtn">Купить</button>
                 </div>
                 <div class="shop-item">
@@ -1274,6 +1120,22 @@
                     </div>
                     <div class="item-price">2500 <span class="crystal-icon">✦</span></div>
                     <button class="buy-btn" id="glitchSkinBtn">Купить</button>
+                </div>
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-name">Океан</div>
+                        <div class="item-desc">Сфера воды с пузырьками и рябью при нажатии</div>
+                    </div>
+                    <div class="item-price">4000 <span class="crystal-icon">✦</span></div>
+                    <button class="buy-btn" id="oceanSkinBtn">Купить</button>
+                </div>
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-name">Хакер</div>
+                        <div class="item-desc">Терминал со скан-линией и цифровым эффектом</div>
+                    </div>
+                    <div class="item-price">20000 <span>Đ</span></div>
+                    <button class="buy-btn" id="hackerSkinBtn">Купить</button>
                 </div>
             </div>
             <div class="shop-tab-content" id="boostsTab" style="display: none;">
@@ -1302,9 +1164,49 @@
                     <button class="buy-btn" id="autoclickerBoostBtn">Купить</button>
                 </div>
             </div>
+            <div class="shop-tab-content" id="backgroundsTab" style="display: none;">
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-name">Стандартный</div>
+                        <div class="item-desc">Обычный фон, который зависит от темы</div>
+                    </div>
+                    <button class="buy-btn" id="defaultBgBtn">Выбрано</button>
+                </div>
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-name">Космическая туманность</div>
+                        <div class="item-desc">Глубокий космос с фиолетовыми оттенками</div>
+                    </div>
+                    <div class="item-price">25000 <span>Đ</span></div>
+                    <button class="buy-btn" id="spaceNebulaBgBtn">Купить</button>
+                </div>
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-name">Матрица</div>
+                        <div class="item-desc">Анимированный фон с падающими символами</div>
+                    </div>
+                    <div class="item-price">1000 <span class="crystal-icon">✦</span></div>
+                    <button class="buy-btn" id="matrixBgBtn">Купить</button>
+                </div>
+                <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-name">Волшебный лес</div>
+                        <div class="item-desc">Безмятежный фон со светлячками</div>
+                    </div>
+                    <div class="item-price">40000 <span>Đ</span></div>
+                    <button class="buy-btn" id="magicForestBgBtn">Купить</button>
+                </div>
+                 <div class="shop-item">
+                    <div class="item-info">
+                        <div class="item-name">Жидкие волны</div>
+                        <div class="item-desc">Переливающийся градиент в стиле лава-лампы</div>
+                    </div>
+                    <div class="item-price">2500 <span class="crystal-icon">✦</span></div>
+                    <button class="buy-btn" id="liquidWavesBgBtn">Купить</button>
+                </div>
+            </div>
         </div>
     </div>
-
 
     <div class="exchange-modal" id="exchangeModal">
         <div class="exchange-header">
@@ -1319,15 +1221,16 @@
         </div>
     </div>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- Element Selectors ---
             const circle = document.getElementById('circle');
             const coinsElement = document.getElementById('coins');
             const crystalsElement = document.getElementById('crystals');
             const banScreen = document.getElementById('banScreen');
             const banTimer = document.getElementById('banTimer');
             const warning = document.getElementById('warning');
+            const themeSwitcher = document.getElementById('themeSwitcher');
             const themeToggle = document.getElementById('themeToggle');
             const shopBtn = document.getElementById('shopBtn');
             const shop = document.getElementById('shop');
@@ -1341,20 +1244,20 @@
             const shopTabs = document.querySelectorAll('.shop-tab');
             const skinsTab = document.getElementById('skinsTab');
             const boostsTab = document.getElementById('boostsTab');
+            const backgroundsTab = document.getElementById('backgroundsTab');
             const boostsContainer = document.getElementById('boostsContainer');
 
-
             // Promo code elements
-            const promocodeBtn = document.getElementById('promocodeBtn'); // Новая кнопка
-            const promocodeModal = document.getElementById('promocodeModal'); // Модальное окно
-            const closePromocode = document.getElementById('closePromocode'); // Кнопка закрытия модального окна
+            const promocodeBtn = document.getElementById('promocodeBtn');
+            const promocodeModal = document.getElementById('promocodeModal');
+            const closePromocode = document.getElementById('closePromocode');
             const promocodeInput = document.getElementById('promocodeInput');
             const activatePromocodeBtn = document.getElementById('activatePromocodeBtn');
             const promocodeMessage = document.getElementById('promocodeMessage');
 
-            // Admin Panel Elements
+            // Admin Panel elements
             const adminPanel = document.getElementById('adminPanel');
-            const adminPanelHeader = document.getElementById('adminPanelHeader'); // For dragging
+            const adminPanelHeader = document.getElementById('adminPanelHeader');
             const closeAdminPanel = document.getElementById('closeAdminPanel');
             const adminCoinsInput = document.getElementById('adminCoinsInput');
             const setCoinsBtn = document.getElementById('setCoinsBtn');
@@ -1363,127 +1266,524 @@
             const setCrystalsBtn = document.getElementById('setCrystalsBtn');
             const addCrystalsBtn = document.getElementById('addCrystalsBtn');
 
-
-            // Скины
+            // --- Element Buttons ---
+            // Skins
             const defaultSkinBtn = document.getElementById('defaultSkinBtn');
             const premiumSkinBtn = document.getElementById('premiumSkinBtn');
             const legendarySkinBtn = document.getElementById('legendarySkinBtn');
-            const blackholeSkinBtn = document.getElementById('blackholeSkinBtn'); // New skin button
-            const crystalmaniaSkinBtn = document.getElementById('crystalmaniaSkinBtn'); // Changed from plasmaSkinBtn
-            const vortexSkinBtn = document.getElementById('vortexSkinBtn'); // NEW
-            const glitchSkinBtn = document.getElementById('glitchSkinBtn'); // NEW
-
-
-            // Бусты
+            const blackholeSkinBtn = document.getElementById('blackholeSkinBtn');
+            const crystalmaniaSkinBtn = document.getElementById('crystalmaniaSkinBtn');
+            const vortexSkinBtn = document.getElementById('vortexSkinBtn');
+            const glitchSkinBtn = document.getElementById('glitchSkinBtn');
+            const oceanSkinBtn = document.getElementById('oceanSkinBtn');
+            const hackerSkinBtn = document.getElementById('hackerSkinBtn');
+            // Boosts
             const multiplierBoostBtn = document.getElementById('multiplierBoostBtn');
             const luckBoostBtn = document.getElementById('luckBoostBtn');
             const autoclickerBoostBtn = document.getElementById('autoclickerBoostBtn');
+            // Backgrounds
+            const defaultBgBtn = document.getElementById('defaultBgBtn');
+            const spaceNebulaBgBtn = document.getElementById('spaceNebulaBgBtn');
+            const matrixBgBtn = document.getElementById('matrixBgBtn');
+            const magicForestBgBtn = document.getElementById('magicForestBgBtn');
+            const liquidWavesBgBtn = document.getElementById('liquidWavesBgBtn');
 
-
-            // Загружаем сохраненные данные
+            // --- Game State ---
             let coins = parseInt(localStorage.getItem('doolcoins')) || 0;
             let crystals = parseInt(localStorage.getItem('crystals')) || 0;
             let currentTheme = localStorage.getItem('theme') || 'dark';
             let currentSkin = localStorage.getItem('skin') || 'default';
             let ownedSkins = JSON.parse(localStorage.getItem('ownedSkins')) || ['default'];
+            let currentBackground = localStorage.getItem('background') || 'default';
+            let ownedBackgrounds = JSON.parse(localStorage.getItem('ownedBackgrounds')) || ['default'];
             let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
 
-
-            // Активные бусты (не сохраняем при перезагрузке)
             let activeBoosts = [];
             let coinMultiplier = 1;
-            let crystalChance = 0.05; // 5% базовый шанс
+            let crystalChance = 0.05; // 5% base chance
             let isAutoclickerActive = false;
             let autoclickerInterval = null;
-            let clickCount = 0; // Для отслеживания автокликера
-            let lastClickTime = 0; // Для отслеживания автокликера
-            let banInterval = null; // Для бана
+            let clickCount = 0;
+            let lastClickTime = 0;
+            let banInterval = null;
+            let fireflyInterval = null;
 
-
-            // PROMO CODES CONFIGURATION
-            // Easily modify promo codes here
             const promoCodes = {
                 "FRESHSTART": { type: "coins", value: 1000, message: "Получено 1000 монет! Добро пожаловать!" },
                 "INEEDMONEY": { type: "coins", value: 50000, message: "Получено 50.000 монет! Удачи!" },
                 "CRYSTALINFECTION": { type: "crystals", value: 25, message: "Получено 25 кристаллов!" },
                 "IAMSUB": { type: "coins", value: 2500, message: "Спасибо за подписку! Получено 2.500 монет!" },
                 "500CRYSTALSECRETCODE": { type: "crystals", value: 500, message: "Найдено! Получено 500 кристаллов!" },
-                "ACTIVATEADMINPANNELCODETRUE": { type: "admin", message: "Админ-панель активирована!" } // Removed 'once: true'
+                "ACTIVATEADMINPANNELCODETRUE": { type: "admin", message: "Админ-панель активирована!" }
             };
-            // END PROMO CODES CONFIGURATION
+            
+            // --- Initialization ---
+            function initializeGame() {
+                applyBackground(currentBackground);
+                if (currentBackground === 'default') {
+                    document.body.className = currentTheme + '-theme';
+                }
+                themeToggle.classList.toggle('active', currentTheme === 'light');
+                applySkin(currentSkin);
+                updateUI();
+                setInterval(updateActiveBoosts, 1000); // Start boost checker
+            }
 
+            // --- Core Functions ---
+            function saveGameData() {
+                localStorage.setItem('doolcoins', coins);
+                localStorage.setItem('crystals', crystals);
+                localStorage.setItem('skin', currentSkin);
+                localStorage.setItem('ownedSkins', JSON.stringify(ownedSkins));
+                localStorage.setItem('background', currentBackground);
+                localStorage.setItem('ownedBackgrounds', JSON.stringify(ownedBackgrounds));
+                localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes));
+            }
 
-            // Применяем сохранённые настройки
-            document.body.className = currentTheme + '-theme';
-            themeToggle.classList.toggle('active', currentTheme === 'light');
-            applySkin(currentSkin);
-            updateSkinButtons(); // Initial call
-            updateBoostButtons();
+            function updateUI() {
+                coinsElement.textContent = coins.toLocaleString();
+                crystalsElement.textContent = crystals.toLocaleString();
+                updateSkinButtons(); 
+                updateBoostButtons();
+                updateBackgroundButtons();
+            }
 
+            function applySkin(skinName) {
+                circle.className = 'circle'; // Reset classes
+                circle.classList.add(skinName + '-skin');
+                currentSkin = skinName;
+                localStorage.setItem('skin', currentSkin);
+                updateSkinButtons();
+            }
 
-            coinsElement.textContent = coins.toLocaleString();
-            crystalsElement.textContent = crystals.toLocaleString();
+            function applyBackground(bgName) {
+                document.body.className = '';
+                if (fireflyInterval) {
+                    clearInterval(fireflyInterval);
+                    document.querySelectorAll('.firefly').forEach(fly => fly.remove());
+                }
 
+                if (bgName === 'default') {
+                    let theme = localStorage.getItem('theme') || 'dark';
+                    document.body.classList.add(theme + '-theme');
+                    themeSwitcher.classList.remove('disabled');
+                } else {
+                    document.body.classList.add(bgName + '-bg');
+                    themeSwitcher.classList.add('disabled');
+                    if (bgName === 'magic-forest') {
+                        fireflyInterval = setInterval(createFirefly, 300);
+                    }
+                }
+
+                currentBackground = bgName;
+                localStorage.setItem('background', currentBackground);
+                updateBackgroundButtons();
+            }
+
+            function createFirefly() {
+                const fly = document.createElement('div');
+                fly.className = 'firefly';
+                const duration = Math.random() * 5 + 5; // 5-10 seconds
+                const delay = Math.random() * 5; // 0-5 seconds
+                fly.style.top = `${Math.random() * 100}%`;
+                fly.style.animationDuration = `${duration}s`;
+                fly.style.animationDelay = `${delay}s`;
+                fly.style.setProperty('--y-end', `${(Math.random() - 0.5) * 20}vh`);
+                document.body.appendChild(fly);
+                setTimeout(() => fly.remove(), (duration + delay) * 1000);
+            }
+
+            // --- Shop & Purchasing Logic ---
+            function updateSkinButtons() {
+                const skins = [
+                    { id: 'default', btn: defaultSkinBtn },
+                    { id: 'premium', btn: premiumSkinBtn, price: 100, currency: 'crystals' },
+                    { id: 'legendary', btn: legendarySkinBtn, price: 500, currency: 'crystals' },
+                    { id: 'blackhole', btn: blackholeSkinBtn, price: 1000, currency: 'crystals' },
+                    { id: 'crystalmania', btn: crystalmaniaSkinBtn, price: 5000, currency: 'coins' },
+                    { id: 'vortex', btn: vortexSkinBtn, price: 10000, currency: 'coins' },
+                    { id: 'glitch', btn: glitchSkinBtn, price: 2500, currency: 'crystals' },
+                    { id: 'ocean', btn: oceanSkinBtn, price: 4000, currency: 'crystals' },
+                    { id: 'hacker', btn: hackerSkinBtn, price: 20000, currency: 'coins' },
+                ];
+                updateItemButtons(skins, ownedSkins, currentSkin, buySkin, applySkin);
+            }
+
+            function updateBackgroundButtons() {
+                const backgrounds = [
+                    { id: 'default', btn: defaultBgBtn },
+                    { id: 'space-nebula', btn: spaceNebulaBgBtn, price: 25000, currency: 'coins' },
+                    { id: 'matrix', btn: matrixBgBtn, price: 1000, currency: 'crystals' },
+                    { id: 'magic-forest', btn: magicForestBgBtn, price: 40000, currency: 'coins' },
+                    { id: 'liquid-waves', btn: liquidWavesBgBtn, price: 2500, currency: 'crystals' },
+                ];
+                updateItemButtons(backgrounds, ownedBackgrounds, currentBackground, buyBackground, applyBackground);
+            }
+            
+            function updateItemButtons(items, ownedItems, currentItem, buyFunction, applyFunction) {
+                items.forEach(item => {
+                    if (!item.btn) return; // Safety check
+                    if (ownedItems.includes(item.id)) {
+                        if (currentItem === item.id) {
+                            item.btn.textContent = 'Выбрано';
+                            item.btn.disabled = true;
+                        } else {
+                            item.btn.textContent = 'Выбрать';
+                            item.btn.disabled = false;
+                            item.btn.onclick = () => { applyFunction(item.id); };
+                        }
+                    } else {
+                        item.btn.textContent = 'Купить';
+                        if (item.currency === 'crystals') {
+                            item.btn.disabled = crystals < item.price;
+                        } else {
+                            item.btn.disabled = coins < item.price;
+                        }
+                        item.btn.onclick = () => { buyFunction(item.id, item.price, item.currency, item.btn); };
+                    }
+                });
+            }
+
+            function buySkin(skinId, price, currency, button) {
+                buyItem(skinId, price, currency, button, ownedSkins, 'skin');
+            }
+
+            function buyBackground(bgId, price, currency, button) {
+                buyItem(bgId, price, currency, button, ownedBackgrounds, 'background');
+            }
+
+            function buyItem(itemId, price, currency, button, ownedItems, itemType) {
+                let canAfford = false;
+                if (currency === 'crystals' && crystals >= price) {
+                    crystals -= price;
+                    canAfford = true;
+                } else if (currency === 'coins' && coins >= price) {
+                    coins -= price;
+                    canAfford = true;
+                }
+
+                if (canAfford) {
+                    ownedItems.push(itemId);
+                    saveGameData();
+                    updateUI(); // This will re-render buttons correctly
+                    const rect = button.getBoundingClientRect();
+                    const currencySymbol = currency === 'crystals' ? '✦' : 'Đ';
+                    createCoinEffect(rect.left + rect.width / 2, rect.top, `-${price}${currencySymbol}`);
+                } else {
+                    alert('Недостаточно средств!');
+                }
+            }
+
+            function updateBoostButtons() {
+                multiplierBoostBtn.disabled = activeBoosts.some(b => b.type === 'multiplier') || coins < 500;
+                multiplierBoostBtn.textContent = activeBoosts.some(b => b.type === 'multiplier') ? 'Активно' : 'Купить';
+                luckBoostBtn.disabled = activeBoosts.some(b => b.type === 'luck') || coins < 300;
+                luckBoostBtn.textContent = activeBoosts.some(b => b.type === 'luck') ? 'Активно' : 'Купить';
+                autoclickerBoostBtn.disabled = activeBoosts.some(b => b.type === 'autoclicker') || coins < 400;
+                autoclickerBoostBtn.textContent = activeBoosts.some(b => b.type === 'autoclicker') ? 'Активно' : 'Купить';
+            }
+
+            // --- Boost Logic ---
+            function activateBoost(type, duration, value, cost, buttonElement) {
+                if (coins < cost) {
+                    alert('Недостаточно монет!');
+                    return;
+                }
+                coins -= cost;
+                saveGameData();
+                updateUI();
+                const rect = buttonElement.getBoundingClientRect();
+                createCoinEffect(rect.left + rect.width / 2, rect.top, `-${cost}Đ`);
+
+                const boost = { type, duration, value, endTime: Date.now() + duration * 1000 };
+                activeBoosts.push(boost);
+
+                if (type === 'multiplier') coinMultiplier *= value;
+                else if (type === 'luck') crystalChance += value;
+                else if (type === 'autoclicker') {
+                    isAutoclickerActive = true;
+                    startAutoclicker();
+                }
+                renderActiveBoosts();
+            }
+
+            function updateActiveBoosts() {
+                const currentTime = Date.now();
+                let changed = false;
+                activeBoosts = activeBoosts.filter(boost => {
+                    if (boost.endTime > currentTime) {
+                        return true;
+                    } else {
+                        changed = true;
+                        if (boost.type === 'multiplier') coinMultiplier /= boost.value;
+                        else if (boost.type === 'luck') crystalChance -= boost.value;
+                        else if (boost.type === 'autoclicker') {
+                            isAutoclickerActive = false;
+                            clearInterval(autoclickerInterval);
+                            autoclickerInterval = null;
+                        }
+                        return false;
+                    }
+                });
+                if (changed) {
+                    renderActiveBoosts();
+                    updateBoostButtons();
+                }
+            }
+
+            function renderActiveBoosts() {
+                boostsContainer.innerHTML = '';
+                activeBoosts.forEach(boost => {
+                    const timeLeft = Math.ceil((boost.endTime - Date.now()) / 1000);
+                    const boostDiv = document.createElement('div');
+                    boostDiv.classList.add('boost-indicator');
+                    let icon = '';
+                    let label = '';
+                    if (boost.type === 'multiplier') { icon = '⚡'; label = `x${boost.value}`; } 
+                    else if (boost.type === 'luck') { icon = '🍀'; label = `+${boost.value * 100}%`; } 
+                    else if (boost.type === 'autoclicker') { icon = '🤖'; label = `Auto`; }
+                    boostDiv.innerHTML = `<span class="boost-icon">${icon}</span> ${label} (${timeLeft}с)`;
+                    boostsContainer.appendChild(boostDiv);
+
+                    const intervalId = `boost_interval_${boost.type}`;
+                    if (window[intervalId]) clearInterval(window[intervalId]);
+                    window[intervalId] = setInterval(() => {
+                        const newTimeLeft = Math.ceil((boost.endTime - Date.now()) / 1000);
+                        if (newTimeLeft <= 0) {
+                            clearInterval(window[intervalId]);
+                            updateActiveBoosts();
+                        } else {
+                            boostDiv.innerHTML = `<span class="boost-icon">${icon}</span> ${label} (${newTimeLeft}с)`;
+                        }
+                    }, 1000);
+                });
+            }
+            
+            // --- Tap Effects & Click Handling ---
+            function handleCircleClick(event) {
+                const clickValue = 1 * coinMultiplier;
+                const circleRect = circle.getBoundingClientRect();
+                const clickX = event.clientX - circleRect.left;
+                const clickY = event.clientY - circleRect.top;
+
+                // Create unique tap effects based on skin
+                let tapEffect;
+                switch (currentSkin) {
+                    case 'ocean':
+                        tapEffect = document.createElement('div');
+                        tapEffect.classList.add('ocean-tap-effect');
+                        tapEffect.style.left = `${clickX - 5}px`;
+                        tapEffect.style.top = `${clickY - 5}px`;
+                        circle.appendChild(tapEffect);
+                        break;
+                    case 'hacker':
+                        for (let i = 0; i < 5; i++) {
+                            tapEffect = document.createElement('div');
+                            tapEffect.classList.add('hacker-tap-effect');
+                            tapEffect.style.left = `${clickX - 5}px`;
+                            tapEffect.style.top = `${clickY - 5}px`;
+                            const angle = Math.random() * Math.PI * 2;
+                            const distance = Math.random() * 80 + 20;
+                            tapEffect.style.setProperty('--spark-x', `${Math.cos(angle) * distance}px`);
+                            tapEffect.style.setProperty('--spark-y', `${Math.sin(angle) * distance}px`);
+                            circle.appendChild(tapEffect);
+                            setTimeout(() => tapEffect.remove(), 1000);
+                        }
+                        break;
+                    case 'legendary':
+                        for (let i = 0; i < 7; i++) {
+                            const spark = document.createElement('div');
+                            spark.classList.add('legendary-tap-effect');
+                            spark.style.left = `${clickX - 4}px`;
+                            spark.style.top = `${clickY - 4}px`;
+                            const angle = Math.random() * Math.PI * 2;
+                            const distance = Math.random() * 100 + 40;
+                            spark.style.setProperty('--spark-x', `${Math.cos(angle) * distance}px`);
+                            spark.style.setProperty('--spark-y', `${Math.sin(angle) * distance}px`);
+                            circle.appendChild(spark);
+                            setTimeout(() => spark.remove(), 800);
+                        }
+                        break;
+                    case 'blackhole':
+                         tapEffect = document.createElement('div');
+                         tapEffect.classList.add('blackhole-tap-effect');
+                         tapEffect.style.left = `${clickX}px`;
+                         tapEffect.style.top = `${clickY}px`;
+                         circle.appendChild(tapEffect);
+                         break;
+                    case 'crystalmania':
+                        for (let i = 0; i < 6; i++) {
+                            const shard = document.createElement('div');
+                            shard.classList.add('crystalmania-tap-effect');
+                            shard.style.left = `${clickX - 7.5}px`;
+                            shard.style.top = `${clickY - 7.5}px`;
+                            shard.style.borderColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                            shard.style.setProperty('--rot-end', `${(Math.random() - 0.5) * 720}deg`);
+                            circle.appendChild(shard);
+                            setTimeout(()=> shard.remove(), 700);
+                        }
+                        break;
+                    case 'vortex':
+                         tapEffect = document.createElement('div');
+                         tapEffect.classList.add('vortex-tap-effect');
+                         tapEffect.style.left = `${clickX - 5}px`;
+                         tapEffect.style.top = `${clickY - 5}px`;
+                         circle.appendChild(tapEffect);
+                         break;
+                    case 'glitch':
+                        ['a', 'b', 'c'].forEach(cls => {
+                            const bar = document.createElement('div');
+                            bar.classList.add('glitch-tap-effect', cls);
+                            bar.style.left = `${clickX - 40}px`;
+                            bar.style.top = `${clickY - 5 + (Math.random() - 0.5) * 30}px`;
+                            circle.appendChild(bar);
+                            setTimeout(() => bar.remove(), 400);
+                        });
+                        break;
+                    default: // For 'default', 'premium' and any other skin
+                        tapEffect = document.createElement('div');
+                        tapEffect.classList.add('tap-effect');
+                        tapEffect.style.setProperty('--tap-x', `${clickX}px`);
+                        tapEffect.style.setProperty('--tap-y', `${clickY}px`);
+                        circle.appendChild(tapEffect);
+                        break;
+                }
+
+                if (tapEffect && tapEffect.parentNode) {
+                     tapEffect.addEventListener('animationend', () => tapEffect.remove());
+                }
+
+                coins += clickValue;
+                createCoinEffect(event.clientX, event.clientY, `+${clickValue}Đ`);
+
+                if (Math.random() < crystalChance) {
+                    crystals++;
+                    createCrystalEffect(event.clientX, event.clientY, '+1✦');
+                }
+
+                saveGameData();
+                updateUI();
+                checkAutoclicker(event.timeStamp);
+            }
+            
+            function checkAutoclicker(currentTime) {
+                if (currentTime - lastClickTime < 50) { 
+                    clickCount++;
+                    if (clickCount >= 10 && !banScreen.style.display.includes('flex')) { 
+                        showWarning();
+                        if (clickCount >= 20) { 
+                            showBanScreen();
+                        }
+                    }
+                } else {
+                    clickCount = 0; 
+                }
+                lastClickTime = currentTime;
+            }
+
+            function startAutoclicker() {
+                if (autoclickerInterval) clearInterval(autoclickerInterval);
+                autoclickerInterval = setInterval(() => {
+                    if (isAutoclickerActive) {
+                        const circleRect = circle.getBoundingClientRect();
+                        const centerX = circleRect.left + circleRect.width / 2;
+                        const centerY = circleRect.top + circleRect.height / 2;
+
+                        coins += (1 * coinMultiplier);
+                        if (Math.random() < crystalChance) {
+                            crystals++;
+                            createCrystalEffect(centerX, centerY, '+1✦');
+                        }
+                        createCoinEffect(centerX, centerY, `+${1 * coinMultiplier}Đ`);
+                        saveGameData();
+                        updateUI();
+                    }
+                }, 1000);
+            }
+
+            // --- UI Effects ---
+            function createCoinEffect(x, y, text) {
+                const effect = document.createElement('div');
+                effect.classList.add('coin-effect');
+                effect.textContent = text;
+                effect.style.left = `${x}px`;
+                effect.style.top = `${y}px`;
+                document.body.appendChild(effect);
+                effect.addEventListener('animationend', () => effect.remove());
+            }
+            function createCrystalEffect(x, y, text) {
+                const effect = document.createElement('div');
+                effect.classList.add('crystal-effect');
+                effect.textContent = text;
+                effect.style.left = `${x}px`;
+                effect.style.top = `${y}px`;
+                document.body.appendChild(effect);
+                effect.addEventListener('animationend', () => effect.remove());
+            }
+            function showWarning() {
+                warning.style.display = 'block';
+                clearTimeout(warning.timeout);
+                warning.timeout = setTimeout(() => {
+                    warning.style.display = 'none';
+                }, 2000);
+            }
+            function showBanScreen() {
+                banScreen.style.display = 'flex';
+                coins = Math.floor(coins / 2);
+                saveGameData();
+                updateUI();
+                let timeLeft = 60;
+                banTimer.textContent = timeLeft;
+                circle.removeEventListener('click', handleCircleClick);
+                clearInterval(banInterval);
+                banInterval = setInterval(() => {
+                    timeLeft--;
+                    banTimer.textContent = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(banInterval);
+                        banScreen.style.display = 'none';
+                        circle.addEventListener('click', handleCircleClick);
+                        clickCount = 0;
+                    }
+                }, 1000);
+            }
+            
+            // --- Event Listeners ---
+            circle.addEventListener('click', handleCircleClick);
+            shopBtn.addEventListener('click', () => { shop.style.display = 'block'; updateUI(); });
+            closeShop.addEventListener('click', () => { shop.style.display = 'none'; });
+            exchangeBtn.addEventListener('click', () => { exchangeModal.style.display = 'block'; });
+            closeExchange.addEventListener('click', () => { exchangeModal.style.display = 'none'; });
+            exchangeCancel.addEventListener('click', () => { exchangeModal.style.display = 'none'; });
+            promocodeBtn.addEventListener('click', () => { promocodeModal.style.display = 'block'; });
+            closePromocode.addEventListener('click', () => { promocodeModal.style.display = 'none'; promocodeMessage.textContent = ''; });
+            closeAdminPanel.addEventListener('click', () => { adminPanel.style.display = 'none'; });
 
             themeToggle.addEventListener('click', function() {
-                const isActive = this.classList.contains('active');
-                const newTheme = isActive ? 'dark' : 'light';
+                if (themeSwitcher.classList.contains('disabled')) return;
+                const newTheme = this.classList.toggle('active') ? 'light' : 'dark';
+                applyBackground('default'); // Switch back to default background to change theme
                 document.body.className = newTheme + '-theme';
-                this.classList.toggle('active');
                 localStorage.setItem('theme', newTheme);
+                localStorage.setItem('background', 'default');
+                updateUI();
             });
-
 
             shopTabs.forEach(tab => {
                 tab.addEventListener('click', function() {
                     const tabName = this.getAttribute('data-tab');
                     shopTabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
-                    skinsTab.style.display = 'none';
-                    boostsTab.style.display = 'none';
-                    if (tabName === 'skins') {
-                        skinsTab.style.display = 'block';
-                        updateSkinButtons(); // Update skin buttons when skins tab is opened
-                    } else if (tabName === 'boosts') {
-                        boostsTab.style.display = 'block';
-                        updateBoostButtons();
-                    }
+                    [skinsTab, boostsTab, backgroundsTab].forEach(t => t.style.display = 'none');
+                    document.getElementById(`${tabName}Tab`).style.display = 'block';
+                    updateUI();
                 });
             });
-
-
-            shopBtn.addEventListener('click', function() {
-                shop.style.display = 'block';
-                updateSkinButtons(); // Update skin buttons when shop is opened
-                updateBoostButtons();
-            });
-
-
-            closeShop.addEventListener('click', function() {
-                shop.style.display = 'none';
-            });
-
-
-            exchangeBtn.addEventListener('click', function() {
-                exchangeModal.style.display = 'block';
-            });
-
-
-            closeExchange.addEventListener('click', function() {
-                exchangeModal.style.display = 'none';
-            });
-
-
-            exchangeCancel.addEventListener('click', function() {
-                exchangeModal.style.display = 'none';
-            });
-
 
             exchangeInput.addEventListener('input', function() {
                 const value = parseInt(this.value);
                 exchangeSubmit.disabled = isNaN(value) || value <= 0 || value > crystals;
             });
-
 
             exchangeSubmit.addEventListener('click', function() {
                 const amountToExchange = parseInt(exchangeInput.value);
@@ -1498,628 +1798,72 @@
                 }
             });
 
-
-            // Promocode logic (within modal)
-            promocodeBtn.addEventListener('click', function() {
-                promocodeModal.style.display = 'block';
-            });
-
-
-            closePromocode.addEventListener('click', function() {
-                promocodeModal.style.display = 'none';
-                promocodeMessage.textContent = ''; // Clear message on close
-            });
-
-
             activatePromocodeBtn.addEventListener('click', function() {
                 const code = promocodeInput.value.trim().toUpperCase();
-                promocodeInput.value = ''; // Clear input field
-
+                promocodeInput.value = '';
 
                 if (promoCodes[code]) {
                     const promo = promoCodes[code];
-                    // Check 'once' property only if it exists in promo object
-                    if (promo.once && usedPromoCodes.includes(code)) {
-                        showPromocodeMessage('Промокод уже был использован.', 'red');
+                    
+                    // MODIFIED: Allow infinite use for the admin panel code
+                    if (code === "ACTIVATEADMINPANNELCODETRUE") {
+                        adminPanel.style.display = 'block';
+                        promocodeMessage.textContent = promo.message;
+                        promocodeMessage.style.color = 'lightgreen';
+                        return; // Exit early, do not check used codes or save it
+                    }
+
+                    if (usedPromoCodes.includes(code)) {
+                        promocodeMessage.textContent = 'Промокод уже был использован.';
+                        promocodeMessage.style.color = 'red';
                     } else {
-                        if (promo.type === 'coins') {
-                            coins += promo.value;
-                            // Анимация эффекта монет будет от центра круга, так как промокод не связан с кликом
-                            const circleRect = circle.getBoundingClientRect();
-                            createCoinEffect(circleRect.left + circleRect.width / 2, circleRect.top + circleRect.height / 2, `+${promo.value}Đ`);
-                        } else if (promo.type === 'crystals') {
-                            crystals += promo.value;
-                            // Анимация эффекта кристаллов будет от центра круга
-                            const circleRect = circle.getBoundingClientRect();
-                            createCrystalEffect(circleRect.left + circleRect.width / 2, circleRect.top + circleRect.height / 2, `+${promo.value}✦`);
-                        } else if (promo.type === 'admin') {
-                            promocodeModal.style.display = 'none'; // Close promo modal
-                            adminPanel.style.display = 'block'; // Open admin panel
-                        }
-                        // Only add to usedPromoCodes if 'once' property is true
-                        if (promo.once) {
-                            usedPromoCodes.push(code);
-                        }
-                        saveGameData();
-                        updateUI();
-                        showPromocodeMessage(promo.message, 'green');
-                    }
-                } else {
-                    showPromocodeMessage('Неверный промокод.', 'red');
-                }
-            });
-
-
-            function showPromocodeMessage(message, color) {
-                promocodeMessage.textContent = message;
-                promocodeMessage.style.color = color;
-                // Не используем setTimeout здесь, чтобы сообщение оставалось, пока модалка открыта
-                // Или можно сделать setTimeout, но дольше, чтобы пользователь успел прочитать
-                // setTimeout(() => {
-                //     promocodeMessage.textContent = '';
-                // }, 3000);
-            }
-
-            // Admin Panel Logic
-            closeAdminPanel.addEventListener('click', () => {
-                adminPanel.style.display = 'none';
-            });
-
-            // Draggable Admin Panel Logic
-            let isDragging = false;
-            let offsetX, offsetY;
-
-            adminPanelHeader.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                offsetX = e.clientX - adminPanel.getBoundingClientRect().left;
-                offsetY = e.clientY - adminPanel.getBoundingClientRect().top;
-                adminPanel.style.cursor = 'grabbing';
-            });
-
-            adminPanelHeader.addEventListener('touchstart', (e) => {
-                isDragging = true;
-                const touch = e.touches[0];
-                offsetX = touch.clientX - adminPanel.getBoundingClientRect().left;
-                offsetY = touch.clientY - adminPanel.getBoundingClientRect().top;
-                adminPanel.style.cursor = 'grabbing';
-                e.preventDefault(); // Prevent scrolling while dragging
-            }, { passive: false }); // Set passive to false for preventDefault
-
-            document.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                adminPanel.style.left = `${e.clientX - offsetX}px`;
-                adminPanel.style.top = `${e.clientY - offsetY}px`;
-                adminPanel.style.transform = 'none'; // Disable translate(-50%, -50%)
-            });
-
-            document.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                const touch = e.touches[0];
-                adminPanel.style.left = `${touch.clientX - offsetX}px`;
-                adminPanel.style.top = `${touch.clientY - offsetY}px`;
-                adminPanel.style.transform = 'none'; // Disable translate(-50%, -50%)
-            });
-
-
-            document.addEventListener('mouseup', () => {
-                isDragging = false;
-                adminPanel.style.cursor = 'grab';
-            });
-
-            document.addEventListener('touchend', () => {
-                isDragging = false;
-                adminPanel.style.cursor = 'grab';
-            });
-
-            setCoinsBtn.addEventListener('click', () => {
-                const value = parseInt(adminCoinsInput.value);
-                if (!isNaN(value) && value >= 0) {
-                    coins = value;
-                    saveGameData();
-                    updateUI();
-                    alert(`Монеты установлены на ${value.toLocaleString()}!`);
-                } else {
-                    alert('Введите корректное число для монет.');
-                }
-                adminCoinsInput.value = '';
-            });
-
-            addCoinsBtn.addEventListener('click', () => {
-                const value = parseInt(adminCoinsInput.value);
-                if (!isNaN(value) && value >= 0) {
-                    coins += value;
-                    saveGameData();
-                    updateUI();
-                    alert(`Добавлено ${value.toLocaleString()} монет!`);
-                } else {
-                    alert('Введите корректное число для монет.');
-                }
-                adminCoinsInput.value = '';
-            });
-
-            setCrystalsBtn.addEventListener('click', () => {
-                const value = parseInt(adminCrystalsInput.value);
-                if (!isNaN(value) && value >= 0) {
-                    crystals = value;
-                    saveGameData();
-                    updateUI();
-                    alert(`Кристаллы установлены на ${value.toLocaleString()}!`);
-                } else {
-                    alert('Введите корректное число для кристаллов.');
-                }
-                adminCrystalsInput.value = '';
-            });
-
-            addCrystalsBtn.addEventListener('click', () => {
-                const value = parseInt(adminCrystalsInput.value);
-                if (!isNaN(value) && value >= 0) {
-                    crystals += value;
-                    saveGameData();
-                    updateUI();
-                    alert(`Добавлено ${value.toLocaleString()} кристаллов!`);
-                } else {
-                    alert('Введите корректное число для кристаллов.');
-                }
-                adminCrystalsInput.value = '';
-            });
-
-
-            function saveGameData() {
-                localStorage.setItem('doolcoins', coins);
-                localStorage.setItem('crystals', crystals);
-                localStorage.setItem('skin', currentSkin);
-                localStorage.setItem('ownedSkins', JSON.stringify(ownedSkins));
-                localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes));
-            }
-
-
-            function updateUI() {
-                coinsElement.textContent = coins.toLocaleString();
-                crystalsElement.textContent = crystals.toLocaleString();
-                updateSkinButtons(); // Ensure skin buttons are updated after any UI change that might affect prices/ownership
-                updateBoostButtons();
-            }
-
-
-            function applySkin(skinName) {
-                circle.classList.remove('default-skin', 'premium-skin', 'legendary-skin', 'blackhole-skin', 'crystalmania-skin', 'vortex-skin', 'glitch-skin');
-                circle.classList.add(skinName + '-skin');
-                currentSkin = skinName;
-                localStorage.setItem('skin', currentSkin);
-                updateSkinButtons(); // Update skin buttons after applying a new skin
-            }
-
-
-            function updateSkinButtons() {
-                const skins = [
-                    { id: 'default', btn: defaultSkinBtn, price: 0, currency: 'coins' },
-                    { id: 'premium', btn: premiumSkinBtn, price: 100, currency: 'crystals' },
-                    { id: 'legendary', btn: legendarySkinBtn, price: 500, currency: 'crystals' },
-                    { id: 'blackhole', btn: blackholeSkinBtn, price: 1000, currency: 'crystals' }, // Price changed
-                    { id: 'crystalmania', btn: crystalmaniaSkinBtn, price: 5000, currency: 'coins' },
-                    { id: 'vortex', btn: vortexSkinBtn, price: 1000, currency: 'coins' }, // NEW
-                    { id: 'glitch', btn: glitchSkinBtn, price: 2500, currency: 'crystals' } // NEW
-                ];
-
-                skins.forEach(skin => {
-                    if (ownedSkins.includes(skin.id)) {
-                        if (currentSkin === skin.id) {
-                            skin.btn.textContent = 'Выбрано';
-                            skin.btn.disabled = true;
-                        } else {
-                            skin.btn.textContent = 'Выбрать';
-                            skin.btn.disabled = false;
-                            skin.btn.onclick = () => { applySkin(skin.id); };
-                        }
-                    } else {
-                        skin.btn.textContent = 'Купить';
-                        if (skin.currency === 'crystals') {
-                            skin.btn.disabled = crystals < skin.price;
-                        } else if (skin.currency === 'coins') {
-                            skin.btn.disabled = coins < skin.price;
-                        }
-                        skin.btn.onclick = () => { buySkin(skin.id, skin.price, skin.currency, skin.btn); };
-                    }
-                });
-            }
-
-
-            function buySkin(skinId, price, currency, button) {
-                let canAfford = false;
-                let currencyText = '';
-
-                if (currency === 'crystals') {
-                    if (crystals >= price) {
-                        crystals -= price;
-                        canAfford = true;
-                        currencyText = '✦';
-                    }
-                } else if (currency === 'coins') {
-                    if (coins >= price) {
-                        coins -= price;
-                        canAfford = true;
-                        currencyText = 'Đ';
-                    }
-                }
-
-                if (canAfford) {
-                    ownedSkins.push(skinId);
-                    saveGameData();
-                    updateUI();
-                    const rect = button.getBoundingClientRect();
-                    createCoinEffect(rect.left + rect.width / 2, rect.top, `-${price}${currencyText}`);
-                } else {
-                    alert('Недостаточно средств!');
-                }
-            }
-
-
-            function updateBoostButtons() {
-                // Disable multiplier button if multiplier boost is active or not enough coins
-                multiplierBoostBtn.disabled = activeBoosts.some(b => b.type === 'multiplier') || coins < 500;
-                multiplierBoostBtn.textContent = activeBoosts.some(b => b.type === 'multiplier') ? 'Активно' : 'Купить';
-                
-                // Disable luck button if luck boost is active or not enough coins
-                luckBoostBtn.disabled = activeBoosts.some(b => b.type === 'luck') || coins < 300;
-                luckBoostBtn.textContent = activeBoosts.some(b => b.type === 'luck') ? 'Активно' : 'Купить';
-                
-                // Disable autoclicker button if autoclicker boost is active or not enough coins
-                autoclickerBoostBtn.disabled = activeBoosts.some(b => b.type === 'autoclicker') || coins < 400;
-                autoclickerBoostBtn.textContent = activeBoosts.some(b => b.type === 'autoclicker') ? 'Активно' : 'Купить';
-            }
-
-
-            function activateBoost(type, duration, value, cost, buttonElement) {
-                // Check if boost is already active or not enough coins before proceeding
-                if (activeBoosts.some(b => b.type === type)) {
-                    // console.log(`Boost type ${type} is already active.`); // For debugging
-                    return; // Prevent activation if already active
-                }
-                if (coins < cost) {
-                    alert('Недостаточно монет!');
-                    return;
-                }
-
-                // Immediately disable the button to prevent rapid multiple purchases
-                buttonElement.disabled = true;
-
-                coins -= cost;
-                saveGameData();
-                updateUI(); // Update UI to reflect disabled button and new coin count
-                const rect = buttonElement.getBoundingClientRect();
-                createCoinEffect(rect.left + rect.width / 2, rect.top, `-${cost}Đ`);
-
-
-                const boost = { type, duration, value, endTime: Date.now() + duration * 1000 };
-                activeBoosts.push(boost);
-
-
-                if (type === 'multiplier') {
-                    coinMultiplier *= value;
-                } else if (type === 'luck') {
-                    crystalChance += value;
-                } else if (type === 'autoclicker') {
-                    isAutoclickerActive = true;
-                    startAutoclicker();
-                }
-                renderActiveBoosts();
-                updateBoostButtons(); // Crucially, update buttons after adding the boost to activeBoosts
-            }
-
-
-            multiplierBoostBtn.addEventListener('click', function() {
-                activateBoost('multiplier', 60, 2, 500, this);
-            });
-
-
-            luckBoostBtn.addEventListener('click', function() {
-                activateBoost('luck', 30, 0.30, 300, this); // +30% шанс
-            });
-
-
-            autoclickerBoostBtn.addEventListener('click', function() {
-                activateBoost('autoclicker', 30, 1, 400, this); // 1 клик в секунду
-            });
-
-
-            function updateActiveBoosts() {
-                const currentTime = Date.now();
-                let boostsChanged = false; // Flag to check if any boost expired
-                activeBoosts = activeBoosts.filter(boost => {
-                    if (boost.endTime > currentTime) {
-                        return true;
-                    } else {
-                        // Deactivate boost
-                        if (boost.type === 'multiplier') {
-                            coinMultiplier /= boost.value;
-                        } else if (boost.type === 'luck') {
-                            crystalChance -= boost.value;
-                        } else if (boost.type === 'autoclicker') {
-                            isAutoclickerActive = false;
-                            clearInterval(autoclickerInterval);
-                            autoclickerInterval = null;
-                        }
-                        boostsChanged = true; // Mark that a boost has expired
-                        return false;
-                    }
-                });
-                renderActiveBoosts();
-                if (boostsChanged) {
-                    updateBoostButtons(); // Only update boost buttons if something expired
-                }
-            }
-
-
-            function renderActiveBoosts() {
-                boostsContainer.innerHTML = '';
-                activeBoosts.forEach(boost => {
-                    const timeLeft = Math.ceil((boost.endTime - Date.now()) / 1000);
-                    const boostDiv = document.createElement('div');
-                    boostDiv.classList.add('boost-indicator');
-                    let icon = '';
-                    let label = '';
-                    if (boost.type === 'multiplier') {
-                        icon = '⚡';
-                        label = `x${boost.value}`;
-                    } else if (boost.type === 'luck') {
-                        icon = '🍀';
-                        label = `+${boost.value * 100}%`;
-                    } else if (boost.type === 'autoclicker') {
-                        icon = '🤖';
-                        label = `Auto`;
-                    }
-                    boostDiv.innerHTML = `<span class="boost-icon">${icon}</span> ${label} (${timeLeft}с)`;
-                    boostsContainer.appendChild(boostDiv);
-
-
-                    // Update timer every second
-                    const interval = setInterval(() => {
-                        const newTimeLeft = Math.ceil((boost.endTime - Date.now()) / 1000);
-                        if (newTimeLeft <= 0) {
-                            clearInterval(interval);
-                            updateActiveBoosts(); // Re-render to remove expired boost
-                        } else {
-                            boostDiv.innerHTML = `<span class="boost-icon">${icon}</span> ${label} (${newTimeLeft}с)`;
-                        }
-                    }, 1000);
-                });
-            }
-
-
-            // Update boosts every second
-            setInterval(updateActiveBoosts, 1000);
-
-
-            function createCoinEffect(x, y, text) {
-                const coinEffect = document.createElement('div');
-                coinEffect.classList.add('coin-effect');
-                coinEffect.textContent = text;
-                // Position relative to the viewport
-                coinEffect.style.left = `${x}px`;
-                coinEffect.style.top = `${y}px`;
-                document.body.appendChild(coinEffect);
-
-
-                coinEffect.addEventListener('animationend', () => {
-                    coinEffect.remove();
-                });
-            }
-
-
-            function createCrystalEffect(x, y, text) {
-                const crystalEffect = document.createElement('div');
-                crystalEffect.classList.add('crystal-effect');
-                crystalEffect.textContent = text;
-                crystalEffect.style.left = `${x}px`;
-                crystalEffect.style.top = `${y}px`;
-                document.body.appendChild(crystalEffect);
-
-
-                crystalEffect.addEventListener('animationend', () => {
-                    crystalEffect.remove();
-                });
-            }
-
-
-            function handleCircleClick(event) {
-                // Determine click value
-                let clickValue = 1 * coinMultiplier;
-
-                // Get click position relative to the circle element
-                const circleRect = circle.getBoundingClientRect();
-                const clickX = event.clientX - circleRect.left;
-                const clickY = event.clientY - circleRect.top;
-
-                // Add tap effect based on current skin
-                let tapEffect;
-                if (currentSkin === 'premium') {
-                    tapEffect = document.createElement('div');
-                    tapEffect.classList.add('premium-tap-effect');
-
-                    const hexagonEffect = document.createElement('div');
-                    hexagonEffect.classList.add('premium-star-effect'); // Reusing the class name but its hexagon now
-                    hexagonEffect.style.left = `${clickX - 25}px`; // Center the hexagon
-                    hexagonEffect.style.top = `${clickY - 25}px`;
-                    circle.appendChild(hexagonEffect);
-                    hexagonEffect.addEventListener('animationend', () => hexagonEffect.remove());
-
-                } else if (currentSkin === 'legendary') {
-                    tapEffect = document.createElement('div');
-                    tapEffect.classList.add('legendary-tap-effect');
-                    for (let i = 0; i < 5; i++) {
-                        const spark = document.createElement('div');
-                        spark.classList.add('legendary-spark-effect');
-                        // Random position around the click
-                        const offsetX = (Math.random() - 0.5) * 100;
-                        const offsetY = (Math.random() - 0.5) * 100;
-                        spark.style.left = `${clickX + offsetX}px`;
-                        spark.style.top = `${clickY + offsetY}px`;
-                        spark.style.setProperty('--spark-x', Math.random());
-                        spark.style.setProperty('--spark-y', Math.random());
-                        circle.appendChild(spark);
-                        spark.addEventListener('animationend', () => spark.remove());
-                    }
-                } else if (currentSkin === 'blackhole') {
-                    tapEffect = document.createElement('div');
-                    tapEffect.classList.add('blackhole-tap-effect');
-                } else if (currentSkin === 'crystalmania') { // Changed from plasma
-                    tapEffect = document.createElement('div');
-                    tapEffect.classList.add('crystalmania-tap-effect');
-                } else if (currentSkin === 'vortex') { // NEW
-                    tapEffect = document.createElement('div');
-                    tapEffect.classList.add('vortex-tap-effect');
-                } else if (currentSkin === 'glitch') { // NEW
-                    tapEffect = document.createElement('div');
-                    tapEffect.classList.add('glitch-tap-effect');
-                    // For RGB split, create multiple elements or use filter
-                    // For simplicity, we will create 3 layers for RGB split
-                    const colors = ['red', 'green', 'blue'];
-                    colors.forEach((color, index) => {
-                        const glitchLayer = document.createElement('div');
-                        glitchLayer.classList.add('glitch-layer');
-                        glitchLayer.style.background = color;
-                        glitchLayer.style.mixBlendMode = 'screen'; // Blend modes
-                        // glitchLayer.style.position = 'absolute'; // Already set by glitch-layer class
-                        // glitchLayer.style.width = '100%'; // Already set by glitch-layer class
-                        // glitchLayer.style.height = '100%'; // Already set by glitch-layer class
-                        // glitchLayer.style.borderRadius = '50%'; // Already set by glitch-layer class
-                        // glitchLayer.style.opacity = '0.5'; // Already set by glitch-layer class
-
-                        // Random offset for each color channel
-                        const offsetX = (Math.random() - 0.5) * 20; // Max 10px offset
-                        const offsetY = (Math.random() - 0.5) * 20; // Max 10px offset
-                        glitchLayer.style.setProperty('--tap-x-offset', `${offsetX}px`);
-                        glitchLayer.style.setProperty('--tap-y-offset', `${offsetY}px`);
-                        glitchLayer.style.setProperty('--tap-x', `${clickX}px`); // Needed for transform-origin
-                        glitchLayer.style.setProperty('--tap-y', `${clickY}px`); // Needed for transform-origin
-
-
-                        glitchLayer.style.animation = `glitch-tap-animation 0.6s forwards ${index * 0.05}s`; // Staggered animation
+                        if (promo.type === 'coins') coins += promo.value;
+                        else if (promo.type === 'crystals') crystals += promo.value;
                         
-                        circle.appendChild(glitchLayer);
-                        glitchLayer.addEventListener('animationend', () => glitchLayer.remove());
-                    });
-                }
-                else {
-                    tapEffect = document.createElement('div');
-                    tapEffect.classList.add('tap-effect');
-                }
-                
-                // Only append if it's a generic tap effect or specific ones that don't generate layers
-                if (tapEffect && !tapEffect.classList.contains('glitch-tap-effect')) {
-                    // Set custom properties for positioning tap effects
-                    tapEffect.style.setProperty('--tap-x', `${clickX}px`);
-                    tapEffect.style.setProperty('--tap-y', `${clickY}px`);
-                    circle.appendChild(tapEffect);
-                    tapEffect.addEventListener('animationend', () => tapEffect.remove());
-                }
-
-
-                // Update coins
-                coins += clickValue;
-                createCoinEffect(event.clientX, event.clientY, `+${clickValue}Đ`);
-
-
-                // Chance to get crystal
-                if (Math.random() < crystalChance) {
-                    crystals++;
-                    createCrystalEffect(event.clientX, event.clientY, '+1✦');
-                }
-
-
-                saveGameData();
-                updateUI();
-
-
-                // Autoclicker detection
-                const currentTime = Date.now();
-                if (currentTime - lastClickTime < 50) { // If clicks are less than 50ms apart
-                    clickCount++;
-                    if (clickCount >= 10 && !banScreen.style.display.includes('flex')) { // 10 rapid clicks
-                        showWarning();
-                        if (clickCount >= 20) { // 20 rapid clicks
-                            showBanScreen();
-                        }
-                    }
-                } else {
-                    clickCount = 0; // Reset if clicks are not rapid
-                }
-                lastClickTime = currentTime;
-            }
-
-
-            circle.addEventListener('click', handleCircleClick);
-
-
-            function startAutoclicker() {
-                if (autoclickerInterval) {
-                    clearInterval(autoclickerInterval);
-                }
-                autoclickerInterval = setInterval(() => {
-                    if (isAutoclickerActive) {
-                        // Simulate a click at the center of the circle for autoclicker
-                        const circleRect = circle.getBoundingClientRect();
-                        const centerX = circleRect.left + circleRect.width / 2;
-                        const centerY = circleRect.top + circleRect.height / 2;
-
-
-                        coins += (1 * coinMultiplier); // Autoclicker gives 1 click worth of coins
-                        if (Math.random() < crystalChance) {
-                            crystals++;
-                            createCrystalEffect(centerX, centerY, '+1✦');
-                        }
-                        createCoinEffect(centerX, centerY, `+${1 * coinMultiplier}Đ`);
+                        usedPromoCodes.push(code);
                         saveGameData();
                         updateUI();
+                        promocodeMessage.textContent = promo.message;
+                        promocodeMessage.style.color = 'lightgreen';
                     }
-                }, 1000); // 1 click per second
-            }
-
-
-            function showWarning() {
-                warning.style.display = 'block';
-                clearTimeout(warning.timeout);
-                warning.timeout = setTimeout(() => {
-                    warning.style.display = 'none';
-                }, 2000);
-            }
-
-
-            function hideWarning() {
-                warning.style.display = 'none';
-                clearTimeout(warning.timeout);
-            }
-
-
-            function showBanScreen() {
-                banScreen.style.display = 'flex';
-                coins = Math.floor(coins / 2);
-                saveGameData();
-                updateUI();
-                
-                let timeLeft = 60;
-                banTimer.textContent = timeLeft;
-                
-                if (autoclickerInterval) {
-                    clearInterval(autoclickerInterval);
-                    autoclickerInterval = null;
+                } else {
+                    promocodeMessage.textContent = 'Неверный промокод.';
+                    promocodeMessage.style.color = 'red';
                 }
-                circle.removeEventListener('click', handleCircleClick);
+            });
 
 
-                clearInterval(banInterval);
-                banInterval = setInterval(() => {
-                    timeLeft--;
-                    banTimer.textContent = timeLeft;
-                    if (timeLeft <= 0) {
-                        clearInterval(banInterval);
-                        banScreen.style.display = 'none';
-                        circle.addEventListener('click', handleCircleClick);
-                        clickCount = 0;
-                    }
-                }, 1000);
-            }
-            updateUI();
+            // Boost button listeners
+            multiplierBoostBtn.addEventListener('click', function() { activateBoost('multiplier', 60, 2, 500, this); });
+            luckBoostBtn.addEventListener('click', function() { activateBoost('luck', 30, 0.30, 300, this); });
+            autoclickerBoostBtn.addEventListener('click', function() { activateBoost('autoclicker', 30, 1, 400, this); });
+            
+            // Admin Panel Listeners
+            setCoinsBtn.addEventListener('click', () => { coins = parseInt(adminCoinsInput.value) || coins; saveGameData(); updateUI(); });
+            addCoinsBtn.addEventListener('click', () => { coins += parseInt(adminCoinsInput.value) || 0; saveGameData(); updateUI(); });
+            setCrystalsBtn.addEventListener('click', () => { crystals = parseInt(adminCrystalsInput.value) || crystals; saveGameData(); updateUI(); });
+            addCrystalsBtn.addEventListener('click', () => { crystals += parseInt(adminCrystalsInput.value) || 0; saveGameData(); updateUI(); });
+
+            // Make Admin Panel Draggable
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            adminPanelHeader.onmousedown = (e) => {
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = () => { document.onmouseup = null; document.onmousemove = null; };
+                document.onmousemove = (e) => {
+                    e.preventDefault();
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    adminPanel.style.top = (adminPanel.offsetTop - pos2) + "px";
+                    adminPanel.style.left = (adminPanel.offsetLeft - pos1) + "px";
+                };
+            };
+            
+            // --- INITIALIZE ---
+            initializeGame();
         });
     </script>
 </body>
