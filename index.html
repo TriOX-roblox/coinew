@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Doolcoin</title>
     <style>
         * {
@@ -278,19 +278,9 @@
             box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7), inset 0 0 40px black;
             animation: blackhole-pulse 5s infinite ease-in-out;
         }
-        .circle.blackhole-skin::before {
-             content: '';
-             position: absolute;
-             width: 110%; height: 110%;
-             background: conic-gradient(from 0deg, transparent 0%, transparent 70%, #9400D3, #4B0082, transparent 100%);
-             animation: blackhole-rotate 8s linear infinite;
-        }
         @keyframes blackhole-pulse {
              0%, 100% { transform: scale(1); box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7); }
              50% { transform: scale(0.98); box-shadow: 0 0 40px 15px rgba(120, 40, 220, 0.7); }
-        }
-        @keyframes blackhole-rotate {
-            from { transform: translate(-5%, -5%) rotate(0deg); } to { transform: translate(-5%, -5%) rotate(360deg); }
         }
 
         .circle.crystalmania-skin {
@@ -1069,14 +1059,14 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Стандартный</div>
-                        <div class="item-desc">Классический разноцветный круг</div>
+                        <div class="item-desc">Пульсирующий радужный градиент</div>
                     </div>
                     <button class="buy-btn" id="defaultSkinBtn" disabled>Выбрано</button>
                 </div>
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Премиум</div>
-                        <div class="item-desc">Голубой градиент с эффектом шестигранников</div>
+                        <div class="item-desc">Сияющий голубой шар с узором шестигранников</div>
                     </div>
                     <div class="item-price">100 <span class="crystal-icon">✦</span></div>
                     <button class="buy-btn" id="premiumSkinBtn">Купить</button>
@@ -1084,7 +1074,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Легендарный</div>
-                        <div class="item-desc">Золотисто-огненный с эффектом частиц</div>
+                        <div class="item-desc">Огненный градиент с летящими искрами</div>
                     </div>
                     <div class="item-price">500 <span class="crystal-icon">✦</span></div>
                     <button class="buy-btn" id="legendarySkinBtn">Купить</button>
@@ -1092,7 +1082,7 @@
                  <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Черная дыра</div>
-                        <div class="item-desc">Засасывающий эффект с фиолетовым свечением</div>
+                        <div class="item-desc">Пульсирующая тьма с фиолетовым свечением</div>
                     </div>
                     <div class="item-price">1000 <span class="crystal-icon">✦</span></div>
                     <button class="buy-btn" id="blackholeSkinBtn">Купить</button>
@@ -1100,7 +1090,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">CrystalMania</div>
-                        <div class="item-desc">Прозрачный, с эффектом осколков при нажатии</div>
+                        <div class="item-desc">Разлетается на цветные осколки при нажатии</div>
                     </div>
                     <div class="item-price">5000 <span>Đ</span></div>
                     <button class="buy-btn" id="crystalmaniaSkinBtn">Купить</button>
@@ -1108,7 +1098,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Водоворот</div>
-                        <div class="item-desc">Вращающийся водоворот с эффектом всплеска</div>
+                        <div class="item-desc">Вращающийся вихрь с водной рябью от клика</div>
                     </div>
                     <div class="item-price">10000 <span>Đ</span></div>
                     <button class="buy-btn" id="vortexSkinBtn">Купить</button>
@@ -1116,7 +1106,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Glitch</div>
-                        <div class="item-desc">Мерцающий эффект с RGB разломом при нажатии</div>
+                        <div class="item-desc">Искажается с RGB-полосами при нажатии</div>
                     </div>
                     <div class="item-price">2500 <span class="crystal-icon">✦</span></div>
                     <button class="buy-btn" id="glitchSkinBtn">Купить</button>
@@ -1124,7 +1114,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Океан</div>
-                        <div class="item-desc">Сфера воды с пузырьками и рябью при нажатии</div>
+                        <div class="item-desc">Подводная сфера с пузырьками и бликами света</div>
                     </div>
                     <div class="item-price">4000 <span class="crystal-icon">✦</span></div>
                     <button class="buy-btn" id="oceanSkinBtn">Купить</button>
@@ -1132,7 +1122,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Хакер</div>
-                        <div class="item-desc">Терминал со скан-линией и цифровым эффектом</div>
+                        <div class="item-desc">Терминал со скан-линией и цифровыми частицами</div>
                     </div>
                     <div class="item-price">20000 <span>Đ</span></div>
                     <button class="buy-btn" id="hackerSkinBtn">Купить</button>
@@ -1158,7 +1148,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Автокликер</div>
-                        <div class="item-desc">1 клик в секунду на 30 секунд</div>
+                        <div class="item-desc">5 кликов в секунду на 30 секунд</div>
                     </div>
                     <div class="item-price">400 <span>Đ</span></div>
                     <button class="buy-btn" id="autoclickerBoostBtn">Купить</button>
@@ -1301,12 +1291,12 @@
             let activeBoosts = [];
             let coinMultiplier = 1;
             let crystalChance = 0.05; // 5% base chance
-            let isAutoclickerActive = false;
             let autoclickerInterval = null;
             let clickCount = 0;
             let lastClickTime = 0;
             let banInterval = null;
             let fireflyInterval = null;
+            let mainBoostInterval = null;
 
             const promoCodes = {
                 "FRESHSTART": { type: "coins", value: 1000, message: "Получено 1000 монет! Добро пожаловать!" },
@@ -1314,7 +1304,13 @@
                 "CRYSTALINFECTION": { type: "crystals", value: 25, message: "Получено 25 кристаллов!" },
                 "IAMSUB": { type: "coins", value: 2500, message: "Спасибо за подписку! Получено 2.500 монет!" },
                 "500CRYSTALSECRETCODE": { type: "crystals", value: 500, message: "Найдено! Получено 500 кристаллов!" },
-                "ACTIVATEADMINPANNELCODETRUE": { type: "admin", message: "Админ-панель активирована!" }
+                "ACTIVATEADMINPANNELCODETRUE": { type: "admin", message: "Админ-панель активирована!" },
+                // NEW PROMOCODES
+                "LUCKYDAY": { type: "crystals", value: 10, message: "Удачный день! +10 кристаллов." },
+                "BIGMONEY": { type: "coins", value: 100000, message: "Большой куш! +100,000 монет." },
+                "CRYSTALRUSH": { type: "crystals", value: 75, message: "Кристальная лихорадка! +75 кристаллов." },
+                "SECRETCODE2025": { type: "coins", value: 20250, message: "Секретный код найден! +20,250 монет." },
+                "HACKERMAN": { type: "coins", value: 77777, message: "Система взломана! +77,777 монет." },
             };
             
             // --- Initialization ---
@@ -1326,7 +1322,7 @@
                 themeToggle.classList.toggle('active', currentTheme === 'light');
                 applySkin(currentSkin);
                 updateUI();
-                setInterval(updateActiveBoosts, 1000); // Start boost checker
+                startBoostManager();
             }
 
             // --- Core Functions ---
@@ -1473,7 +1469,8 @@
                     alert('Недостаточно средств!');
                 }
             }
-
+            
+            // --- Boost Logic ---
             function updateBoostButtons() {
                 multiplierBoostBtn.disabled = activeBoosts.some(b => b.type === 'multiplier') || coins < 500;
                 multiplierBoostBtn.textContent = activeBoosts.some(b => b.type === 'multiplier') ? 'Активно' : 'Купить';
@@ -1482,53 +1479,72 @@
                 autoclickerBoostBtn.disabled = activeBoosts.some(b => b.type === 'autoclicker') || coins < 400;
                 autoclickerBoostBtn.textContent = activeBoosts.some(b => b.type === 'autoclicker') ? 'Активно' : 'Купить';
             }
-
-            // --- Boost Logic ---
+            
             function activateBoost(type, duration, value, cost, buttonElement) {
+                // Prevent buying an already active boost
+                if (activeBoosts.some(b => b.type === type)) {
+                    return;
+                }
                 if (coins < cost) {
                     alert('Недостаточно монет!');
                     return;
                 }
                 coins -= cost;
-                saveGameData();
-                updateUI();
-                const rect = buttonElement.getBoundingClientRect();
-                createCoinEffect(rect.left + rect.width / 2, rect.top, `-${cost}Đ`);
-
+                
                 const boost = { type, duration, value, endTime: Date.now() + duration * 1000 };
                 activeBoosts.push(boost);
 
                 if (type === 'multiplier') coinMultiplier *= value;
                 else if (type === 'luck') crystalChance += value;
-                else if (type === 'autoclicker') {
-                    isAutoclickerActive = true;
-                    startAutoclicker();
-                }
+                else if (type === 'autoclicker') startAutoclicker();
+                
                 renderActiveBoosts();
+                updateBoostButtons();
+                saveGameData();
+
+                const rect = buttonElement.getBoundingClientRect();
+                createCoinEffect(rect.left + rect.width / 2, rect.top, `-${cost}Đ`);
             }
 
-            function updateActiveBoosts() {
-                const currentTime = Date.now();
-                let changed = false;
-                activeBoosts = activeBoosts.filter(boost => {
-                    if (boost.endTime > currentTime) {
-                        return true;
-                    } else {
-                        changed = true;
-                        if (boost.type === 'multiplier') coinMultiplier /= boost.value;
-                        else if (boost.type === 'luck') crystalChance -= boost.value;
-                        else if (boost.type === 'autoclicker') {
-                            isAutoclickerActive = false;
-                            clearInterval(autoclickerInterval);
-                            autoclickerInterval = null;
+            function startBoostManager() {
+                if (mainBoostInterval) clearInterval(mainBoostInterval);
+                mainBoostInterval = setInterval(() => {
+                    const currentTime = Date.now();
+                    let boostsChanged = false;
+
+                    activeBoosts = activeBoosts.filter(boost => {
+                        if (boost.endTime > currentTime) {
+                            return true; // Keep active boost
+                        } else {
+                            // Boost expired
+                            if (boost.type === 'multiplier') coinMultiplier /= boost.value;
+                            else if (boost.type === 'luck') crystalChance -= boost.value;
+                            else if (boost.type === 'autoclicker') {
+                                clearInterval(autoclickerInterval);
+                                autoclickerInterval = null;
+                            }
+                            boostsChanged = true;
+                            return false; // Remove expired boost
                         }
-                        return false;
+                    });
+
+                    if (boostsChanged) {
+                        renderActiveBoosts();
+                        updateBoostButtons();
                     }
-                });
-                if (changed) {
-                    renderActiveBoosts();
-                    updateBoostButtons();
-                }
+                    
+                    // Update timers on display
+                    document.querySelectorAll('.boost-indicator').forEach(indicator => {
+                        const type = indicator.dataset.type;
+                        const boost = activeBoosts.find(b => b.type === type);
+                        if(boost) {
+                             const timeLeft = Math.ceil((boost.endTime - Date.now()) / 1000);
+                             const timerSpan = indicator.querySelector('.boost-timer');
+                             if(timerSpan) timerSpan.textContent = `(${timeLeft}с)`;
+                        }
+                    });
+
+                }, 1000);
             }
 
             function renderActiveBoosts() {
@@ -1537,25 +1553,16 @@
                     const timeLeft = Math.ceil((boost.endTime - Date.now()) / 1000);
                     const boostDiv = document.createElement('div');
                     boostDiv.classList.add('boost-indicator');
+                    boostDiv.dataset.type = boost.type;
+                    
                     let icon = '';
                     let label = '';
                     if (boost.type === 'multiplier') { icon = '⚡'; label = `x${boost.value}`; } 
                     else if (boost.type === 'luck') { icon = '🍀'; label = `+${boost.value * 100}%`; } 
                     else if (boost.type === 'autoclicker') { icon = '🤖'; label = `Auto`; }
-                    boostDiv.innerHTML = `<span class="boost-icon">${icon}</span> ${label} (${timeLeft}с)`;
+                    
+                    boostDiv.innerHTML = `<span class="boost-icon">${icon}</span> ${label} <span class="boost-timer">(${timeLeft}с)</span>`;
                     boostsContainer.appendChild(boostDiv);
-
-                    const intervalId = `boost_interval_${boost.type}`;
-                    if (window[intervalId]) clearInterval(window[intervalId]);
-                    window[intervalId] = setInterval(() => {
-                        const newTimeLeft = Math.ceil((boost.endTime - Date.now()) / 1000);
-                        if (newTimeLeft <= 0) {
-                            clearInterval(window[intervalId]);
-                            updateActiveBoosts();
-                        } else {
-                            boostDiv.innerHTML = `<span class="boost-icon">${icon}</span> ${label} (${newTimeLeft}с)`;
-                        }
-                    }, 1000);
                 });
             }
             
@@ -1684,21 +1691,19 @@
             function startAutoclicker() {
                 if (autoclickerInterval) clearInterval(autoclickerInterval);
                 autoclickerInterval = setInterval(() => {
-                    if (isAutoclickerActive) {
-                        const circleRect = circle.getBoundingClientRect();
-                        const centerX = circleRect.left + circleRect.width / 2;
-                        const centerY = circleRect.top + circleRect.height / 2;
+                    const circleRect = circle.getBoundingClientRect();
+                    const centerX = circleRect.left + circleRect.width / 2;
+                    const centerY = circleRect.top + circleRect.height / 2;
 
-                        coins += (1 * coinMultiplier);
-                        if (Math.random() < crystalChance) {
-                            crystals++;
-                            createCrystalEffect(centerX, centerY, '+1✦');
-                        }
-                        createCoinEffect(centerX, centerY, `+${1 * coinMultiplier}Đ`);
-                        saveGameData();
-                        updateUI();
+                    coins += (1 * coinMultiplier);
+                    if (Math.random() < crystalChance) {
+                        crystals++;
+                        createCrystalEffect(centerX, centerY, '+1✦');
                     }
-                }, 1000);
+                    createCoinEffect(centerX, centerY, `+${1 * coinMultiplier}Đ`);
+                    saveGameData();
+                    updateUI();
+                }, 200); // Changed from 1000 to 200
             }
 
             // --- UI Effects ---
@@ -1805,12 +1810,11 @@
                 if (promoCodes[code]) {
                     const promo = promoCodes[code];
                     
-                    // MODIFIED: Allow infinite use for the admin panel code
                     if (code === "ACTIVATEADMINPANNELCODETRUE") {
                         adminPanel.style.display = 'block';
                         promocodeMessage.textContent = promo.message;
                         promocodeMessage.style.color = 'lightgreen';
-                        return; // Exit early, do not check used codes or save it
+                        return; 
                     }
 
                     if (usedPromoCodes.includes(code)) {
@@ -1831,7 +1835,6 @@
                     promocodeMessage.style.color = 'red';
                 }
             });
-
 
             // Boost button listeners
             multiplierBoostBtn.addEventListener('click', function() { activateBoost('multiplier', 60, 2, 500, this); });
