@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +12,7 @@
             -ms-user-select: none;
         }
 
+
         :root {
             --bg-color: #121212;
             --text-color: white;
@@ -20,6 +21,7 @@
             --circle-border: rgba(255, 255, 255, 0.1);
             --shop-bg: rgba(0, 0, 0, 0.8);
         }
+
 
         body {
             font-family: 'Arial', sans-serif;
@@ -36,6 +38,7 @@
             position: relative;
         }
 
+
         body.light-theme {
             --bg-color: #f5f5f5;
             --text-color: #333;
@@ -45,10 +48,12 @@
             --shop-bg: rgba(255, 255, 255, 0.9);
         }
 
+
         /* --- CUSTOM BACKGROUNDS --- */
         body.space-nebula-bg {
             background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
         }
+
 
         body.matrix-bg {
             background-color: #000;
@@ -58,14 +63,17 @@
             animation: matrix-scroll 5s linear infinite;
         }
 
+
         @keyframes matrix-scroll {
             from { background-position: 0 0; }
             to { background-position: 0 -100px; }
         }
 
+
         body.magic-forest-bg {
              background-color: var(--bg-color);
         }
+
 
         .firefly {
             position: fixed;
@@ -80,6 +88,7 @@
             pointer-events: none;
         }
 
+
         @keyframes firefly-float {
             0% { transform: translateX(0) translateY(0); opacity: 0; }
             10% { opacity: 1; }
@@ -87,13 +96,16 @@
             100% { transform: translateX(105vw) translateY(var(--y-end)); opacity: 0; }
         }
 
+
         body.liquid-waves-bg {
             background: linear-gradient(125deg, #ff3cac, #784ba0, #2b86c5);
             background-size: 200% 200%;
             animation: gradient 10s ease infinite;
         }
 
+
         /* --- END CUSTOM BACKGROUNDS --- */
+
 
         .refresh-button, .promocode-button-main {
             position: fixed;
@@ -113,17 +125,20 @@
             transition: transform 0.2s;
         }
 
+
         .refresh-button {
             left: 20px;
         }
 
+
         .promocode-button-main {
             left: 80px;
         }
-
+        
         .refresh-button:hover, .promocode-button-main:hover {
             transform: scale(1.1);
         }
+
 
         .theme-switcher {
             position: fixed;
@@ -142,9 +157,11 @@
             cursor: not-allowed;
         }
 
+
         .theme-label {
             font-size: 20px;
         }
+
 
         .theme-toggle {
             position: relative;
@@ -156,9 +173,11 @@
             transition: background-color 0.3s;
         }
 
+
         .theme-toggle.active {
             background-color: #2196F3;
         }
+
 
         .theme-toggle-handle {
             position: absolute;
@@ -171,9 +190,11 @@
             transition: transform 0.3s;
         }
 
+
         .theme-toggle.active .theme-toggle-handle {
             transform: translateX(30px);
         }
+
 
         .stats-container {
             display: flex;
@@ -181,6 +202,7 @@
             margin-bottom: 30px;
             z-index: 10;
         }
+
 
         .currency-box {
             font-size: 24px;
@@ -195,6 +217,7 @@
             border: 1px solid var(--currency-border);
             backdrop-filter: blur(5px);
         }
+
 
         .circle {
             width: 200px;
@@ -217,6 +240,7 @@
             touch-action: manipulation;
         }
 
+
         /* --- SKINS --- */
         .circle.default-skin {
              background: linear-gradient(
@@ -234,6 +258,7 @@
             50% { transform: scale(1.02); }
         }
 
+
         .circle.premium-skin {
             background: radial-gradient(circle, rgba(0, 200, 255, 0.9) 0%, rgba(0, 100, 200, 0.9) 100%);
             box-shadow: 0 0 20px #00c8ff, inset 0 0 15px rgba(0, 100, 200, 0.8);
@@ -250,28 +275,57 @@
             to { background-position: 100% 100%; }
         }
 
+
         .circle.legendary-skin {
-            background: conic-gradient(
-                from 0deg,
-                gold, orange, red, darkred, red, orange, gold
-            );
-            animation: rotate-hue 4s linear infinite;
-            box-shadow: 0 0 40px gold, inset 0 0 20px darkorange;
+            background: radial-gradient(circle, #ffcc00 20%, #ff8c00 60%, #ff4500 100%);
+            box-shadow: 0 0 20px #ffdd77, 
+                        0 0 40px #ff8c00, 
+                        0 0 70px #ff4500,
+                        inset 0 0 15px #ff4500;
+            animation: legendary-pulse 2s infinite ease-in-out;
+            position: relative;
+            overflow: hidden;
         }
+
+
+        @keyframes legendary-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px #ffdd77, 
+                            0 0 40px #ff8c00, 
+                            0 0 70px #ff4500,
+                            inset 0 0 15px #ff4500;
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 30px #ffdd77, 
+                            0 0 60px #ff8c00, 
+                            0 0 100px #ff4500,
+                            inset 0 0 20px #ff4500;
+            }
+        }
+
+
         .circle.legendary-skin::after {
             content: '';
             position: absolute;
-            width: 5px; height: 5px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 15px 5px white, 0 0 25px 10px gold;
-            animation: legendary-sparkle 1.5s ease-in-out infinite;
-            opacity: 0;
+            width: 200%; 
+            height: 200%;
+            top: -50%; 
+            left: -50%;
+            background-image: 
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 30%),
+                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.3), transparent 25%);
+            animation: rotate-shine 8s linear infinite;
+            mix-blend-mode: overlay;
         }
-        @keyframes legendary-sparkle {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1); }
+
+
+        @keyframes rotate-shine {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
+
 
         .circle.blackhole-skin {
             background-color: #000;
@@ -282,6 +336,7 @@
              0%, 100% { transform: scale(1); box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7); }
              50% { transform: scale(0.98); box-shadow: 0 0 40px 15px rgba(120, 40, 220, 0.7); }
         }
+
 
         .circle.crystalmania-skin {
             background: rgba(255, 255, 255, 0.05);
@@ -295,6 +350,7 @@
             box-shadow: 0 0 50px rgba(255, 105, 180, 0.8), inset 0 0 30px rgba(255, 105, 180, 0.5);
             border-color: rgba(255, 105, 180, 0.6);
         }
+
 
         .circle.vortex-skin {
             background-image: url('https://i.postimg.cc/k5r9z5N6/vihr.png');
@@ -330,6 +386,8 @@
         }
 
 
+
+
         .circle.ocean-skin {
             background: radial-gradient(circle, #80d0c7 0%, #135d96 100%);
             border-color: #a4e5de;
@@ -356,12 +414,14 @@
             animation: ocean-bubbles 5s linear infinite;
         }
 
+
         @keyframes ocean-caustic {
             from { background-position: 200% 0; } to { background-position: -200% 0; }
         }
         @keyframes ocean-bubbles {
             to { transform: translateY(-220px); }
         }
+
 
         .circle.hacker-skin {
             background: #000;
@@ -397,6 +457,7 @@
             20%, 24%, 55% { opacity: 0.3; }
         }
 
+
         /* --- END SKINS --- */
         
         @keyframes rotate-vortex {
@@ -404,16 +465,19 @@
             to { transform: rotate(360deg); }
         }
 
+
         @keyframes rotate-hue {
             from { filter: hue-rotate(0deg); }
             to { filter: hue-rotate(360deg); }
         }
+
 
         @keyframes gradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+
 
         /* --- TAP EFFECTS --- */
         .tap-effect { /* Default tap effect */
@@ -429,13 +493,14 @@
         }
         @keyframes tap-animation { from { transform: scale(0); opacity: 1;} to { transform: scale(1); opacity: 0;} }
 
+
         .legendary-tap-effect {
             position: absolute;
             width: 8px; height: 8px;
-            background: gold;
+            background: #ffcc00;
             border-radius: 50%;
             pointer-events: none;
-            box-shadow: 0 0 10px gold, 0 0 20px orange;
+            box-shadow: 0 0 10px #ffcc00, 0 0 20px #ff8c00;
             animation: legendary-spark-fly 0.8s ease-out forwards;
         }
         @keyframes legendary-spark-fly {
@@ -468,6 +533,7 @@
             to { transform: rotate(var(--rot-end)) scale(3); opacity: 0; }
         }
 
+
         .vortex-tap-effect {
              position: absolute;
              width: 10px; height: 10px;
@@ -480,6 +546,7 @@
              from { transform: scale(0); opacity: 1; }
              to { transform: scale(25); opacity: 0; }
         }
+
 
         .glitch-tap-effect {
             position: absolute;
@@ -494,6 +561,7 @@
             to { opacity: 0; transform: scaleX(2); }
         }
 
+
         .ocean-tap-effect { /* Ripple */
             position: absolute;
             border: 2px solid rgba(255, 255, 255, 0.8);
@@ -507,6 +575,7 @@
             from { transform: scale(0); opacity: 1; }
             to { transform: scale(20); opacity: 0; }
         }
+
 
         .hacker-tap-effect { /* Digital squares */
             position: absolute;
@@ -526,6 +595,7 @@
         }
         /* --- END TAP EFFECTS --- */
 
+
         .crystal-effect {
             position: fixed;
             font-size: 36px;
@@ -538,6 +608,7 @@
             filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.8));
             transform-origin: center;
         }
+
 
         @keyframes crystal-animation {
             0% {
@@ -563,9 +634,11 @@
             }
         }
 
+
         .pulse {
             animation: pulse-effect 1s infinite;
         }
+
 
         @keyframes pulse-effect {
             0% {
@@ -579,6 +652,7 @@
             }
         }
 
+
         .coin-effect {
             position: fixed;
             font-size: 24px;
@@ -591,6 +665,7 @@
             transform: translateX(-50%);
         }
 
+
         @keyframes coin-animation {
             0% {
                 transform: translateY(0) scale(1) translateX(-50%);
@@ -602,12 +677,14 @@
             }
         }
 
+
         .crystal-icon {
             font-size: 26px;
             color: #00ffff;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
             animation: crystal-icon-pulse 2s infinite;
         }
+
 
         @keyframes crystal-icon-pulse {
             0% {
@@ -623,6 +700,7 @@
                 text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
             }
         }
+
 
         .ban-screen {
             position: fixed;
@@ -642,11 +720,13 @@
             display: none;
         }
 
+
         .ban-timer {
             font-size: 48px;
             margin: 20px 0;
             color: red;
         }
+
 
         .warning {
             position: fixed;
@@ -660,6 +740,7 @@
             z-index: 50;
             display: none;
         }
+
 
         .shop-btn {
             position: fixed;
@@ -680,9 +761,11 @@
             transition: transform 0.2s;
         }
 
+
         .shop-btn:hover {
             transform: scale(1.1);
         }
+
 
         .shop {
             position: fixed;
@@ -701,6 +784,7 @@
             border: 1px solid var(--currency-border);
         }
 
+
         .shop-header {
             display: flex;
             justify-content: space-between;
@@ -710,10 +794,12 @@
             padding-bottom: 10px;
         }
 
+
         .shop-title {
             font-size: 24px;
             font-weight: bold;
         }
+
 
         .close-shop {
             font-size: 20px;
@@ -721,11 +807,13 @@
             padding: 5px;
         }
 
+
         .shop-tabs {
             display: flex;
             margin-bottom: 15px;
             border-bottom: 1px solid var(--currency-border);
         }
+
 
         .shop-tab {
             padding: 8px 15px;
@@ -733,14 +821,17 @@
             border-bottom: 2px solid transparent;
         }
 
+
         .shop-tab.active {
             border-bottom: 2px solid #00ffff;
         }
+
 
         .shop-content {
             max-height: 400px;
             overflow-y: auto;
         }
+
 
         .shop-item {
             display: flex;
@@ -750,23 +841,28 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+
         .shop-item:last-child {
             border-bottom: none;
         }
 
+
         .item-info {
             flex-grow: 1;
         }
+
 
         .item-name {
             font-size: 18px;
             margin-bottom: 5px;
         }
 
+
         .item-desc {
             font-size: 14px;
             opacity: 0.8;
         }
+
 
         .item-price {
             display: flex;
@@ -776,6 +872,7 @@
             white-space: nowrap;
             margin-left: 15px;
         }
+
 
         .buy-btn {
             background-color: rgba(0, 200, 255, 0.3);
@@ -788,15 +885,18 @@
             font-size: 14px;
         }
 
+
         .buy-btn:hover {
             background-color: rgba(0, 200, 255, 0.5);
         }
+
 
         .buy-btn:disabled {
             background-color: rgba(100, 100, 100, 0.3);
             border-color: rgba(100, 100, 100, 0.5);
             cursor: not-allowed;
         }
+
 
         .exchange-btn {
             position: fixed;
@@ -817,10 +917,12 @@
             transition: transform 0.2s;
         }
 
+
         .exchange-btn:hover {
             transform: scale(1.1);
         }
-
+        
+        /* Modal Styles */
         .exchange-modal, .promocode-modal, .admin-panel {
             position: fixed;
             top: 50%;
@@ -829,8 +931,8 @@
             background-color: var(--shop-bg);
             border-radius: 15px;
             padding: 20px;
-            width: 300px;
-            max-width: 90%;
+            width: 340px;
+            max-width: 95%;
             z-index: 100;
             box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
             display: none;
@@ -838,9 +940,11 @@
             border: 1px solid var(--currency-border);
         }
 
+
         .admin-header {
             cursor: grab;
         }
+
 
         .exchange-header, .promocode-header, .admin-header {
             display: flex;
@@ -851,10 +955,12 @@
             padding-bottom: 10px;
         }
 
+
         .exchange-title, .promocode-title, .admin-title {
             font-size: 24px;
             font-weight: bold;
         }
+
 
         .close-exchange, .close-promocode, .close-admin {
             font-size: 20px;
@@ -862,10 +968,12 @@
             padding: 5px;
         }
 
+
         .exchange-rate {
             margin-bottom: 20px;
             text-align: center;
         }
+
 
         .exchange-input, .promocode-input, .admin-input {
             width: 100%;
@@ -879,12 +987,14 @@
             box-sizing: border-box;
         }
 
+
         .exchange-action, .promocode-action, .admin-action {
             display: flex;
             justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
         }
+
 
         .exchange-submit, .promocode-submit, .admin-submit-btn {
             flex-grow: 1;
@@ -896,11 +1006,12 @@
             cursor: pointer;
             transition: background-color 0.2s;
         }
-
+        
         .promocode-submit {
             background-color: rgba(0, 200, 255, 0.3);
             border: 1px solid rgba(0, 200, 255, 0.5);
         }
+
 
         .admin-submit-btn {
             background-color: rgba(100, 100, 255, 0.3);
@@ -908,6 +1019,7 @@
             width: calc(50% - 5px);
             margin-bottom: 10px;
         }
+
 
         .exchange-submit:hover, .promocode-submit:hover, .admin-submit-btn:hover {
             background-color: rgba(0, 200, 100, 0.5);
@@ -918,12 +1030,13 @@
         .admin-submit-btn:hover {
             background-color: rgba(100, 100, 255, 0.5);
         }
-
+        
         .exchange-submit:disabled, .promocode-submit:disabled, .admin-submit-btn:disabled {
             background-color: rgba(100, 100, 100, 0.3);
             border-color: rgba(100, 100, 100, 0.5);
             cursor: not-allowed;
         }
+
 
         .exchange-cancel {
             background-color: rgba(200, 0, 0, 0.3);
@@ -935,9 +1048,11 @@
             transition: background-color 0.2s;
         }
 
+
         .exchange-cancel:hover {
             background-color: rgba(200, 0, 0, 0.5);
         }
+
 
         .boosts-container {
             position: fixed;
@@ -948,6 +1063,7 @@
             gap: 10px;
             z-index: 10;
         }
+
 
         .boost-indicator {
             background-color: var(--currency-bg);
@@ -960,9 +1076,11 @@
             gap: 5px;
         }
 
+
         .boost-icon {
             font-size: 16px;
         }
+
 
         .promocode-modal .promocode-message {
             margin-top: 15px;
@@ -970,11 +1088,14 @@
             text-align: center;
             min-height: 20px;
         }
+
+
     </style>
 </head>
 <body>
     <button class="refresh-button" onclick="location.reload()">↻</button>
     <button class="promocode-button-main" id="promocodeBtn">🎁</button>
+
 
     <div class="theme-switcher" id="themeSwitcher">
         <div class="theme-label">🌙</div>
@@ -984,10 +1105,13 @@
         <div class="theme-label">☀️</div>
     </div>
 
+
     <div class="boosts-container" id="boostsContainer"></div>
+
 
     <div class="shop-btn" id="shopBtn">🛒</div>
     <div class="exchange-btn" id="exchangeBtn">⇄</div>
+
 
     <div class="warning" id="warning">Слишком быстро! Прекратите кликать так часто!</div>
     <div class="ban-screen" id="banScreen">
@@ -996,6 +1120,7 @@
         <div>Вам отняли половину монет!</div>
         <div>Осталось секунд:</div>
     </div>
+
 
     <div class="stats-container">
         <div class="currency-box">
@@ -1008,7 +1133,9 @@
         </div>
     </div>
 
+
     <div class="circle default-skin" id="circle"></div>
+
 
     <div class="promocode-modal" id="promocodeModal">
         <div class="promocode-header">
@@ -1022,6 +1149,7 @@
         <div id="promocodeMessage" class="promocode-message"></div>
     </div>
 
+
     <div class="admin-panel" id="adminPanel">
         <div class="admin-header" id="adminPanelHeader">
             <div class="admin-title">Админ-панель</div>
@@ -1034,6 +1162,7 @@
                 <button id="setCoinsBtn" class="admin-submit-btn">Установить монеты</button>
                 <button id="addCoinsBtn" class="admin-submit-btn">Добавить монеты</button>
             </div>
+
 
             <label for="adminCrystalsInput">Кристаллы:</label>
             <input type="number" id="adminCrystalsInput" class="admin-input" placeholder="Введите количество кристаллов">
@@ -1074,7 +1203,7 @@
                 <div class="shop-item">
                     <div class="item-info">
                         <div class="item-name">Легендарный</div>
-                        <div class="item-desc">Огненный градиент с летящими искрами</div>
+                        <div class="item-desc">Огненный шар с эффектом расплавленного золота</div>
                     </div>
                     <div class="item-price">500 <span class="crystal-icon">✦</span></div>
                     <button class="buy-btn" id="legendarySkinBtn">Купить</button>
@@ -1198,6 +1327,7 @@
         </div>
     </div>
 
+
     <div class="exchange-modal" id="exchangeModal">
         <div class="exchange-header">
             <div class="exchange-title">Обмен кристаллов</div>
@@ -1210,6 +1340,7 @@
             <button class="exchange-cancel" id="exchangeCancel">Отмена</button>
         </div>
     </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1237,6 +1368,7 @@
             const backgroundsTab = document.getElementById('backgroundsTab');
             const boostsContainer = document.getElementById('boostsContainer');
 
+
             // Promo code elements
             const promocodeBtn = document.getElementById('promocodeBtn');
             const promocodeModal = document.getElementById('promocodeModal');
@@ -1244,6 +1376,7 @@
             const promocodeInput = document.getElementById('promocodeInput');
             const activatePromocodeBtn = document.getElementById('activatePromocodeBtn');
             const promocodeMessage = document.getElementById('promocodeMessage');
+
 
             // Admin Panel elements
             const adminPanel = document.getElementById('adminPanel');
@@ -1255,6 +1388,7 @@
             const adminCrystalsInput = document.getElementById('adminCrystalsInput');
             const setCrystalsBtn = document.getElementById('setCrystalsBtn');
             const addCrystalsBtn = document.getElementById('addCrystalsBtn');
+
 
             // --- Element Buttons ---
             // Skins
@@ -1278,6 +1412,7 @@
             const magicForestBgBtn = document.getElementById('magicForestBgBtn');
             const liquidWavesBgBtn = document.getElementById('liquidWavesBgBtn');
 
+
             // --- Game State ---
             let coins = parseInt(localStorage.getItem('doolcoins')) || 0;
             let crystals = parseInt(localStorage.getItem('crystals')) || 0;
@@ -1287,7 +1422,7 @@
             let currentBackground = localStorage.getItem('background') || 'default';
             let ownedBackgrounds = JSON.parse(localStorage.getItem('ownedBackgrounds')) || ['default'];
             let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
-
+            
             let activeBoosts = [];
             let coinMultiplier = 1;
             let crystalChance = 0.05; // 5% base chance
@@ -1298,6 +1433,7 @@
             let fireflyInterval = null;
             let mainBoostInterval = null;
 
+
             const promoCodes = {
                 "FRESHSTART": { type: "coins", value: 1000, message: "Получено 1000 монет! Добро пожаловать!" },
                 "INEEDMONEY": { type: "coins", value: 50000, message: "Получено 50.000 монет! Удачи!" },
@@ -1305,7 +1441,6 @@
                 "IAMSUB": { type: "coins", value: 2500, message: "Спасибо за подписку! Получено 2.500 монет!" },
                 "500CRYSTALSECRETCODE": { type: "crystals", value: 500, message: "Найдено! Получено 500 кристаллов!" },
                 "ACTIVATEADMINPANNELCODETRUE": { type: "admin", message: "Админ-панель активирована!" },
-                // NEW PROMOCODES
                 "LUCKYDAY": { type: "crystals", value: 10, message: "Удачный день! +10 кристаллов." },
                 "BIGMONEY": { type: "coins", value: 100000, message: "Большой куш! +100,000 монет." },
                 "CRYSTALRUSH": { type: "crystals", value: 75, message: "Кристальная лихорадка! +75 кристаллов." },
@@ -1325,6 +1460,7 @@
                 startBoostManager();
             }
 
+
             // --- Core Functions ---
             function saveGameData() {
                 localStorage.setItem('doolcoins', coins);
@@ -1336,6 +1472,7 @@
                 localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes));
             }
 
+
             function updateUI() {
                 coinsElement.textContent = coins.toLocaleString();
                 crystalsElement.textContent = crystals.toLocaleString();
@@ -1343,6 +1480,7 @@
                 updateBoostButtons();
                 updateBackgroundButtons();
             }
+
 
             function applySkin(skinName) {
                 circle.className = 'circle'; // Reset classes
@@ -1352,12 +1490,14 @@
                 updateSkinButtons();
             }
 
+
             function applyBackground(bgName) {
                 document.body.className = '';
                 if (fireflyInterval) {
                     clearInterval(fireflyInterval);
                     document.querySelectorAll('.firefly').forEach(fly => fly.remove());
                 }
+
 
                 if (bgName === 'default') {
                     let theme = localStorage.getItem('theme') || 'dark';
@@ -1371,10 +1511,12 @@
                     }
                 }
 
+
                 currentBackground = bgName;
                 localStorage.setItem('background', currentBackground);
                 updateBackgroundButtons();
             }
+
 
             function createFirefly() {
                 const fly = document.createElement('div');
@@ -1388,6 +1530,7 @@
                 document.body.appendChild(fly);
                 setTimeout(() => fly.remove(), (duration + delay) * 1000);
             }
+
 
             // --- Shop & Purchasing Logic ---
             function updateSkinButtons() {
@@ -1404,6 +1547,7 @@
                 ];
                 updateItemButtons(skins, ownedSkins, currentSkin, buySkin, applySkin);
             }
+
 
             function updateBackgroundButtons() {
                 const backgrounds = [
@@ -1440,13 +1584,16 @@
                 });
             }
 
+
             function buySkin(skinId, price, currency, button) {
                 buyItem(skinId, price, currency, button, ownedSkins, 'skin');
             }
 
+
             function buyBackground(bgId, price, currency, button) {
                 buyItem(bgId, price, currency, button, ownedBackgrounds, 'background');
             }
+
 
             function buyItem(itemId, price, currency, button, ownedItems, itemType) {
                 let canAfford = false;
@@ -1457,6 +1604,7 @@
                     coins -= price;
                     canAfford = true;
                 }
+
 
                 if (canAfford) {
                     ownedItems.push(itemId);
@@ -1481,10 +1629,7 @@
             }
             
             function activateBoost(type, duration, value, cost, buttonElement) {
-                // Prevent buying an already active boost
-                if (activeBoosts.some(b => b.type === type)) {
-                    return;
-                }
+                if (activeBoosts.some(b => b.type === type)) return;
                 if (coins < cost) {
                     alert('Недостаточно монет!');
                     return;
@@ -1494,6 +1639,7 @@
                 const boost = { type, duration, value, endTime: Date.now() + duration * 1000 };
                 activeBoosts.push(boost);
 
+
                 if (type === 'multiplier') coinMultiplier *= value;
                 else if (type === 'luck') crystalChance += value;
                 else if (type === 'autoclicker') startAutoclicker();
@@ -1502,21 +1648,21 @@
                 updateBoostButtons();
                 saveGameData();
 
+
                 const rect = buttonElement.getBoundingClientRect();
                 createCoinEffect(rect.left + rect.width / 2, rect.top, `-${cost}Đ`);
             }
+
 
             function startBoostManager() {
                 if (mainBoostInterval) clearInterval(mainBoostInterval);
                 mainBoostInterval = setInterval(() => {
                     const currentTime = Date.now();
                     let boostsChanged = false;
-
                     activeBoosts = activeBoosts.filter(boost => {
                         if (boost.endTime > currentTime) {
-                            return true; // Keep active boost
+                            return true;
                         } else {
-                            // Boost expired
                             if (boost.type === 'multiplier') coinMultiplier /= boost.value;
                             else if (boost.type === 'luck') crystalChance -= boost.value;
                             else if (boost.type === 'autoclicker') {
@@ -1524,16 +1670,16 @@
                                 autoclickerInterval = null;
                             }
                             boostsChanged = true;
-                            return false; // Remove expired boost
+                            return false;
                         }
                     });
+
 
                     if (boostsChanged) {
                         renderActiveBoosts();
                         updateBoostButtons();
                     }
                     
-                    // Update timers on display
                     document.querySelectorAll('.boost-indicator').forEach(indicator => {
                         const type = indicator.dataset.type;
                         const boost = activeBoosts.find(b => b.type === type);
@@ -1544,8 +1690,10 @@
                         }
                     });
 
+
                 }, 1000);
             }
+
 
             function renderActiveBoosts() {
                 boostsContainer.innerHTML = '';
@@ -1554,24 +1702,24 @@
                     const boostDiv = document.createElement('div');
                     boostDiv.classList.add('boost-indicator');
                     boostDiv.dataset.type = boost.type;
-                    
                     let icon = '';
                     let label = '';
                     if (boost.type === 'multiplier') { icon = '⚡'; label = `x${boost.value}`; } 
                     else if (boost.type === 'luck') { icon = '🍀'; label = `+${boost.value * 100}%`; } 
                     else if (boost.type === 'autoclicker') { icon = '🤖'; label = `Auto`; }
-                    
                     boostDiv.innerHTML = `<span class="boost-icon">${icon}</span> ${label} <span class="boost-timer">(${timeLeft}с)</span>`;
                     boostsContainer.appendChild(boostDiv);
                 });
             }
-            
+
+
             // --- Tap Effects & Click Handling ---
             function handleCircleClick(event) {
                 const clickValue = 1 * coinMultiplier;
                 const circleRect = circle.getBoundingClientRect();
                 const clickX = event.clientX - circleRect.left;
                 const clickY = event.clientY - circleRect.top;
+
 
                 // Create unique tap effects based on skin
                 let tapEffect;
@@ -1656,17 +1804,21 @@
                         break;
                 }
 
+
                 if (tapEffect && tapEffect.parentNode) {
                      tapEffect.addEventListener('animationend', () => tapEffect.remove());
                 }
 
+
                 coins += clickValue;
                 createCoinEffect(event.clientX, event.clientY, `+${clickValue}Đ`);
+
 
                 if (Math.random() < crystalChance) {
                     crystals++;
                     createCrystalEffect(event.clientX, event.clientY, '+1✦');
                 }
+
 
                 saveGameData();
                 updateUI();
@@ -1688,12 +1840,14 @@
                 lastClickTime = currentTime;
             }
 
+
             function startAutoclicker() {
                 if (autoclickerInterval) clearInterval(autoclickerInterval);
                 autoclickerInterval = setInterval(() => {
                     const circleRect = circle.getBoundingClientRect();
                     const centerX = circleRect.left + circleRect.width / 2;
                     const centerY = circleRect.top + circleRect.height / 2;
+
 
                     coins += (1 * coinMultiplier);
                     if (Math.random() < crystalChance) {
@@ -1703,14 +1857,15 @@
                     createCoinEffect(centerX, centerY, `+${1 * coinMultiplier}Đ`);
                     saveGameData();
                     updateUI();
-                }, 200); // Changed from 1000 to 200
+                }, 200);
             }
+
 
             // --- UI Effects ---
             function createCoinEffect(x, y, text) {
                 const effect = document.createElement('div');
                 effect.classList.add('coin-effect');
-                effect.textContent = text;
+                effect.innerHTML = text;
                 effect.style.left = `${x}px`;
                 effect.style.top = `${y}px`;
                 document.body.appendChild(effect);
@@ -1719,7 +1874,7 @@
             function createCrystalEffect(x, y, text) {
                 const effect = document.createElement('div');
                 effect.classList.add('crystal-effect');
-                effect.textContent = text;
+                effect.innerHTML = text;
                 effect.style.left = `${x}px`;
                 effect.style.top = `${y}px`;
                 document.body.appendChild(effect);
@@ -1764,15 +1919,17 @@
             closePromocode.addEventListener('click', () => { promocodeModal.style.display = 'none'; promocodeMessage.textContent = ''; });
             closeAdminPanel.addEventListener('click', () => { adminPanel.style.display = 'none'; });
 
+
             themeToggle.addEventListener('click', function() {
                 if (themeSwitcher.classList.contains('disabled')) return;
                 const newTheme = this.classList.toggle('active') ? 'light' : 'dark';
-                applyBackground('default'); // Switch back to default background to change theme
+                applyBackground('default'); 
                 document.body.className = newTheme + '-theme';
                 localStorage.setItem('theme', newTheme);
                 localStorage.setItem('background', 'default');
                 updateUI();
             });
+
 
             shopTabs.forEach(tab => {
                 tab.addEventListener('click', function() {
@@ -1785,10 +1942,12 @@
                 });
             });
 
+
             exchangeInput.addEventListener('input', function() {
                 const value = parseInt(this.value);
                 exchangeSubmit.disabled = isNaN(value) || value <= 0 || value > crystals;
             });
+
 
             exchangeSubmit.addEventListener('click', function() {
                 const amountToExchange = parseInt(exchangeInput.value);
@@ -1803,9 +1962,11 @@
                 }
             });
 
+
             activatePromocodeBtn.addEventListener('click', function() {
                 const code = promocodeInput.value.trim().toUpperCase();
                 promocodeInput.value = '';
+
 
                 if (promoCodes[code]) {
                     const promo = promoCodes[code];
@@ -1816,6 +1977,7 @@
                         promocodeMessage.style.color = 'lightgreen';
                         return; 
                     }
+
 
                     if (usedPromoCodes.includes(code)) {
                         promocodeMessage.textContent = 'Промокод уже был использован.';
@@ -1836,6 +1998,7 @@
                 }
             });
 
+
             // Boost button listeners
             multiplierBoostBtn.addEventListener('click', function() { activateBoost('multiplier', 60, 2, 500, this); });
             luckBoostBtn.addEventListener('click', function() { activateBoost('luck', 30, 0.30, 300, this); });
@@ -1846,6 +2009,7 @@
             addCoinsBtn.addEventListener('click', () => { coins += parseInt(adminCoinsInput.value) || 0; saveGameData(); updateUI(); });
             setCrystalsBtn.addEventListener('click', () => { crystals = parseInt(adminCrystalsInput.value) || crystals; saveGameData(); updateUI(); });
             addCrystalsBtn.addEventListener('click', () => { crystals += parseInt(adminCrystalsInput.value) || 0; saveGameData(); updateUI(); });
+
 
             // Make Admin Panel Draggable
             let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
