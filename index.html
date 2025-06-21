@@ -608,7 +608,7 @@
                 const clickValue = 1 * coinMultiplier;
                 updateQuestProgress('clicks', 1); coins += clickValue;
                 createCoinEffect(event.clientX, event.clientY, `+${formatNumber(clickValue)}Đ`);
-                if (Math.random() < crystalChance) { crystals++; updateQuestProgress('crystalsEarned', 1); createCrystalEffect(event.clientX, event.clientY, '+1✦'); }
+                if (Math.random() < crystalChance) { crystals++; updateQuestProgress('crystalsEarned', 1); createCrystalEffect(event.clientX, event.clientY, '✦'); }
                 saveGameData(); updateUI(); checkAutoclicker(event.timeStamp);
                 
                 const circleRect = circle.getBoundingClientRect(); const clickX = event.clientX - circleRect.left; const clickY = event.clientY - circleRect.top;
