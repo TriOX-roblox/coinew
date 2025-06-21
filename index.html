@@ -66,10 +66,9 @@
         .limbo-fog { position: fixed; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0) 100%); pointer-events: none; z-index: 1; }
         /* --- END CUSTOM BACKGROUNDS --- */
 
-        .refresh-button, .promocode-button-main { position: fixed; top: 20px; background-color: var(--currency-bg); color: var(--text-color); border: 1px solid var(--currency-border); border-radius: 50%; width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; transition: transform 0.2s; }
+        .refresh-button { position: fixed; top: 20px; background-color: var(--currency-bg); color: var(--text-color); border: 1px solid var(--currency-border); border-radius: 50%; width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; transition: transform 0.2s; }
         .refresh-button { left: 20px; }
-        .promocode-button-main { left: 80px; }
-        .refresh-button:hover, .promocode-button-main:hover { transform: scale(1.1); }
+        .refresh-button:hover { transform: scale(1.1); }
 
         .theme-switcher { position: fixed; top: 20px; right: 20px; display: flex; align-items: center; gap: 10px; z-index: 100; transition: opacity 0.3s; }
         .theme-switcher.disabled { opacity: 0.5; pointer-events: none; cursor: not-allowed; }
@@ -186,11 +185,64 @@
         .ban-timer { font-size: 48px; margin: 20px 0; color: red; }
         .warning { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background-color: rgba(255, 0, 0, 0.8); color: white; padding: 10px 20px; border-radius: 5px; z-index: 50; display: none; }
 
-        .shop-btn, .quests-btn, .transfer-btn { position: fixed; bottom: 20px; background-color: var(--currency-bg); color: var(--text-color); border: 1px solid var(--currency-border); border-radius: 50%; width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: transform 0.2s; }
-        .shop-btn { left: 20px; }
-        .quests-btn { left: 80px; } 
-        .transfer-btn { left: 140px; }
-        .shop-btn:hover, .quests-btn:hover, .transfer-btn:hover { transform: scale(1.1); }
+        /* --- Retractable Panel --- */
+        #retractablePanel {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            width: 90%;
+            max-width: 500px; /* Prevents panel from becoming too wide on large screens */
+            box-sizing: border-box;
+            transform: translateX(-50%) translateY(calc(100% - 40px));
+            transition: transform 0.4s ease-in-out;
+            background-color: var(--currency-bg);
+            border: 1px solid var(--currency-border);
+            border-radius: 20px 20px 0 0;
+            z-index: 20;
+            backdrop-filter: blur(5px);
+        }
+        #retractablePanel.expanded {
+            transform: translateX(-50%) translateY(0);
+        }
+        #panelToggle {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        #panelToggle .arrow {
+            transition: transform 0.4s ease-in-out;
+        }
+        #retractablePanel.expanded #panelToggle .arrow {
+            transform: rotate(180deg);
+        }
+        #buttonContainer {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 10px 20px 10px;
+        }
+        .panel-btn {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--currency-border);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .panel-btn:hover {
+            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
         .shop, .quests-modal, .transfer-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--shop-bg); border-radius: 15px; padding: 20px; width: 340px; max-width: 90%; z-index: 100; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5); display: none; backdrop-filter: blur(10px); border: 1px solid var(--currency-border); }
         .shop-header, .quests-header, .transfer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--currency-border); padding-bottom: 10px; }
@@ -209,9 +261,6 @@
         .buy-btn { background-color: rgba(0, 200, 255, 0.3); border: 1px solid rgba(0, 200, 255, 0.5); color: white; padding: 8px 15px; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; font-size: 14px; }
         .buy-btn:hover { background-color: rgba(0, 200, 255, 0.5); }
         .buy-btn:disabled { background-color: rgba(100, 100, 100, 0.3); border-color: rgba(100, 100, 100, 0.5); cursor: not-allowed; }
-
-        .exchange-btn { position: fixed; bottom: 20px; right: 20px; background-color: var(--currency-bg); color: var(--text-color); border: 1px solid var(--currency-border); border-radius: 50%; width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: transform 0.2s; }
-        .exchange-btn:hover { transform: scale(1.1); }
         
         .exchange-modal, .promocode-modal, .admin-panel { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--shop-bg); border-radius: 15px; padding: 20px; width: 340px; max-width: 95%; z-index: 100; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5); display: none; backdrop-filter: blur(10px); border: 1px solid var(--currency-border); }
         .admin-header { cursor: grab; }
@@ -261,7 +310,6 @@
 </head>
 <body>
     <button class="refresh-button" onclick="location.reload()">↻</button>
-    <button class="promocode-button-main" id="promocodeBtn">🎁</button>
 
     <div class="theme-switcher" id="themeSwitcher">
         <div class="theme-label">🌙</div>
@@ -272,11 +320,6 @@
     </div>
 
     <div class="boosts-container" id="boostsContainer"></div>
-
-    <div class="shop-btn" id="shopBtn">🛒</div>
-    <div class="quests-btn" id="questsBtn">📜</div>
-    <div class="transfer-btn" id="transferBtn">→</div>
-    <div class="exchange-btn" id="exchangeBtn">⇄</div>
 
     <div class="warning" id="warning">Слишком быстро! Прекратите кликать так часто!</div>
     <div class="ban-screen" id="banScreen">
@@ -298,6 +341,17 @@
 
     <div class="circle default-skin" id="circle"></div>
     <div id="backgroundContainer"></div>
+    
+    <div id="retractablePanel">
+        <div id="panelToggle"><span class="arrow">▲</span></div>
+        <div id="buttonContainer">
+            <button class="panel-btn" id="shopBtn">🛒</button>
+            <button class="panel-btn" id="questsBtn">📜</button>
+            <button class="panel-btn" id="transferBtn">→</button>
+            <button class="panel-btn" id="exchangeBtn">⇄</button>
+            <button class="panel-btn" id="promocodeBtn">🎁</button>
+        </div>
+    </div>
 
     <div class="promocode-modal" id="promocodeModal">
         <div class="promocode-header">
@@ -412,27 +466,9 @@
             const warning = document.getElementById('warning');
             const themeSwitcher = document.getElementById('themeSwitcher');
             const themeToggle = document.getElementById('themeToggle');
-            const shopBtn = document.getElementById('shopBtn');
-            const shop = document.getElementById('shop');
-            const closeShop = document.getElementById('closeShop');
-            const exchangeBtn = document.getElementById('exchangeBtn');
-            const exchangeModal = document.getElementById('exchangeModal');
-            const closeExchange = document.getElementById('closeExchange');
-            const exchangeInput = document.getElementById('exchangeInput');
-            const exchangeSubmit = document.getElementById('exchangeSubmit');
-            const exchangeCancel = document.getElementById('exchangeCancel');
-            const shopTabs = document.querySelectorAll('.shop-tab');
-            const skinsTab = document.getElementById('skinsTab');
-            const boostsTab = document.getElementById('boostsTab');
-            const backgroundsTab = document.getElementById('backgroundsTab');
             const boostsContainer = document.getElementById('boostsContainer');
             const backgroundContainer = document.getElementById('backgroundContainer');
-            const promocodeBtn = document.getElementById('promocodeBtn');
-            const promocodeModal = document.getElementById('promocodeModal');
-            const closePromocode = document.getElementById('closePromocode');
-            const promocodeInput = document.getElementById('promocodeInput');
-            const activatePromocodeBtn = document.getElementById('activatePromocodeBtn');
-            const promocodeMessage = document.getElementById('promocodeMessage');
+            
             const adminPanel = document.getElementById('adminPanel');
             const adminPanelHeader = document.getElementById('adminPanelHeader');
             const closeAdminPanel = document.getElementById('closeAdminPanel');
@@ -443,14 +479,28 @@
             const setCrystalsBtn = document.getElementById('setCrystalsBtn');
             const addCrystalsBtn = document.getElementById('addCrystalsBtn');
 
+            // --- Panel and Modal Button Selectors ---
+            const retractablePanel = document.getElementById('retractablePanel');
+            const panelToggle = document.getElementById('panelToggle');
+            const shopBtn = document.getElementById('shopBtn');
             const questsBtn = document.getElementById('questsBtn');
+            const transferBtn = document.getElementById('transferBtn');
+            const exchangeBtn = document.getElementById('exchangeBtn');
+            const promocodeBtn = document.getElementById('promocodeBtn');
+
+            // --- Modal Windows and Content ---
+            const shop = document.getElementById('shop');
+            const closeShop = document.getElementById('closeShop');
+            const shopTabs = document.querySelectorAll('.shop-tab');
+            const skinsTab = document.getElementById('skinsTab');
+            const boostsTab = document.getElementById('boostsTab');
+            const backgroundsTab = document.getElementById('backgroundsTab');
+            
             const questsModal = document.getElementById('questsModal');
             const closeQuests = document.getElementById('closeQuests');
             const questsList = document.getElementById('questsList');
             const refreshQuestsBtn = document.getElementById('refreshQuestsBtn');
 
-            // --- Transfer System Elements ---
-            const transferBtn = document.getElementById('transferBtn');
             const transferModal = document.getElementById('transferModal');
             const closeTransfer = document.getElementById('closeTransfer');
             const playerIDDisplay = document.getElementById('playerIDDisplay');
@@ -461,7 +511,18 @@
             const claimCodeInput = document.getElementById('claimCodeInput');
             const claimCodeBtn = document.getElementById('claimCodeBtn');
             const transferMessage = document.getElementById('transferMessage');
+            
+            const exchangeModal = document.getElementById('exchangeModal');
+            const closeExchange = document.getElementById('closeExchange');
+            const exchangeInput = document.getElementById('exchangeInput');
+            const exchangeSubmit = document.getElementById('exchangeSubmit');
+            const exchangeCancel = document.getElementById('exchangeCancel');
 
+            const promocodeModal = document.getElementById('promocodeModal');
+            const closePromocode = document.getElementById('closePromocode');
+            const promocodeInput = document.getElementById('promocodeInput');
+            const activatePromocodeBtn = document.getElementById('activatePromocodeBtn');
+            const promocodeMessage = document.getElementById('promocodeMessage');
 
             // --- Game State ---
             let coins = parseFloat(localStorage.getItem('doolcoins')) || 0;
@@ -836,16 +897,21 @@
 
             // --- Event Listeners ---
             circle.addEventListener('click', handleCircleClick);
+            
+            // Panel and Modals
+            panelToggle.addEventListener('click', () => {
+                retractablePanel.classList.toggle('expanded');
+            });
             shopBtn.addEventListener('click', () => { shop.style.display = 'block'; updateUI(); });
             closeShop.addEventListener('click', () => { shop.style.display = 'none'; });
+            questsBtn.addEventListener('click', () => { questsModal.style.display = 'block'; renderQuests(); updateUI(); });
+            closeQuests.addEventListener('click', () => { questsModal.style.display = 'none'; });
             exchangeBtn.addEventListener('click', () => { exchangeModal.style.display = 'block'; exchangeInput.value = ''; exchangeSubmit.disabled = true; });
             closeExchange.addEventListener('click', () => { exchangeModal.style.display = 'none'; });
             exchangeCancel.addEventListener('click', () => { exchangeModal.style.display = 'none'; });
             promocodeBtn.addEventListener('click', () => { promocodeModal.style.display = 'block'; });
             closePromocode.addEventListener('click', () => { promocodeModal.style.display = 'none'; promocodeMessage.textContent = ''; });
             closeAdminPanel.addEventListener('click', () => { adminPanel.style.display = 'none'; });
-            questsBtn.addEventListener('click', () => { questsModal.style.display = 'block'; renderQuests(); updateUI(); });
-            closeQuests.addEventListener('click', () => { questsModal.style.display = 'none'; });
             refreshQuestsBtn.addEventListener('click', () => generateNewQuests(false));
             
             // --- Transfer Listeners ---
@@ -909,9 +975,6 @@
                     setTransferMessage("Этот код уже был использован.", true); return;
                 }
                 
-                // Note: In a real client-server architecture, the server would validate if the SENDER had the funds at the time of code generation.
-                // Here, we trust the code. The sender can't create a code for funds they don't have.
-
                 if (currencyType === 'COIN') {
                     coins += amount;
                     setTransferMessage(`Вы получили ${formatNumber(amount)} монет!`);
