@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -10,8 +10,8 @@
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
+            -webkit-tap-highlight-color: transparent; /* Убираем выделение при нажатии */
         }
-
 
         :root {
             --bg-color: #121212;
@@ -20,8 +20,9 @@
             --currency-border: rgba(255, 255, 255, 0.1);
             --circle-border: rgba(255, 255, 255, 0.1);
             --shop-bg: rgba(0, 0, 0, 0.8);
+            --quest-progress-bg: #333;
+            --quest-progress-fill: #4caf50;
         }
-
 
         body {
             font-family: 'Arial', sans-serif;
@@ -38,7 +39,6 @@
             position: relative;
         }
 
-
         body.light-theme {
             --bg-color: #f5f5f5;
             --text-color: #333;
@@ -46,1056 +46,196 @@
             --currency-border: rgba(0, 0, 0, 0.1);
             --circle-border: rgba(0, 0, 0, 0.1);
             --shop-bg: rgba(255, 255, 255, 0.9);
+            --quest-progress-bg: #e0e0e0;
+            --quest-progress-fill: #66bb6a;
         }
-
 
         /* --- CUSTOM BACKGROUNDS --- */
-        body.space-nebula-bg {
-            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
-        }
-
-
-        body.matrix-bg {
+        body.space-nebula-bg { background: linear-gradient(45deg, #0f0c29, #302b63, #24243e); }
+        body.matrix-bg { background-color: #000; background-image: radial-gradient(rgba(0, 150, 0, 0.75), black 120%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='0' y='20' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3E01%3C/text%3E%3Ctext x='10' y='40' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3EAB%3C/text%3E%3Ctext x='20' y='60' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3E11%3C/text%3E%3Ctext x='30' y='80' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3ECD%3C/text%3E%3Ctext x='40' y='100' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3E00%3C/text%3E%3C/svg%3E"); animation: matrix-scroll 5s linear infinite; }
+        @keyframes matrix-scroll { from { background-position: 0 0; } to { background-position: 0 -100px; } }
+        body.magic-forest-bg { background-color: var(--bg-color); }
+        .firefly { position: fixed; left: -10px; top: 50%; width: 5px; height: 5px; background-color: #89f5b2; border-radius: 50%; box-shadow: 0 0 10px #89f5b2, 0 0 20px #89f5b2; animation: firefly-float linear infinite; pointer-events: none; }
+        @keyframes firefly-float { 0% { transform: translateX(0) translateY(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateX(105vw) translateY(var(--y-end)); opacity: 0; } }
+        body.liquid-waves-bg { background: linear-gradient(125deg, #ff3cac, #784ba0, #2b86c5); background-size: 200% 200%; animation: gradient 10s ease infinite; }
+        
+        body.limbo-bg {
             background-color: #000;
-            background-image:
-                radial-gradient(rgba(0, 150, 0, 0.75), black 120%),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='0' y='20' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3E01%3C/text%3E%3Ctext x='10' y='40' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3EAB%3C/text%3E%3Ctext x='20' y='60' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3E11%3C/text%3E%3Ctext x='30' y='80' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3ECD%3C/text%3E%3Ctext x='40' y='100' font-family='monospace' font-size='10' fill='rgba(0, 255, 0, 0.3)'%3E00%3C/text%3E%3C/svg%3E");
-            animation: matrix-scroll 5s linear infinite;
+            overflow: hidden;
         }
-
-
-        @keyframes matrix-scroll {
-            from { background-position: 0 0; }
-            to { background-position: 0 -100px; }
-        }
-
-
-        body.magic-forest-bg {
-             background-color: var(--bg-color);
-        }
-
-
-        .firefly {
-            position: fixed;
-            left: -10px;
-            top: 50%;
-            width: 5px;
-            height: 5px;
-            background-color: #89f5b2;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #89f5b2, 0 0 20px #89f5b2;
-            animation: firefly-float linear infinite;
-            pointer-events: none;
-        }
-
-
-        @keyframes firefly-float {
-            0% { transform: translateX(0) translateY(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateX(105vw) translateY(var(--y-end)); opacity: 0; }
-        }
-
-
-        body.liquid-waves-bg {
-            background: linear-gradient(125deg, #ff3cac, #784ba0, #2b86c5);
-            background-size: 200% 200%;
-            animation: gradient 10s ease infinite;
-        }
-
-
+        .limbo-fog { position: fixed; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0) 100%); pointer-events: none; z-index: 1; }
         /* --- END CUSTOM BACKGROUNDS --- */
 
+        .refresh-button, .promocode-button-main { position: fixed; top: 20px; background-color: var(--currency-bg); color: var(--text-color); border: 1px solid var(--currency-border); border-radius: 50%; width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; transition: transform 0.2s; }
+        .refresh-button { left: 20px; }
+        .promocode-button-main { left: 80px; }
+        .refresh-button:hover, .promocode-button-main:hover { transform: scale(1.1); }
 
-        .refresh-button, .promocode-button-main {
-            position: fixed;
-            top: 20px;
-            background-color: var(--currency-bg);
-            color: var(--text-color);
-            border: 1px solid var(--currency-border);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 100;
-            transition: transform 0.2s;
-        }
+        .theme-switcher { position: fixed; top: 20px; right: 20px; display: flex; align-items: center; gap: 10px; z-index: 100; transition: opacity 0.3s; }
+        .theme-switcher.disabled { opacity: 0.5; pointer-events: none; cursor: not-allowed; }
+        .theme-label { font-size: 20px; }
+        .theme-toggle { position: relative; width: 60px; height: 30px; background-color: #555; border-radius: 15px; cursor: pointer; transition: background-color 0.3s; }
+        .theme-toggle.active { background-color: #2196F3; }
+        .theme-toggle-handle { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; background-color: white; border-radius: 50%; transition: transform 0.3s; }
+        .theme-toggle.active .theme-toggle-handle { transform: translateX(30px); }
 
+        .stats-container { display: flex; gap: 20px; margin-bottom: 30px; z-index: 10; }
+        .currency-box { font-size: 24px; background-color: var(--currency-bg); padding: 10px 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); display: flex; align-items: center; gap: 8px; color: var(--text-color); border: 1px solid var(--currency-border); backdrop-filter: blur(5px); }
 
-        .refresh-button {
-            left: 20px;
-        }
-
-
-        .promocode-button-main {
-            left: 80px;
-        }
-        
-        .refresh-button:hover, .promocode-button-main:hover {
-            transform: scale(1.1);
-        }
-
-
-        .theme-switcher {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 100;
-            transition: opacity 0.3s;
-        }
-        
-        .theme-switcher.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-            cursor: not-allowed;
-        }
-
-
-        .theme-label {
-            font-size: 20px;
-        }
-
-
-        .theme-toggle {
-            position: relative;
-            width: 60px;
-            height: 30px;
-            background-color: #555;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-
-        .theme-toggle.active {
-            background-color: #2196F3;
-        }
-
-
-        .theme-toggle-handle {
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px;
-            height: 24px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.3s;
-        }
-
-
-        .theme-toggle.active .theme-toggle-handle {
-            transform: translateX(30px);
-        }
-
-
-        .stats-container {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-            z-index: 10;
-        }
-
-
-        .currency-box {
-            font-size: 24px;
-            background-color: var(--currency-bg);
-            padding: 10px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-color);
-            border: 1px solid var(--currency-border);
-            backdrop-filter: blur(5px);
-        }
-
-
-        .circle {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            transition: transform 0.1s, box-shadow 0.3s, filter 0.3s;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-            z-index: 5;
-            border: 2px solid var(--circle-border);
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-        }
-
+        .circle { width: 200px; height: 200px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; color: white; transition: transform 0.1s, box-shadow 0.3s, filter 0.3s; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); position: relative; overflow: hidden; z-index: 5; border: 2px solid var(--circle-border); touch-action: manipulation; }
 
         /* --- SKINS --- */
-        .circle.default-skin {
-             background: linear-gradient(
-                45deg,
-                rgba(255, 105, 180, 0.8),
-                rgba(255, 165, 0, 0.8),
-                rgba(148, 0, 211, 0.8),
-                rgba(0, 0, 255, 0.8)
-            );
-            background-size: 400% 400%;
-            animation: gradient 8s ease infinite, pulse-subtle 3s infinite;
-        }
-        @keyframes pulse-subtle {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
-
-        .circle.premium-skin {
-            background: radial-gradient(circle, rgba(0, 200, 255, 0.9) 0%, rgba(0, 100, 200, 0.9) 100%);
-            box-shadow: 0 0 20px #00c8ff, inset 0 0 15px rgba(0, 100, 200, 0.8);
-        }
-        .circle.premium-skin::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCI+PHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBkPSJNMTUgMEwxMyA0LjVMMy41IDQuNUwxIDguOEwzLjUgMTMuMkwxIDE3LjVMMTMgMTcuNUwxNSAyMkwxNyAyNi41TDI2LjUgMjYuNUwyOSAyMi4yTDI2LjUgMTcuOEwyOSAxMy41TDE3IDEzLjVMMTUgOUwxMyA0LjVMMy41IDQuNU0xNyA5TDI2LjUgOSIgb3BhY2l0eT0iMC41IiAvPjwvc3ZnPg==');
-            animation: pan-bg 20s linear infinite;
-        }
-        @keyframes pan-bg {
-            from { background-position: 0% 0%; }
-            to { background-position: 100% 100%; }
-        }
-
-
-        .circle.legendary-skin {
-            background: radial-gradient(circle, #ffcc00 20%, #ff8c00 60%, #ff4500 100%);
-            box-shadow: 0 0 20px #ffdd77, 
-                        0 0 40px #ff8c00, 
-                        0 0 70px #ff4500,
-                        inset 0 0 15px #ff4500;
-            animation: legendary-pulse 2s infinite ease-in-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-
-        @keyframes legendary-pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 20px #ffdd77, 
-                            0 0 40px #ff8c00, 
-                            0 0 70px #ff4500,
-                            inset 0 0 15px #ff4500;
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 0 30px #ffdd77, 
-                            0 0 60px #ff8c00, 
-                            0 0 100px #ff4500,
-                            inset 0 0 20px #ff4500;
-            }
-        }
-
-
-        .circle.legendary-skin::after {
-            content: '';
-            position: absolute;
-            width: 200%; 
-            height: 200%;
-            top: -50%; 
-            left: -50%;
-            background-image: 
-                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 30%),
-                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.3), transparent 25%);
-            animation: rotate-shine 8s linear infinite;
-            mix-blend-mode: overlay;
-        }
-
-
-        @keyframes rotate-shine {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-
-        .circle.blackhole-skin {
-            background-color: #000;
-            box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7), inset 0 0 40px black;
-            animation: blackhole-pulse 5s infinite ease-in-out;
-        }
-        @keyframes blackhole-pulse {
-             0%, 100% { transform: scale(1); box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7); }
-             50% { transform: scale(0.98); box-shadow: 0 0 40px 15px rgba(120, 40, 220, 0.7); }
-        }
-
-
-        .circle.crystalmania-skin {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(0, 255, 255, 0.4);
-            box-shadow: 0 0 30px rgba(0, 200, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.3);
-            backdrop-filter: blur(5px);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .circle.crystalmania-skin:active {
-            transform: scale(0.97);
-            box-shadow: 0 0 50px rgba(255, 105, 180, 0.8), inset 0 0 30px rgba(255, 105, 180, 0.5);
-            border-color: rgba(255, 105, 180, 0.6);
-        }
-
-
-        .circle.vortex-skin {
-            background-image: url('https://i.postimg.cc/k5r9z5N6/vihr.png');
-            background-size: cover;
-            background-position: center;
-            animation: rotate-vortex 5s linear infinite;
-            box-shadow: 0 0 30px #4169E1, inset 0 0 25px #00008B;
-        }
+        .circle.default-skin { background: linear-gradient( 45deg, rgba(255, 105, 180, 0.8), rgba(255, 165, 0, 0.8), rgba(148, 0, 211, 0.8), rgba(0, 0, 255, 0.8) ); background-size: 400% 400%; animation: gradient 8s ease infinite, pulse-subtle 3s infinite; }
+        @keyframes pulse-subtle { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+        .circle.premium-skin { background: radial-gradient(circle, rgba(0, 200, 255, 0.9) 0%, rgba(0, 100, 200, 0.9) 100%); box-shadow: 0 0 20px #00c8ff, inset 0 0 15px rgba(0, 100, 200, 0.8); }
+        .circle.premium-skin::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCI+PHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBkPSJNMTUgMEwxMyA0LjVMMy41IDQuNUwxIDguOEwzLjUgMTMuMkwxIDE3LjVMMTMgMTcuNUwxNSAyMkwxNyAyNi41TDI2LjUgMjYuNUwyOSAyMi4yTDI2LjUgMTcuOEwyOSAxMy41TDE3IDEzLjVMMTUgOUwxMyA0LjVMMy41IDQuNU0xNyA5TDI2LjUgOSIgb3BhY2l0eT0iMC41IiAvPjwvc3ZnPg=='); animation: pan-bg 20s linear infinite; }
+        @keyframes pan-bg { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
+        .circle.legendary-skin { background: radial-gradient(circle, #ffcc00 20%, #ff8c00 60%, #ff4500 100%); box-shadow: 0 0 20px #ffdd77, 0 0 40px #ff8c00, 0 0 70px #ff4500, inset 0 0 15px #ff4500; animation: legendary-pulse 2s infinite ease-in-out; position: relative; overflow: hidden; }
+        @keyframes legendary-pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px #ffdd77, 0 0 40px #ff8c00, 0 0 70px #ff4500, inset 0 0 15px #ff4500; } 50% { transform: scale(1.05); box-shadow: 0 0 30px #ffdd77, 0 0 60px #ff8c00, 0 0 100px #ff4500, inset 0 0 20px #ff4500; } }
+        .circle.legendary-skin::after { content: ''; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%; background-image: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 30%), radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.3), transparent 25%); animation: rotate-shine 8s linear infinite; mix-blend-mode: overlay; }
+        @keyframes rotate-shine { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .circle.blackhole-skin { background-color: #000; box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7), inset 0 0 40px black; animation: blackhole-pulse 5s infinite ease-in-out; }
+        @keyframes blackhole-pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 50px 20px rgba(100, 0, 200, 0.7); } 50% { transform: scale(0.98); box-shadow: 0 0 40px 15px rgba(120, 40, 220, 0.7); } }
+        .circle.crystalmania-skin { background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(0, 255, 255, 0.4); box-shadow: 0 0 30px rgba(0, 200, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.3); backdrop-filter: blur(5px); transition: transform 0.2s, box-shadow 0.2s; }
+        .circle.crystalmania-skin:active { transform: scale(0.97); box-shadow: 0 0 50px rgba(255, 105, 180, 0.8), inset 0 0 30px rgba(255, 105, 180, 0.5); border-color: rgba(255, 105, 180, 0.6); }
+        .circle.vortex-skin { background-image: url('https://i.postimg.cc/k5r9z5N6/vihr.png'); background-size: cover; background-position: center; animation: rotate-vortex 5s linear infinite; box-shadow: 0 0 30px #4169E1, inset 0 0 25px #00008B; }
+        .circle.glitch-skin { background-color: #111; position: relative; overflow: hidden; animation: glitch-bg-main 5s infinite steps(10); }
+        .circle.glitch-skin::before, .circle.glitch-skin::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #111; clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%); animation: glitch-move 1s infinite alternate steps(10); }
+        .circle.glitch-skin::after { clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%); animation-delay: -0.5s; }
+        @keyframes glitch-move { from { transform: translateX(0); } to { transform: translateX(10px); } }
+        @keyframes glitch-bg-main { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+        .circle.ocean-skin { background: radial-gradient(circle, #80d0c7 0%, #135d96 100%); border-color: #a4e5de; box-shadow: 0 0 30px rgba(128, 208, 199, 0.7), inset 0 0 20px #135d96; }
+        .circle.ocean-skin::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 48%,rgba(255,255,255,0.4) 50%,rgba(255,255,255,0) 52%,rgba(255,255,255,0) 100%); background-size: 200% 100%; animation: ocean-caustic 4s linear infinite; mix-blend-mode: overlay; }
+        .circle.ocean-skin::after { content: ''; position: absolute; width: 10px; height: 10px; background: rgba(255,255,255,0.3); border-radius: 50%; bottom: -20px; left: 30%; box-shadow: 20px -20px 0 2px rgba(255,255,255,0.2), 50px -50px 0 0 rgba(255,255,255,0.3), 80px -90px 0 2px rgba(255,255,255,0.2), 10px -120px 0 1px rgba(255,255,255,0.3); animation: ocean-bubbles 5s linear infinite; }
+        @keyframes ocean-caustic { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+        @keyframes ocean-bubbles { to { transform: translateY(-220px); } }
+        .circle.hacker-skin { background: #000; border-color: #0f0; box-shadow: 0 0 20px #0f0, inset 0 0 10px #0f0; font-family: monospace; color: #0f0; text-shadow: 0 0 5px #0f0; }
+        .circle.hacker-skin::before { content: ''; position: absolute; width: 100%; height: 3px; background: #0f0; box-shadow: 0 0 5px #0f0; animation: hacker-scan 3s linear infinite; }
+        .circle.hacker-skin::after { content: 'Doolcoin v2.1'; position: absolute; bottom: 10px; left: 10px; font-size: 10px; opacity: 0.7; animation: text-flicker 3s infinite; }
+        @keyframes hacker-scan { from { top: 0%; } to { top: 100%; } }
+        @keyframes text-flicker { 0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 0.7; } 20%, 24%, 55% { opacity: 0.3; } }
         
-        .circle.glitch-skin {
-            background-color: #111;
-            position: relative;
-            overflow: hidden;
-            animation: glitch-bg-main 5s infinite steps(10);
+        .circle.radiation-skin {
+            background: radial-gradient(circle, #aaff00 0%, #558b2f 100%);
+            border-color: #aaff00;
+            box-shadow: 0 0 30px #aaff00, inset 0 0 20px #558b2f, 0 0 60px rgba(170, 255, 0, 0.5);
+            animation: radiation-pulse 2.5s infinite ease-in-out;
         }
-        .circle.glitch-skin::before, .circle.glitch-skin::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #111;
-            clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
-            animation: glitch-move 1s infinite alternate steps(10);
+        @keyframes radiation-pulse { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.03); filter: brightness(1.2); } }
+        .circle.radiation-skin::after {
+            content: "☢"; font-size: 100px; color: rgba(0,0,0,0.4);
+            position: absolute; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;
+            animation: rotate-vortex 20s linear infinite;
         }
-        .circle.glitch-skin::after {
-            clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
-            animation-delay: -0.5s;
-        }
-        @keyframes glitch-move {
-            from { transform: translateX(0); } to { transform: translateX(10px); }
-        }
-        @keyframes glitch-bg-main {
-             0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); }
-        }
-
-
-
-
-        .circle.ocean-skin {
-            background: radial-gradient(circle, #80d0c7 0%, #135d96 100%);
-            border-color: #a4e5de;
-            box-shadow: 0 0 30px rgba(128, 208, 199, 0.7), inset 0 0 20px #135d96;
-        }
-        .circle.ocean-skin::before { /* Caustic light effect */
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 48%,rgba(255,255,255,0.4) 50%,rgba(255,255,255,0) 52%,rgba(255,255,255,0) 100%);
-            background-size: 200% 100%;
-            animation: ocean-caustic 4s linear infinite;
-            mix-blend-mode: overlay;
-        }
-        .circle.ocean-skin::after { /* Bubbles */
-            content: '';
-            position: absolute;
-            width: 10px; height: 10px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 50%;
-            bottom: -20px;
-            left: 30%;
-            box-shadow: 20px -20px 0 2px rgba(255,255,255,0.2), 50px -50px 0 0 rgba(255,255,255,0.3), 80px -90px 0 2px rgba(255,255,255,0.2), 10px -120px 0 1px rgba(255,255,255,0.3);
-            animation: ocean-bubbles 5s linear infinite;
-        }
-
-
-        @keyframes ocean-caustic {
-            from { background-position: 200% 0; } to { background-position: -200% 0; }
-        }
-        @keyframes ocean-bubbles {
-            to { transform: translateY(-220px); }
-        }
-
-
-        .circle.hacker-skin {
-            background: #000;
-            border-color: #0f0;
-            box-shadow: 0 0 20px #0f0, inset 0 0 10px #0f0;
-            font-family: monospace;
-            color: #0f0;
-            text-shadow: 0 0 5px #0f0;
-        }
-        .circle.hacker-skin::before { /* Scanline */
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 3px;
-            background: #0f0;
-            box-shadow: 0 0 5px #0f0;
-            animation: hacker-scan 3s linear infinite;
-        }
-        .circle.hacker-skin::after { /* Text */
-            content: 'Doolcoin v2.1';
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            font-size: 10px;
-            opacity: 0.7;
-            animation: text-flicker 3s infinite;
-        }
-        @keyframes hacker-scan {
-            from { top: 0%; } to { top: 100%; }
-        }
-        @keyframes text-flicker {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 0.7; }
-            20%, 24%, 55% { opacity: 0.3; }
-        }
-
-
         /* --- END SKINS --- */
         
-        @keyframes rotate-vortex {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-
-        @keyframes rotate-hue {
-            from { filter: hue-rotate(0deg); }
-            to { filter: hue-rotate(360deg); }
-        }
-
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        @keyframes rotate-vortex { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes rotate-hue { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
+        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         /* --- TAP EFFECTS --- */
-        .tap-effect { /* Default tap effect */
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
-            pointer-events: none;
-            animation: tap-animation 0.8s forwards;
-            transform: scale(0);
-            transform-origin: var(--tap-x) var(--tap-y);
-        }
+        .tap-effect { position: absolute; width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%); pointer-events: none; animation: tap-animation 0.8s forwards; transform: scale(0); transform-origin: var(--tap-x) var(--tap-y); }
         @keyframes tap-animation { from { transform: scale(0); opacity: 1;} to { transform: scale(1); opacity: 0;} }
-
-
-        .legendary-tap-effect {
-            position: absolute;
-            width: 8px; height: 8px;
-            background: #ffcc00;
-            border-radius: 50%;
-            pointer-events: none;
-            box-shadow: 0 0 10px #ffcc00, 0 0 20px #ff8c00;
-            animation: legendary-spark-fly 0.8s ease-out forwards;
-        }
-        @keyframes legendary-spark-fly {
-            from { transform: scale(1) translate(0, 0); opacity: 1; }
-            to { transform: scale(0) translate(var(--spark-x), var(--spark-y)); opacity: 0; }
-        }
-        
-        .blackhole-tap-effect {
-            position: absolute;
-            border-radius: 50%;
-            border: 2px solid #9400D3;
-            pointer-events: none;
-            animation: blackhole-implode 0.6s ease-in forwards;
-        }
-        @keyframes blackhole-implode {
-             from { transform: scale(10); opacity: 0.7; }
-             to { transform: scale(0); opacity: 0; }
-        }
-        
-        .crystalmania-tap-effect {
-            position: absolute;
-            width: 15px; height: 15px;
-            background: transparent;
-            border: 2px solid;
-            pointer-events: none;
-            animation: crystal-shatter 0.7s ease-out forwards;
-        }
-        @keyframes crystal-shatter {
-            from { transform: rotate(0) scale(1); opacity: 1; }
-            to { transform: rotate(var(--rot-end)) scale(3); opacity: 0; }
-        }
-
-
-        .vortex-tap-effect {
-             position: absolute;
-             width: 10px; height: 10px;
-             border: 2px solid rgba(137, 207, 240, 0.8);
-             border-radius: 50%;
-             pointer-events: none;
-             animation: vortex-ripple 0.8s linear forwards;
-        }
-        @keyframes vortex-ripple {
-             from { transform: scale(0); opacity: 1; }
-             to { transform: scale(25); opacity: 0; }
-        }
-
-
-        .glitch-tap-effect {
-            position: absolute;
-            width: 80px; height: 10px;
-            background: red;
-            pointer-events: none;
-            animation: glitch-flicker 0.4s steps(2, end) forwards;
-        }
+        .legendary-tap-effect { position: absolute; width: 8px; height: 8px; background: #ffcc00; border-radius: 50%; pointer-events: none; box-shadow: 0 0 10px #ffcc00, 0 0 20px #ff8c00; animation: legendary-spark-fly 0.8s ease-out forwards; }
+        @keyframes legendary-spark-fly { from { transform: scale(1) translate(0, 0); opacity: 1; } to { transform: scale(0) translate(var(--spark-x), var(--spark-y)); opacity: 0; } }
+        .blackhole-tap-effect { position: absolute; border-radius: 50%; border: 2px solid #9400D3; pointer-events: none; animation: blackhole-implode 0.6s ease-in forwards; }
+        @keyframes blackhole-implode { from { transform: scale(10); opacity: 0.7; } to { transform: scale(0); opacity: 0; } }
+        .crystalmania-tap-effect { position: absolute; width: 15px; height: 15px; background: transparent; border: 2px solid; pointer-events: none; animation: crystal-shatter 0.7s ease-out forwards; }
+        @keyframes crystal-shatter { from { transform: rotate(0) scale(1); opacity: 1; } to { transform: rotate(var(--rot-end)) scale(3); opacity: 0; } }
+        .vortex-tap-effect { position: absolute; width: 10px; height: 10px; border: 2px solid rgba(137, 207, 240, 0.8); border-radius: 50%; pointer-events: none; animation: vortex-ripple 0.8s linear forwards; }
+        @keyframes vortex-ripple { from { transform: scale(0); opacity: 1; } to { transform: scale(25); opacity: 0; } }
+        .glitch-tap-effect { position: absolute; width: 80px; height: 10px; background: red; pointer-events: none; animation: glitch-flicker 0.4s steps(2, end) forwards; }
         .glitch-tap-effect.b { background: cyan; animation-delay: 0.05s; }
         .glitch-tap-effect.c { background: lime; animation-delay: 0.1s; }
-        @keyframes glitch-flicker {
-            to { opacity: 0; transform: scaleX(2); }
-        }
-
-
-        .ocean-tap-effect { /* Ripple */
-            position: absolute;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: ocean-ripple 0.7s linear forwards;
-        }
-        @keyframes ocean-ripple {
-            from { transform: scale(0); opacity: 1; }
-            to { transform: scale(20); opacity: 0; }
-        }
-
-
-        .hacker-tap-effect { /* Digital squares */
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #0f0;
-            box-shadow: 0 0 5px #0f0;
-            pointer-events: none;
-            animation: hacker-square-fly 1s ease-out forwards;
-        }
-        @keyframes hacker-square-fly {
-            from { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-            to { 
-                transform: translate(var(--spark-x), var(--spark-y)) rotate(360deg); 
-                opacity: 0;
-            }
-        }
+        @keyframes glitch-flicker { to { opacity: 0; transform: scaleX(2); } }
+        .ocean-tap-effect { position: absolute; border: 2px solid rgba(255, 255, 255, 0.8); width: 10px; height: 10px; border-radius: 50%; pointer-events: none; animation: ocean-ripple 0.7s linear forwards; }
+        @keyframes ocean-ripple { from { transform: scale(0); opacity: 1; } to { transform: scale(20); opacity: 0; } }
+        .hacker-tap-effect { position: absolute; width: 10px; height: 10px; background: #0f0; box-shadow: 0 0 5px #0f0; pointer-events: none; animation: hacker-square-fly 1s ease-out forwards; }
+        @keyframes hacker-square-fly { from { transform: translate(0, 0) rotate(0deg); opacity: 1; } to { transform: translate(var(--spark-x), var(--spark-y)) rotate(360deg); opacity: 0; } }
+        .radiation-tap-effect { position: absolute; width: 10px; height: 10px; border-radius: 50%; border: 3px solid #aaff00; pointer-events: none; animation: radiation-wave 0.6s linear forwards; }
+        @keyframes radiation-wave { from { transform: scale(0); opacity: 1; } to { transform: scale(20); opacity: 0; } }
         /* --- END TAP EFFECTS --- */
 
+        .crystal-effect { position: fixed; font-size: 36px; font-weight: bold; color: #00ffff; text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 200, 255, 0.6); pointer-events: none; animation: crystal-animation 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards; z-index: 20; filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.8)); transform-origin: center; }
+        @keyframes crystal-animation { 0% { transform: translate(0, 0) scale(0.5) rotate(0deg); opacity: 0; } 10% { opacity: 1; transform: translate(0, -10px) scale(0.7) rotate(10deg); } 30% { transform: translate(0, -30px) scale(1) rotate(-10deg); } 50% { transform: translate(0, -60px) scale(1.2) rotate(10deg); } 80% { transform: translate(0, -100px) scale(1.4) rotate(0deg); } 100% { transform: translate(0, -150px) scale(1.5) rotate(360deg); opacity: 0; } }
+        .pulse { animation: pulse-effect 1s infinite; }
+        @keyframes pulse-effect { 0% { box-shadow: 0 0 10px 0 rgba(0, 200, 255, 0.5); } 50% { box-shadow: 0 0 30px 10px rgba(0, 200, 255, 0.8); } 100% { box-shadow: 0 0 10px 0 rgba(0, 200, 255, 0.5); } }
+        .coin-effect { position: fixed; font-size: 24px; font-weight: bold; color: #ffffff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); pointer-events: none; animation: coin-animation 1s forwards; z-index: 15; transform: translateX(-50%); }
+        @keyframes coin-animation { 0% { transform: translateY(0) scale(1) translateX(-50%); opacity: 1; } 100% { transform: translateY(-80px) scale(1.5) translateX(-50%); opacity: 0; } }
+        .crystal-icon { font-size: 26px; color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8); animation: crystal-icon-pulse 2s infinite; }
+        @keyframes crystal-icon-pulse { 0% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 255, 255, 0.8); } 50% { transform: scale(1.2); text-shadow: 0 0 20px rgba(0, 255, 255, 1); } 100% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 255, 255, 0.8); } }
 
-        .crystal-effect {
-            position: fixed;
-            font-size: 36px;
-            font-weight: bold;
-            color: #00ffff;
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 200, 255, 0.6);
-            pointer-events: none;
-            animation: crystal-animation 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
-            z-index: 20;
-            filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.8));
-            transform-origin: center;
-        }
+        .ban-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: black; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; font-size: 24px; text-align: center; display: none; }
+        .ban-timer { font-size: 48px; margin: 20px 0; color: red; }
+        .warning { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background-color: rgba(255, 0, 0, 0.8); color: white; padding: 10px 20px; border-radius: 5px; z-index: 50; display: none; }
 
+        .shop-btn, .quests-btn { position: fixed; bottom: 20px; background-color: var(--currency-bg); color: var(--text-color); border: 1px solid var(--currency-border); border-radius: 50%; width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: transform 0.2s; }
+        .shop-btn { left: 20px; }
+        .quests-btn { left: 80px; } /* Располагаем справа от магазина */
+        .shop-btn:hover, .quests-btn:hover { transform: scale(1.1); }
 
-        @keyframes crystal-animation {
-            0% {
-                transform: translate(0, 0) scale(0.5) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-                transform: translate(0, -10px) scale(0.7) rotate(10deg);
-            }
-            30% {
-                transform: translate(0, -30px) scale(1) rotate(-10deg);
-            }
-            50% {
-                transform: translate(0, -60px) scale(1.2) rotate(10deg);
-            }
-            80% {
-                transform: translate(0, -100px) scale(1.4) rotate(0deg);
-            }
-            100% {
-                transform: translate(0, -150px) scale(1.5) rotate(360deg);
-                opacity: 0;
-            }
-        }
+        .shop, .quests-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--shop-bg); border-radius: 15px; padding: 20px; width: 340px; max-width: 90%; z-index: 100; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5); display: none; backdrop-filter: blur(10px); border: 1px solid var(--currency-border); }
+        .shop-header, .quests-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--currency-border); padding-bottom: 10px; }
+        .shop-title, .quests-title { font-size: 24px; font-weight: bold; }
+        .close-shop, .close-quests { font-size: 20px; cursor: pointer; padding: 5px; }
+        .shop-tabs { display: flex; margin-bottom: 15px; border-bottom: 1px solid var(--currency-border); }
+        .shop-tab { padding: 8px 15px; cursor: pointer; border-bottom: 2px solid transparent; }
+        .shop-tab.active { border-bottom: 2px solid #00ffff; }
+        .shop-content { max-height: 400px; overflow-y: auto; }
+        .shop-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .shop-item:last-child { border-bottom: none; }
+        .item-info { flex-grow: 1; }
+        .item-name { font-size: 18px; margin-bottom: 5px; }
+        .item-desc { font-size: 14px; opacity: 0.8; }
+        .item-price { display: flex; align-items: center; gap: 5px; font-size: 16px; white-space: nowrap; margin-left: 15px; }
+        .buy-btn { background-color: rgba(0, 200, 255, 0.3); border: 1px solid rgba(0, 200, 255, 0.5); color: white; padding: 8px 15px; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; font-size: 14px; }
+        .buy-btn:hover { background-color: rgba(0, 200, 255, 0.5); }
+        .buy-btn:disabled { background-color: rgba(100, 100, 100, 0.3); border-color: rgba(100, 100, 100, 0.5); cursor: not-allowed; }
 
-
-        .pulse {
-            animation: pulse-effect 1s infinite;
-        }
-
-
-        @keyframes pulse-effect {
-            0% {
-                box-shadow: 0 0 10px 0 rgba(0, 200, 255, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 30px 10px rgba(0, 200, 255, 0.8);
-            }
-            100% {
-                box-shadow: 0 0 10px 0 rgba(0, 200, 255, 0.5);
-            }
-        }
-
-
-        .coin-effect {
-            position: fixed;
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            pointer-events: none;
-            animation: coin-animation 1s forwards;
-            z-index: 15;
-            transform: translateX(-50%);
-        }
-
-
-        @keyframes coin-animation {
-            0% {
-                transform: translateY(0) scale(1) translateX(-50%);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-80px) scale(1.5) translateX(-50%);
-                opacity: 0;
-            }
-        }
-
-
-        .crystal-icon {
-            font-size: 26px;
-            color: #00ffff;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-            animation: crystal-icon-pulse 2s infinite;
-        }
-
-
-        @keyframes crystal-icon-pulse {
-            0% {
-                transform: scale(1);
-                text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-            }
-            50% {
-                transform: scale(1.2);
-                text-shadow: 0 0 20px rgba(0, 255, 255, 1);
-            }
-            100% {
-                transform: scale(1);
-                text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-            }
-        }
-
-
-        .ban-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            font-size: 24px;
-            text-align: center;
-            display: none;
-        }
-
-
-        .ban-timer {
-            font-size: 48px;
-            margin: 20px 0;
-            color: red;
-        }
-
-
-        .warning {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(255, 0, 0, 0.8);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            z-index: 50;
-            display: none;
-        }
-
-
-        .shop-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: var(--currency-bg);
-            color: var(--text-color);
-            border: 1px solid var(--currency-border);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: transform 0.2s;
-        }
-
-
-        .shop-btn:hover {
-            transform: scale(1.1);
-        }
-
-
-        .shop {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: var(--shop-bg);
-            border-radius: 15px;
-            padding: 20px;
-            width: 320px;
-            max-width: 90%;
-            z-index: 100;
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
-            display: none;
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--currency-border);
-        }
-
-
-        .shop-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--currency-border);
-            padding-bottom: 10px;
-        }
-
-
-        .shop-title {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-
-        .close-shop {
-            font-size: 20px;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-
-        .shop-tabs {
-            display: flex;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--currency-border);
-        }
-
-
-        .shop-tab {
-            padding: 8px 15px;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-        }
-
-
-        .shop-tab.active {
-            border-bottom: 2px solid #00ffff;
-        }
-
-
-        .shop-content {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-
-        .shop-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-
-        .shop-item:last-child {
-            border-bottom: none;
-        }
-
-
-        .item-info {
-            flex-grow: 1;
-        }
-
-
-        .item-name {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-
-        .item-desc {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-
-        .item-price {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 16px;
-            white-space: nowrap;
-            margin-left: 15px;
-        }
-
-
-        .buy-btn {
-            background-color: rgba(0, 200, 255, 0.3);
-            border: 1px solid rgba(0, 200, 255, 0.5);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            font-size: 14px;
-        }
-
-
-        .buy-btn:hover {
-            background-color: rgba(0, 200, 255, 0.5);
-        }
-
-
-        .buy-btn:disabled {
-            background-color: rgba(100, 100, 100, 0.3);
-            border-color: rgba(100, 100, 100, 0.5);
-            cursor: not-allowed;
-        }
-
-
-        .exchange-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--currency-bg);
-            color: var(--text-color);
-            border: 1px solid var(--currency-border);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: transform 0.2s;
-        }
-
-
-        .exchange-btn:hover {
-            transform: scale(1.1);
-        }
+        .exchange-btn { position: fixed; bottom: 20px; right: 20px; background-color: var(--currency-bg); color: var(--text-color); border: 1px solid var(--currency-border); border-radius: 50%; width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: transform 0.2s; }
+        .exchange-btn:hover { transform: scale(1.1); }
         
-        /* Modal Styles */
-        .exchange-modal, .promocode-modal, .admin-panel {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: var(--shop-bg);
-            border-radius: 15px;
-            padding: 20px;
-            width: 340px;
-            max-width: 95%;
-            z-index: 100;
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
-            display: none;
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--currency-border);
-        }
+        .exchange-modal, .promocode-modal, .admin-panel { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--shop-bg); border-radius: 15px; padding: 20px; width: 340px; max-width: 95%; z-index: 100; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5); display: none; backdrop-filter: blur(10px); border: 1px solid var(--currency-border); }
+        .admin-header { cursor: grab; }
+        .exchange-header, .promocode-header, .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--currency-border); padding-bottom: 10px; }
+        .exchange-title, .promocode-title, .admin-title { font-size: 24px; font-weight: bold; }
+        .close-exchange, .close-promocode, .close-admin { font-size: 20px; cursor: pointer; padding: 5px; }
+        .exchange-rate { margin-bottom: 20px; text-align: center; }
+        .exchange-input, .promocode-input, .admin-input { width: 100%; padding: 10px; margin-bottom: 20px; background-color: rgba(255, 255, 255, 0.1); border: 1px solid var(--currency-border); border-radius: 5px; color: var(--text-color); font-size: 16px; box-sizing: border-box; }
+        .exchange-action, .promocode-action, .admin-action { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .exchange-submit, .promocode-submit, .admin-submit-btn { flex-grow: 1; background-color: rgba(0, 200, 100, 0.3); border: 1px solid rgba(0, 200, 100, 0.5); color: white; padding: 10px; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; }
+        .promocode-submit { background-color: rgba(0, 200, 255, 0.3); border: 1px solid rgba(0, 200, 255, 0.5); }
+        .admin-submit-btn { background-color: rgba(100, 100, 255, 0.3); border: 1px solid rgba(100, 100, 255, 0.5); width: calc(50% - 5px); margin-bottom: 10px; }
+        .exchange-submit:hover, .promocode-submit:hover, .admin-submit-btn:hover { background-color: rgba(0, 200, 100, 0.5); }
+        .promocode-submit:hover { background-color: rgba(0, 200, 255, 0.5); }
+        .admin-submit-btn:hover { background-color: rgba(100, 100, 255, 0.5); }
+        .exchange-submit:disabled, .promocode-submit:disabled, .admin-submit-btn:disabled { background-color: rgba(100, 100, 100, 0.3); border-color: rgba(100, 100, 100, 0.5); cursor: not-allowed; }
+        .exchange-cancel { background-color: rgba(200, 0, 0, 0.3); border: 1px solid rgba(200, 0, 0, 0.5); color: white; padding: 10px; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; }
+        .exchange-cancel:hover { background-color: rgba(200, 0, 0, 0.5); }
 
-
-        .admin-header {
-            cursor: grab;
-        }
-
-
-        .exchange-header, .promocode-header, .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--currency-border);
-            padding-bottom: 10px;
-        }
-
-
-        .exchange-title, .promocode-title, .admin-title {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-
-        .close-exchange, .close-promocode, .close-admin {
-            font-size: 20px;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-
-        .exchange-rate {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-
-        .exchange-input, .promocode-input, .admin-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--currency-border);
-            border-radius: 5px;
-            color: var(--text-color);
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-
-        .exchange-action, .promocode-action, .admin-action {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-
-        .exchange-submit, .promocode-submit, .admin-submit-btn {
-            flex-grow: 1;
-            background-color: rgba(0, 200, 100, 0.3);
-            border: 1px solid rgba(0, 200, 100, 0.5);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
+        .boosts-container { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
+        .boost-indicator { background-color: var(--currency-bg); border: 1px solid var(--currency-border); border-radius: 15px; padding: 5px 10px; font-size: 14px; display: flex; align-items: center; gap: 5px; }
+        .boost-icon { font-size: 16px; }
+        .promocode-modal .promocode-message { margin-top: 15px; font-size: 14px; text-align: center; min-height: 20px; }
         
-        .promocode-submit {
-            background-color: rgba(0, 200, 255, 0.3);
-            border: 1px solid rgba(0, 200, 255, 0.5);
-        }
-
-
-        .admin-submit-btn {
-            background-color: rgba(100, 100, 255, 0.3);
-            border: 1px solid rgba(100, 100, 255, 0.5);
-            width: calc(50% - 5px);
-            margin-bottom: 10px;
-        }
-
-
-        .exchange-submit:hover, .promocode-submit:hover, .admin-submit-btn:hover {
-            background-color: rgba(0, 200, 100, 0.5);
-        }
-        .promocode-submit:hover {
-            background-color: rgba(0, 200, 255, 0.5);
-        }
-        .admin-submit-btn:hover {
-            background-color: rgba(100, 100, 255, 0.5);
-        }
-        
-        .exchange-submit:disabled, .promocode-submit:disabled, .admin-submit-btn:disabled {
-            background-color: rgba(100, 100, 100, 0.3);
-            border-color: rgba(100, 100, 100, 0.5);
-            cursor: not-allowed;
-        }
-
-
-        .exchange-cancel {
-            background-color: rgba(200, 0, 0, 0.3);
-            border: 1px solid rgba(200, 0, 0, 0.5);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-
-        .exchange-cancel:hover {
-            background-color: rgba(200, 0, 0, 0.5);
-        }
-
-
-        .boosts-container {
-            position: fixed;
-            top: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-
-
-        .boost-indicator {
-            background-color: var(--currency-bg);
-            border: 1px solid var(--currency-border);
-            border-radius: 15px;
-            padding: 5px 10px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-
-        .boost-icon {
-            font-size: 16px;
-        }
-
-
-        .promocode-modal .promocode-message {
-            margin-top: 15px;
-            font-size: 14px;
-            text-align: center;
-            min-height: 20px;
-        }
-
-
+        /* --- Quest System Styles --- */
+        .quests-list { display: flex; flex-direction: column; gap: 15px; max-height: 350px; overflow-y: auto; padding-right: 5px; }
+        .quest-item { display: flex; align-items: center; gap: 15px; }
+        .quest-progress-circle { min-width: 50px; width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(closest-side, var(--shop-bg) 79%, transparent 80% 100%), conic-gradient(var(--quest-progress-fill) var(--progress-angle, 0deg), var(--quest-progress-bg) 0deg); font-size: 12px; transition: background 0.3s; }
+        .quest-info { flex-grow: 1; }
+        .quest-desc { font-size: 15px; margin-bottom: 4px; }
+        .quest-reward { font-size: 14px; opacity: 0.9; }
+        .claim-quest-btn, .refresh-quests-btn { background-color: rgba(76, 175, 80, 0.4); border: 1px solid rgba(76, 175, 80, 0.6); color: white; padding: 8px 12px; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; font-size: 14px; white-space: nowrap; }
+        .claim-quest-btn:hover, .refresh-quests-btn:hover { background-color: rgba(76, 175, 80, 0.6); }
+        .claim-quest-btn:disabled, .refresh-quests-btn:disabled { background-color: rgba(100, 100, 100, 0.3); border-color: rgba(100, 100, 100, 0.5); cursor: not-allowed; }
+        .quests-footer { margin-top: 20px; text-align: center; border-top: 1px solid var(--currency-border); padding-top: 15px; }
+        .refresh-quests-btn { background-color: rgba(0, 150, 255, 0.4); border-color: rgba(0, 150, 255, 0.6); }
+        .refresh-quests-btn:hover:not(:disabled) { background-color: rgba(0, 150, 255, 0.6); }
     </style>
 </head>
 <body>
     <button class="refresh-button" onclick="location.reload()">↻</button>
     <button class="promocode-button-main" id="promocodeBtn">🎁</button>
-
 
     <div class="theme-switcher" id="themeSwitcher">
         <div class="theme-label">🌙</div>
@@ -1105,22 +245,18 @@
         <div class="theme-label">☀️</div>
     </div>
 
-
     <div class="boosts-container" id="boostsContainer"></div>
 
-
     <div class="shop-btn" id="shopBtn">🛒</div>
+    <div class="quests-btn" id="questsBtn">📜</div>
     <div class="exchange-btn" id="exchangeBtn">⇄</div>
-
 
     <div class="warning" id="warning">Слишком быстро! Прекратите кликать так часто!</div>
     <div class="ban-screen" id="banScreen">
         <div>ВЫ ЗАБАНЕНЫ ЗА АВТОКЛИКЕР!</div>
         <div class="ban-timer" id="banTimer">60</div>
         <div>Вам отняли половину монет!</div>
-        <div>Осталось секунд:</div>
     </div>
-
 
     <div class="stats-container">
         <div class="currency-box">
@@ -1133,10 +269,10 @@
         </div>
     </div>
 
-
     <div class="circle default-skin" id="circle"></div>
+    <div id="backgroundContainer"></div>
 
-
+    <!-- Modals -->
     <div class="promocode-modal" id="promocodeModal">
         <div class="promocode-header">
             <div class="promocode-title">Активировать промокод</div>
@@ -1148,7 +284,6 @@
         </div>
         <div id="promocodeMessage" class="promocode-message"></div>
     </div>
-
 
     <div class="admin-panel" id="adminPanel">
         <div class="admin-header" id="adminPanelHeader">
@@ -1162,8 +297,6 @@
                 <button id="setCoinsBtn" class="admin-submit-btn">Установить монеты</button>
                 <button id="addCoinsBtn" class="admin-submit-btn">Добавить монеты</button>
             </div>
-
-
             <label for="adminCrystalsInput">Кристаллы:</label>
             <input type="number" id="adminCrystalsInput" class="admin-input" placeholder="Введите количество кристаллов">
             <div class="admin-action">
@@ -1184,149 +317,11 @@
             <div class="shop-tab" data-tab="backgrounds">Фоны</div>
         </div>
         <div class="shop-content">
-            <div class="shop-tab-content" id="skinsTab">
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Стандартный</div>
-                        <div class="item-desc">Пульсирующий радужный градиент</div>
-                    </div>
-                    <button class="buy-btn" id="defaultSkinBtn" disabled>Выбрано</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Премиум</div>
-                        <div class="item-desc">Сияющий голубой шар с узором шестигранников</div>
-                    </div>
-                    <div class="item-price">100 <span class="crystal-icon">✦</span></div>
-                    <button class="buy-btn" id="premiumSkinBtn">Купить</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Легендарный</div>
-                        <div class="item-desc">Огненный шар с эффектом расплавленного золота</div>
-                    </div>
-                    <div class="item-price">500 <span class="crystal-icon">✦</span></div>
-                    <button class="buy-btn" id="legendarySkinBtn">Купить</button>
-                </div>
-                 <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Черная дыра</div>
-                        <div class="item-desc">Пульсирующая тьма с фиолетовым свечением</div>
-                    </div>
-                    <div class="item-price">1000 <span class="crystal-icon">✦</span></div>
-                    <button class="buy-btn" id="blackholeSkinBtn">Купить</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">CrystalMania</div>
-                        <div class="item-desc">Разлетается на цветные осколки при нажатии</div>
-                    </div>
-                    <div class="item-price">5000 <span>Đ</span></div>
-                    <button class="buy-btn" id="crystalmaniaSkinBtn">Купить</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Водоворот</div>
-                        <div class="item-desc">Вращающийся вихрь с водной рябью от клика</div>
-                    </div>
-                    <div class="item-price">10000 <span>Đ</span></div>
-                    <button class="buy-btn" id="vortexSkinBtn">Купить</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Glitch</div>
-                        <div class="item-desc">Искажается с RGB-полосами при нажатии</div>
-                    </div>
-                    <div class="item-price">2500 <span class="crystal-icon">✦</span></div>
-                    <button class="buy-btn" id="glitchSkinBtn">Купить</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Океан</div>
-                        <div class="item-desc">Подводная сфера с пузырьками и бликами света</div>
-                    </div>
-                    <div class="item-price">4000 <span class="crystal-icon">✦</span></div>
-                    <button class="buy-btn" id="oceanSkinBtn">Купить</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Хакер</div>
-                        <div class="item-desc">Терминал со скан-линией и цифровыми частицами</div>
-                    </div>
-                    <div class="item-price">20000 <span>Đ</span></div>
-                    <button class="buy-btn" id="hackerSkinBtn">Купить</button>
-                </div>
-            </div>
-            <div class="shop-tab-content" id="boostsTab" style="display: none;">
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Множитель x2</div>
-                        <div class="item-desc">Удваивает монеты за клик на 1 минуту</div>
-                    </div>
-                    <div class="item-price">500 <span>Đ</span></div>
-                    <button class="buy-btn" id="multiplierBoostBtn">Купить</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Удача +30%</div>
-                        <div class="item-desc">Увеличивает шанс кристалла на 30 секунд</div>
-                    </div>
-                    <div class="item-price">300 <span>Đ</span></div>
-                    <button class="buy-btn" id="luckBoostBtn">Купить</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Автокликер</div>
-                        <div class="item-desc">5 кликов в секунду на 30 секунд</div>
-                    </div>
-                    <div class="item-price">400 <span>Đ</span></div>
-                    <button class="buy-btn" id="autoclickerBoostBtn">Купить</button>
-                </div>
-            </div>
-            <div class="shop-tab-content" id="backgroundsTab" style="display: none;">
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Стандартный</div>
-                        <div class="item-desc">Обычный фон, который зависит от темы</div>
-                    </div>
-                    <button class="buy-btn" id="defaultBgBtn">Выбрано</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Космическая туманность</div>
-                        <div class="item-desc">Глубокий космос с фиолетовыми оттенками</div>
-                    </div>
-                    <div class="item-price">25000 <span>Đ</span></div>
-                    <button class="buy-btn" id="spaceNebulaBgBtn">Купить</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Матрица</div>
-                        <div class="item-desc">Анимированный фон с падающими символами</div>
-                    </div>
-                    <div class="item-price">1000 <span class="crystal-icon">✦</span></div>
-                    <button class="buy-btn" id="matrixBgBtn">Купить</button>
-                </div>
-                <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Волшебный лес</div>
-                        <div class="item-desc">Безмятежный фон со светлячками</div>
-                    </div>
-                    <div class="item-price">40000 <span>Đ</span></div>
-                    <button class="buy-btn" id="magicForestBgBtn">Купить</button>
-                </div>
-                 <div class="shop-item">
-                    <div class="item-info">
-                        <div class="item-name">Жидкие волны</div>
-                        <div class="item-desc">Переливающийся градиент в стиле лава-лампы</div>
-                    </div>
-                    <div class="item-price">2500 <span class="crystal-icon">✦</span></div>
-                    <button class="buy-btn" id="liquidWavesBgBtn">Купить</button>
-                </div>
-            </div>
+            <div class="shop-tab-content" id="skinsTab"></div>
+            <div class="shop-tab-content" id="boostsTab" style="display: none;"></div>
+            <div class="shop-tab-content" id="backgroundsTab" style="display: none;"></div>
         </div>
     </div>
-
 
     <div class="exchange-modal" id="exchangeModal">
         <div class="exchange-header">
@@ -1340,7 +335,17 @@
             <button class="exchange-cancel" id="exchangeCancel">Отмена</button>
         </div>
     </div>
-
+    
+    <div class="quests-modal" id="questsModal">
+        <div class="quests-header">
+            <div class="quests-title">Задания</div>
+            <div class="close-quests" id="closeQuests">✕</div>
+        </div>
+        <div class="quests-list" id="questsList"></div>
+        <div class="quests-footer">
+            <button class="refresh-quests-btn" id="refreshQuestsBtn">Обновить (10 ✦)</button>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1367,18 +372,13 @@
             const boostsTab = document.getElementById('boostsTab');
             const backgroundsTab = document.getElementById('backgroundsTab');
             const boostsContainer = document.getElementById('boostsContainer');
-
-
-            // Promo code elements
+            const backgroundContainer = document.getElementById('backgroundContainer');
             const promocodeBtn = document.getElementById('promocodeBtn');
             const promocodeModal = document.getElementById('promocodeModal');
             const closePromocode = document.getElementById('closePromocode');
             const promocodeInput = document.getElementById('promocodeInput');
             const activatePromocodeBtn = document.getElementById('activatePromocodeBtn');
             const promocodeMessage = document.getElementById('promocodeMessage');
-
-
-            // Admin Panel elements
             const adminPanel = document.getElementById('adminPanel');
             const adminPanelHeader = document.getElementById('adminPanelHeader');
             const closeAdminPanel = document.getElementById('closeAdminPanel');
@@ -1389,43 +389,26 @@
             const setCrystalsBtn = document.getElementById('setCrystalsBtn');
             const addCrystalsBtn = document.getElementById('addCrystalsBtn');
 
-
-            // --- Element Buttons ---
-            // Skins
-            const defaultSkinBtn = document.getElementById('defaultSkinBtn');
-            const premiumSkinBtn = document.getElementById('premiumSkinBtn');
-            const legendarySkinBtn = document.getElementById('legendarySkinBtn');
-            const blackholeSkinBtn = document.getElementById('blackholeSkinBtn');
-            const crystalmaniaSkinBtn = document.getElementById('crystalmaniaSkinBtn');
-            const vortexSkinBtn = document.getElementById('vortexSkinBtn');
-            const glitchSkinBtn = document.getElementById('glitchSkinBtn');
-            const oceanSkinBtn = document.getElementById('oceanSkinBtn');
-            const hackerSkinBtn = document.getElementById('hackerSkinBtn');
-            // Boosts
-            const multiplierBoostBtn = document.getElementById('multiplierBoostBtn');
-            const luckBoostBtn = document.getElementById('luckBoostBtn');
-            const autoclickerBoostBtn = document.getElementById('autoclickerBoostBtn');
-            // Backgrounds
-            const defaultBgBtn = document.getElementById('defaultBgBtn');
-            const spaceNebulaBgBtn = document.getElementById('spaceNebulaBgBtn');
-            const matrixBgBtn = document.getElementById('matrixBgBtn');
-            const magicForestBgBtn = document.getElementById('magicForestBgBtn');
-            const liquidWavesBgBtn = document.getElementById('liquidWavesBgBtn');
-
+            const questsBtn = document.getElementById('questsBtn');
+            const questsModal = document.getElementById('questsModal');
+            const closeQuests = document.getElementById('closeQuests');
+            const questsList = document.getElementById('questsList');
+            const refreshQuestsBtn = document.getElementById('refreshQuestsBtn');
 
             // --- Game State ---
-            let coins = parseInt(localStorage.getItem('doolcoins')) || 0;
-            let crystals = parseInt(localStorage.getItem('crystals')) || 0;
+            let coins = parseFloat(localStorage.getItem('doolcoins')) || 0;
+            let crystals = parseFloat(localStorage.getItem('crystals')) || 0;
             let currentTheme = localStorage.getItem('theme') || 'dark';
             let currentSkin = localStorage.getItem('skin') || 'default';
             let ownedSkins = JSON.parse(localStorage.getItem('ownedSkins')) || ['default'];
             let currentBackground = localStorage.getItem('background') || 'default';
             let ownedBackgrounds = JSON.parse(localStorage.getItem('ownedBackgrounds')) || ['default'];
             let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
+            let activeQuests = JSON.parse(localStorage.getItem('activeQuests')) || [];
             
             let activeBoosts = [];
             let coinMultiplier = 1;
-            let crystalChance = 0.05; // 5% base chance
+            let crystalChance = 0.05;
             let autoclickerInterval = null;
             let clickCount = 0;
             let lastClickTime = 0;
@@ -1433,35 +416,49 @@
             let fireflyInterval = null;
             let mainBoostInterval = null;
 
+            // --- Quest Definitions ---
+            const allQuests = [
+                { id: 1, type: 'clicks', target: 500, description: "Сделать 500 кликов", rewardType: 'coins', rewardAmount: 2500 },
+                { id: 2, type: 'clicks', target: 2000, description: "Сделать 2.000 кликов", rewardType: 'coins', rewardAmount: 10000 },
+                { id: 3, type: 'clicks', target: 10000, description: "Сделать 10.000 кликов", rewardType: 'crystals', rewardAmount: 20 },
+                { id: 4, type: 'crystalsEarned', target: 10, description: "Собрать 10 кристаллов", rewardType: 'coins', rewardAmount: 5000 },
+                { id: 5, type: 'crystalsEarned', target: 50, description: "Собрать 50 кристаллов", rewardType: 'crystals', rewardAmount: 25 },
+                { id: 6, type: 'crystalsEarned', target: 100, description: "Собрать 100 кристаллов", rewardType: 'crystals', rewardAmount: 60 },
+                { id: 7, type: 'coinsSpent', target: 10000, description: "Потратить 10.000 монет", rewardType: 'coins', rewardAmount: 2000 },
+                { id: 8, type: 'coinsSpent', target: 50000, description: "Потратить 50.000 монет", rewardType: 'crystals', rewardAmount: 15 },
+                { id: 9, type: 'crystalsSpent', target: 100, description: "Потратить 100 кристаллов", rewardType: 'coins', rewardAmount: 10000 },
+                { id: 10, type: 'crystalsSpent', target: 500, description: "Потратить 500 кристаллов", rewardType: 'crystals', rewardAmount: 50 },
+                { id: 11, type: 'boostsUsed', target: 5, description: "Использовать 5 бустов", rewardType: 'coins', rewardAmount: 7500 },
+                { id: 12, type: 'boostsUsed', target: 15, description: "Использовать 15 бустов", rewardType: 'crystals', rewardAmount: 30 },
+                { id: 13, type: 'crystalsExchanged', target: 10, description: "Обменять 10 кристаллов", rewardType: 'coins', rewardAmount: 1500 },
+                { id: 14, type: 'crystalsExchanged', target: 50, description: "Обменять 50 кристаллов", rewardType: 'crystals', rewardAmount: 5 },
+                { id: 15, type: 'skinsBought', target: 3, description: "Купить 3 любых скина", rewardType: 'crystals', rewardAmount: 40 },
+                { id: 16, type: 'backgroundsBought', target: 2, description: "Купить 2 любых фона", rewardType: 'crystals', rewardAmount: 50 },
+                { id: 17, type: 'clicks', target: 50000, description: "Нажать 50.000 раз", rewardType: 'crystals', rewardAmount: 100 },
+            ];
 
-            const promoCodes = {
-                "FRESHSTART": { type: "coins", value: 1000, message: "Получено 1000 монет! Добро пожаловать!" },
-                "INEEDMONEY": { type: "coins", value: 50000, message: "Получено 50.000 монет! Удачи!" },
-                "CRYSTALINFECTION": { type: "crystals", value: 25, message: "Получено 25 кристаллов!" },
-                "IAMSUB": { type: "coins", value: 2500, message: "Спасибо за подписку! Получено 2.500 монет!" },
-                "500CRYSTALSECRETCODE": { type: "crystals", value: 500, message: "Найдено! Получено 500 кристаллов!" },
-                "ACTIVATEADMINPANNELCODETRUE": { type: "admin", message: "Админ-панель активирована!" },
-                "LUCKYDAY": { type: "crystals", value: 10, message: "Удачный день! +10 кристаллов." },
-                "BIGMONEY": { type: "coins", value: 100000, message: "Большой куш! +100,000 монет." },
-                "CRYSTALRUSH": { type: "crystals", value: 75, message: "Кристальная лихорадка! +75 кристаллов." },
-                "SECRETCODE2025": { type: "coins", value: 20250, message: "Секретный код найден! +20,250 монет." },
-                "HACKERMAN": { type: "coins", value: 77777, message: "Система взломана! +77,777 монет." },
-            };
+            const promoCodes = { "FRESHSTART": { type: "coins", value: 1000, message: "Получено 1000 монет! Добро пожаловать!" }, "INEEDMONEY": { type: "coins", value: 50000, message: "Получено 50.000 монет! Удачи!" }, "CRYSTALINFECTION": { type: "crystals", value: 25, message: "Получено 25 кристаллов!" }, "IAMSUB": { type: "coins", value: 2500, message: "Спасибо за подписку! Получено 2.500 монет!" }, "500CRYSTALSECRETCODE": { type: "crystals", value: 500, message: "Найдено! Получено 500 кристаллов!" }, "ACTIVATEADMINPANNELCODETRUE": { type: "admin", message: "Админ-панель активирована!" }, "LUCKYDAY": { type: "crystals", value: 10, message: "Удачный день! +10 кристаллов." }, "BIGMONEY": { type: "coins", value: 100000, message: "Большой куш! +100,000 монет." }, "CRYSTALRUSH": { type: "crystals", value: 75, message: "Кристальная лихорадка! +75 кристаллов." }, "SECRETCODE2025": { type: "coins", value: 20250, message: "Секретный код найден! +20,250 монет." }, "HACKERMAN": { type: "coins", value: 77777, message: "Система взломана! +77,777 монет." }, };
             
-            // --- Initialization ---
             function initializeGame() {
+                fillShopTabs(); 
                 applyBackground(currentBackground);
-                if (currentBackground === 'default') {
-                    document.body.className = currentTheme + '-theme';
-                }
                 themeToggle.classList.toggle('active', currentTheme === 'light');
                 applySkin(currentSkin);
+                if (activeQuests.length < 3) generateNewQuests(true);
+                renderQuests();
                 updateUI();
                 startBoostManager();
             }
 
+            function formatNumber(num) {
+                if (num < 1000) return num.toLocaleString('ru-RU');
+                const suffixes = ["", "k", "M", "B", "T"];
+                const i = Math.floor(Math.log10(num) / 3);
+                if (i >= suffixes.length) return num.toExponential(1);
+                const val = (num / Math.pow(1000, i));
+                return val.toFixed(1).replace('.', ',').replace(/\,0$/, '') + suffixes[i];
+            }
 
-            // --- Core Functions ---
             function saveGameData() {
                 localStorage.setItem('doolcoins', coins);
                 localStorage.setItem('crystals', crystals);
@@ -1470,566 +467,279 @@
                 localStorage.setItem('background', currentBackground);
                 localStorage.setItem('ownedBackgrounds', JSON.stringify(ownedBackgrounds));
                 localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes));
+                localStorage.setItem('activeQuests', JSON.stringify(activeQuests));
             }
 
-
             function updateUI() {
-                coinsElement.textContent = coins.toLocaleString();
-                crystalsElement.textContent = crystals.toLocaleString();
+                coinsElement.textContent = formatNumber(Math.floor(coins));
+                crystalsElement.textContent = formatNumber(Math.floor(crystals));
                 updateSkinButtons(); 
                 updateBoostButtons();
                 updateBackgroundButtons();
+                refreshQuestsBtn.disabled = crystals < 10;
             }
 
-
-            function applySkin(skinName) {
-                circle.className = 'circle'; // Reset classes
-                circle.classList.add(skinName + '-skin');
-                currentSkin = skinName;
-                localStorage.setItem('skin', currentSkin);
-                updateSkinButtons();
-            }
-
-
+            function applySkin(skinName) { circle.className = 'circle'; circle.classList.add(skinName + '-skin'); currentSkin = skinName; localStorage.setItem('skin', currentSkin); updateSkinButtons(); }
+            
             function applyBackground(bgName) {
                 document.body.className = '';
-                if (fireflyInterval) {
-                    clearInterval(fireflyInterval);
-                    document.querySelectorAll('.firefly').forEach(fly => fly.remove());
-                }
-
+                backgroundContainer.innerHTML = '';
+                if (fireflyInterval) { clearInterval(fireflyInterval); document.querySelectorAll('.firefly').forEach(fly => fly.remove()); }
 
                 if (bgName === 'default') {
-                    let theme = localStorage.getItem('theme') || 'dark';
-                    document.body.classList.add(theme + '-theme');
+                    document.body.classList.add((localStorage.getItem('theme') || 'dark') + '-theme');
                     themeSwitcher.classList.remove('disabled');
                 } else {
                     document.body.classList.add(bgName + '-bg');
                     themeSwitcher.classList.add('disabled');
-                    if (bgName === 'magic-forest') {
-                        fireflyInterval = setInterval(createFirefly, 300);
-                    }
+                    if (bgName === 'magic-forest') fireflyInterval = setInterval(createFirefly, 300);
+                    if (bgName === 'limbo') backgroundContainer.innerHTML = '<div class="limbo-fog"></div>';
                 }
-
-
                 currentBackground = bgName;
                 localStorage.setItem('background', currentBackground);
                 updateBackgroundButtons();
             }
+            
+            function createFirefly() { const fly = document.createElement('div'); fly.className = 'firefly'; const duration = Math.random() * 5 + 5; const delay = Math.random() * 5; fly.style.top = `${Math.random() * 100}%`; fly.style.animationDuration = `${duration}s`; fly.style.animationDelay = `${delay}s`; fly.style.setProperty('--y-end', `${(Math.random() - 0.5) * 20}vh`); document.body.appendChild(fly); setTimeout(() => fly.remove(), (duration + delay) * 1000); }
 
-
-            function createFirefly() {
-                const fly = document.createElement('div');
-                fly.className = 'firefly';
-                const duration = Math.random() * 5 + 5; // 5-10 seconds
-                const delay = Math.random() * 5; // 0-5 seconds
-                fly.style.top = `${Math.random() * 100}%`;
-                fly.style.animationDuration = `${duration}s`;
-                fly.style.animationDelay = `${delay}s`;
-                fly.style.setProperty('--y-end', `${(Math.random() - 0.5) * 20}vh`);
-                document.body.appendChild(fly);
-                setTimeout(() => fly.remove(), (duration + delay) * 1000);
+            function fillShopTabs() {
+                skinsTab.innerHTML = `
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Стандартный</div><div class="item-desc">Пульсирующий радужный градиент</div></div><button class="buy-btn" id="defaultSkinBtn" disabled>Выбрано</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Премиум</div><div class="item-desc">Сияющий голубой шар</div></div><div class="item-price">100 <span class="crystal-icon">✦</span></div><button class="buy-btn" id="premiumSkinBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Легендарный</div><div class="item-desc">Огненный шар</div></div><div class="item-price">500 <span class="crystal-icon">✦</span></div><button class="buy-btn" id="legendarySkinBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Черная дыра</div><div class="item-desc">Пульсирующая тьма</div></div><div class="item-price">1k <span class="crystal-icon">✦</span></div><button class="buy-btn" id="blackholeSkinBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">CrystalMania</div><div class="item-desc">Разлетается на осколки</div></div><div class="item-price">15k <span>Đ</span></div><button class="buy-btn" id="crystalmaniaSkinBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Водоворот</div><div class="item-desc">Вращающийся вихрь</div></div><div class="item-price">10k <span>Đ</span></div><button class="buy-btn" id="vortexSkinBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Glitch</div><div class="item-desc">Искажается при нажатии</div></div><div class="item-price">2.5k <span class="crystal-icon">✦</span></div><button class="buy-btn" id="glitchSkinBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Океан</div><div class="item-desc">Подводная сфера</div></div><div class="item-price">4k <span class="crystal-icon">✦</span></div><button class="buy-btn" id="oceanSkinBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Хакер</div><div class="item-desc">Терминал со скан-линией</div></div><div class="item-price">20k <span>Đ</span></div><button class="buy-btn" id="hackerSkinBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Радиация</div><div class="item-desc">Токсичный шар</div></div><div class="item-price">7.5k <span class="crystal-icon">✦</span></div><button class="buy-btn" id="radiationSkinBtn">Купить</button></div>`;
+                boostsTab.innerHTML = `
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Множитель x2</div><div class="item-desc">Удваивает монеты за клик на 1 минуту</div></div><div class="item-price">500 <span>Đ</span></div><button class="buy-btn" id="multiplierBoostBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Удача +30%</div><div class="item-desc">Увеличивает шанс кристалла на 30 секунд</div></div><div class="item-price">300 <span>Đ</span></div><button class="buy-btn" id="luckBoostBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Автокликер</div><div class="item-desc">5 кликов в секунду на 30 секунд</div></div><div class="item-price">400 <span>Đ</span></div><button class="buy-btn" id="autoclickerBoostBtn">Купить</button></div>`;
+                backgroundsTab.innerHTML = `
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Стандартный</div><div class="item-desc">Обычный фон</div></div><button class="buy-btn" id="defaultBgBtn">Выбрано</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Космическая туманность</div><div class="item-desc">Глубокий космос</div></div><div class="item-price">25k <span>Đ</span></div><button class="buy-btn" id="spaceNebulaBgBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Матрица</div><div class="item-desc">Падающие символы</div></div><div class="item-price">1k <span class="crystal-icon">✦</span></div><button class="buy-btn" id="matrixBgBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Волшебный лес</div><div class="item-desc">Фон со светлячками</div></div><div class="item-price">40k <span>Đ</span></div><button class="buy-btn" id="magicForestBgBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Жидкие волны</div><div class="item-desc">Переливающийся градиент</div></div><div class="item-price">2.5k <span class="crystal-icon">✦</span></div><button class="buy-btn" id="liquidWavesBgBtn">Купить</button></div>
+                    <div class="shop-item"><div class="item-info"><div class="item-name">Лимбо</div><div class="item-desc">Пустошь во мгле</div></div><div class="item-price">1k <span>Đ</span></div><button class="buy-btn" id="limboBgBtn">Купить</button></div>`;
             }
 
-
-            // --- Shop & Purchasing Logic ---
+            function getShopItemButton(id) { return document.getElementById(id); }
             function updateSkinButtons() {
-                const skins = [
-                    { id: 'default', btn: defaultSkinBtn },
-                    { id: 'premium', btn: premiumSkinBtn, price: 100, currency: 'crystals' },
-                    { id: 'legendary', btn: legendarySkinBtn, price: 500, currency: 'crystals' },
-                    { id: 'blackhole', btn: blackholeSkinBtn, price: 1000, currency: 'crystals' },
-                    { id: 'crystalmania', btn: crystalmaniaSkinBtn, price: 5000, currency: 'coins' },
-                    { id: 'vortex', btn: vortexSkinBtn, price: 10000, currency: 'coins' },
-                    { id: 'glitch', btn: glitchSkinBtn, price: 2500, currency: 'crystals' },
-                    { id: 'ocean', btn: oceanSkinBtn, price: 4000, currency: 'crystals' },
-                    { id: 'hacker', btn: hackerSkinBtn, price: 20000, currency: 'coins' },
-                ];
+                const skins = [ { id: 'default', btn: getShopItemButton('defaultSkinBtn') }, { id: 'premium', btn: getShopItemButton('premiumSkinBtn'), price: 100, currency: 'crystals' }, { id: 'legendary', btn: getShopItemButton('legendarySkinBtn'), price: 500, currency: 'crystals' }, { id: 'blackhole', btn: getShopItemButton('blackholeSkinBtn'), price: 1000, currency: 'crystals' }, { id: 'crystalmania', btn: getShopItemButton('crystalmaniaSkinBtn'), price: 15000, currency: 'coins' }, { id: 'vortex', btn: getShopItemButton('vortexSkinBtn'), price: 10000, currency: 'coins' }, { id: 'glitch', btn: getShopItemButton('glitchSkinBtn'), price: 2500, currency: 'crystals' }, { id: 'ocean', btn: getShopItemButton('oceanSkinBtn'), price: 4000, currency: 'crystals' }, { id: 'hacker', btn: getShopItemButton('hackerSkinBtn'), price: 20000, currency: 'coins' }, { id: 'radiation', btn: getShopItemButton('radiationSkinBtn'), price: 7500, currency: 'crystals' }, ];
                 updateItemButtons(skins, ownedSkins, currentSkin, buySkin, applySkin);
             }
-
-
             function updateBackgroundButtons() {
-                const backgrounds = [
-                    { id: 'default', btn: defaultBgBtn },
-                    { id: 'space-nebula', btn: spaceNebulaBgBtn, price: 25000, currency: 'coins' },
-                    { id: 'matrix', btn: matrixBgBtn, price: 1000, currency: 'crystals' },
-                    { id: 'magic-forest', btn: magicForestBgBtn, price: 40000, currency: 'coins' },
-                    { id: 'liquid-waves', btn: liquidWavesBgBtn, price: 2500, currency: 'crystals' },
-                ];
+                const backgrounds = [ { id: 'default', btn: getShopItemButton('defaultBgBtn') }, { id: 'space-nebula', btn: getShopItemButton('spaceNebulaBgBtn'), price: 25000, currency: 'coins' }, { id: 'matrix', btn: getShopItemButton('matrixBgBtn'), price: 1000, currency: 'crystals' }, { id: 'magic-forest', btn: getShopItemButton('magicForestBgBtn'), price: 40000, currency: 'coins' }, { id: 'liquid-waves', btn: getShopItemButton('liquidWavesBgBtn'), price: 2500, currency: 'crystals' }, { id: 'limbo', btn: getShopItemButton('limboBgBtn'), price: 1000, currency: 'coins' }, ];
                 updateItemButtons(backgrounds, ownedBackgrounds, currentBackground, buyBackground, applyBackground);
             }
-            
             function updateItemButtons(items, ownedItems, currentItem, buyFunction, applyFunction) {
                 items.forEach(item => {
-                    if (!item.btn) return; // Safety check
+                    if (!item.btn) return;
                     if (ownedItems.includes(item.id)) {
-                        if (currentItem === item.id) {
-                            item.btn.textContent = 'Выбрано';
-                            item.btn.disabled = true;
-                        } else {
-                            item.btn.textContent = 'Выбрать';
-                            item.btn.disabled = false;
-                            item.btn.onclick = () => { applyFunction(item.id); };
-                        }
+                        if (currentItem === item.id) { item.btn.textContent = 'Выбрано'; item.btn.disabled = true; } 
+                        else { item.btn.textContent = 'Выбрать'; item.btn.disabled = false; item.btn.onclick = () => applyFunction(item.id); }
                     } else {
                         item.btn.textContent = 'Купить';
-                        if (item.currency === 'crystals') {
-                            item.btn.disabled = crystals < item.price;
-                        } else {
-                            item.btn.disabled = coins < item.price;
-                        }
-                        item.btn.onclick = () => { buyFunction(item.id, item.price, item.currency, item.btn); };
+                        item.btn.disabled = item.currency === 'crystals' ? crystals < item.price : coins < item.price;
+                        item.btn.onclick = () => buyFunction(item.id, item.price, item.currency);
                     }
                 });
             }
+            function buySkin(skinId, price, currency) { if (buyItem(skinId, price, currency, ownedSkins, 'skin')) updateQuestProgress('skinsBought', 1); }
+            function buyBackground(bgId, price, currency) { if (buyItem(bgId, price, currency, ownedBackgrounds, 'background')) updateQuestProgress('backgroundsBought', 1); }
 
-
-            function buySkin(skinId, price, currency, button) {
-                buyItem(skinId, price, currency, button, ownedSkins, 'skin');
-            }
-
-
-            function buyBackground(bgId, price, currency, button) {
-                buyItem(bgId, price, currency, button, ownedBackgrounds, 'background');
-            }
-
-
-            function buyItem(itemId, price, currency, button, ownedItems, itemType) {
-                let canAfford = false;
-                if (currency === 'crystals' && crystals >= price) {
-                    crystals -= price;
-                    canAfford = true;
-                } else if (currency === 'coins' && coins >= price) {
-                    coins -= price;
-                    canAfford = true;
-                }
-
-
-                if (canAfford) {
-                    ownedItems.push(itemId);
-                    saveGameData();
-                    updateUI(); // This will re-render buttons correctly
-                    const rect = button.getBoundingClientRect();
-                    const currencySymbol = currency === 'crystals' ? '✦' : 'Đ';
-                    createCoinEffect(rect.left + rect.width / 2, rect.top, `-${price}${currencySymbol}`);
-                } else {
-                    alert('Недостаточно средств!');
-                }
+            function buyItem(itemId, price, currency, ownedItems) {
+                let canAfford = false; let spentCurrencyType = '';
+                if (currency === 'crystals' && crystals >= price) { crystals -= price; canAfford = true; spentCurrencyType = 'crystalsSpent'; } 
+                else if (currency === 'coins' && coins >= price) { coins -= price; canAfford = true; spentCurrencyType = 'coinsSpent'; }
+                if (canAfford) { ownedItems.push(itemId); updateQuestProgress(spentCurrencyType, price); saveGameData(); updateUI(); return true; } 
+                return false;
             }
             
-            // --- Boost Logic ---
             function updateBoostButtons() {
-                multiplierBoostBtn.disabled = activeBoosts.some(b => b.type === 'multiplier') || coins < 500;
-                multiplierBoostBtn.textContent = activeBoosts.some(b => b.type === 'multiplier') ? 'Активно' : 'Купить';
-                luckBoostBtn.disabled = activeBoosts.some(b => b.type === 'luck') || coins < 300;
-                luckBoostBtn.textContent = activeBoosts.some(b => b.type === 'luck') ? 'Активно' : 'Купить';
-                autoclickerBoostBtn.disabled = activeBoosts.some(b => b.type === 'autoclicker') || coins < 400;
-                autoclickerBoostBtn.textContent = activeBoosts.some(b => b.type === 'autoclicker') ? 'Активно' : 'Купить';
+                const multiplierBtn = getShopItemButton('multiplierBoostBtn'), luckBtn = getShopItemButton('luckBoostBtn'), autoclickerBtn = getShopItemButton('autoclickerBoostBtn');
+                if(!multiplierBtn || !luckBtn || !autoclickerBtn) return;
+                multiplierBtn.disabled = activeBoosts.some(b => b.type === 'multiplier') || coins < 500;
+                multiplierBtn.textContent = activeBoosts.some(b => b.type === 'multiplier') ? 'Активно' : 'Купить';
+                luckBtn.disabled = activeBoosts.some(b => b.type === 'luck') || coins < 300;
+                luckBtn.textContent = activeBoosts.some(b => b.type === 'luck') ? 'Активно' : 'Купить';
+                autoclickerBtn.disabled = activeBoosts.some(b => b.type === 'autoclicker') || coins < 400;
+                autoclickerBtn.textContent = activeBoosts.some(b => b.type === 'autoclicker') ? 'Активно' : 'Купить';
             }
-            
-            function activateBoost(type, duration, value, cost, buttonElement) {
-                if (activeBoosts.some(b => b.type === type)) return;
-                if (coins < cost) {
-                    alert('Недостаточно монет!');
-                    return;
-                }
-                coins -= cost;
-                
-                const boost = { type, duration, value, endTime: Date.now() + duration * 1000 };
-                activeBoosts.push(boost);
-
-
-                if (type === 'multiplier') coinMultiplier *= value;
-                else if (type === 'luck') crystalChance += value;
-                else if (type === 'autoclicker') startAutoclicker();
-                
-                renderActiveBoosts();
-                updateBoostButtons();
-                saveGameData();
-
-
-                const rect = buttonElement.getBoundingClientRect();
-                createCoinEffect(rect.left + rect.width / 2, rect.top, `-${cost}Đ`);
+            function activateBoost(type, duration, value, cost) {
+                if (activeBoosts.some(b => b.type === type) || coins < cost) return;
+                coins -= cost; updateQuestProgress('coinsSpent', cost); updateQuestProgress('boostsUsed', 1);
+                activeBoosts.push({ type, duration, value, endTime: Date.now() + duration * 1000 });
+                if (type === 'multiplier') coinMultiplier *= value; else if (type === 'luck') crystalChance += value; else if (type === 'autoclicker') startAutoclicker();
+                renderActiveBoosts(); updateBoostButtons(); saveGameData();
             }
-
-
             function startBoostManager() {
                 if (mainBoostInterval) clearInterval(mainBoostInterval);
                 mainBoostInterval = setInterval(() => {
-                    const currentTime = Date.now();
                     let boostsChanged = false;
                     activeBoosts = activeBoosts.filter(boost => {
-                        if (boost.endTime > currentTime) {
-                            return true;
-                        } else {
-                            if (boost.type === 'multiplier') coinMultiplier /= boost.value;
-                            else if (boost.type === 'luck') crystalChance -= boost.value;
-                            else if (boost.type === 'autoclicker') {
-                                clearInterval(autoclickerInterval);
-                                autoclickerInterval = null;
-                            }
-                            boostsChanged = true;
-                            return false;
-                        }
+                        if (boost.endTime > Date.now()) return true;
+                        if (boost.type === 'multiplier') coinMultiplier /= boost.value; else if (boost.type === 'luck') crystalChance -= boost.value; else if (boost.type === 'autoclicker') { clearInterval(autoclickerInterval); autoclickerInterval = null; }
+                        boostsChanged = true; return false;
                     });
-
-
-                    if (boostsChanged) {
-                        renderActiveBoosts();
-                        updateBoostButtons();
-                    }
-                    
+                    if (boostsChanged) { renderActiveBoosts(); updateBoostButtons(); }
                     document.querySelectorAll('.boost-indicator').forEach(indicator => {
-                        const type = indicator.dataset.type;
-                        const boost = activeBoosts.find(b => b.type === type);
-                        if(boost) {
-                             const timeLeft = Math.ceil((boost.endTime - Date.now()) / 1000);
-                             const timerSpan = indicator.querySelector('.boost-timer');
-                             if(timerSpan) timerSpan.textContent = `(${timeLeft}с)`;
-                        }
+                        const boost = activeBoosts.find(b => b.type === indicator.dataset.type);
+                        if(boost) indicator.querySelector('.boost-timer').textContent = `(${Math.ceil((boost.endTime - Date.now()) / 1000)}с)`;
                     });
-
-
                 }, 1000);
             }
-
-
             function renderActiveBoosts() {
                 boostsContainer.innerHTML = '';
                 activeBoosts.forEach(boost => {
-                    const timeLeft = Math.ceil((boost.endTime - Date.now()) / 1000);
-                    const boostDiv = document.createElement('div');
-                    boostDiv.classList.add('boost-indicator');
-                    boostDiv.dataset.type = boost.type;
-                    let icon = '';
-                    let label = '';
-                    if (boost.type === 'multiplier') { icon = '⚡'; label = `x${boost.value}`; } 
-                    else if (boost.type === 'luck') { icon = '🍀'; label = `+${boost.value * 100}%`; } 
-                    else if (boost.type === 'autoclicker') { icon = '🤖'; label = `Auto`; }
-                    boostDiv.innerHTML = `<span class="boost-icon">${icon}</span> ${label} <span class="boost-timer">(${timeLeft}с)</span>`;
-                    boostsContainer.appendChild(boostDiv);
+                    const timeLeft = Math.ceil((boost.endTime - Date.now()) / 1000); const boostDiv = document.createElement('div');
+                    boostDiv.className = 'boost-indicator'; boostDiv.dataset.type = boost.type;
+                    let icon = '', label = '';
+                    if (boost.type === 'multiplier') { icon = '⚡'; label = `x${boost.value}`; } else if (boost.type === 'luck') { icon = '🍀'; label = `+${boost.value * 100}%`; } else if (boost.type === 'autoclicker') { icon = '🤖'; label = `Auto`; }
+                    boostDiv.innerHTML = `<span class="boost-icon">${icon}</span> ${label} <span class="boost-timer">(${timeLeft}с)</span>`; boostsContainer.appendChild(boostDiv);
                 });
             }
 
-
-            // --- Tap Effects & Click Handling ---
             function handleCircleClick(event) {
                 const clickValue = 1 * coinMultiplier;
-                const circleRect = circle.getBoundingClientRect();
-                const clickX = event.clientX - circleRect.left;
-                const clickY = event.clientY - circleRect.top;
-
-
-                // Create unique tap effects based on skin
+                updateQuestProgress('clicks', 1); coins += clickValue;
+                createCoinEffect(event.clientX, event.clientY, `+${formatNumber(clickValue)}Đ`);
+                if (Math.random() < crystalChance) { crystals++; updateQuestProgress('crystalsEarned', 1); createCrystalEffect(event.clientX, event.clientY, '+1✦'); }
+                saveGameData(); updateUI(); checkAutoclicker(event.timeStamp);
+                
+                const circleRect = circle.getBoundingClientRect(); const clickX = event.clientX - circleRect.left; const clickY = event.clientY - circleRect.top;
                 let tapEffect;
                 switch (currentSkin) {
-                    case 'ocean':
-                        tapEffect = document.createElement('div');
-                        tapEffect.classList.add('ocean-tap-effect');
-                        tapEffect.style.left = `${clickX - 5}px`;
-                        tapEffect.style.top = `${clickY - 5}px`;
-                        circle.appendChild(tapEffect);
-                        break;
-                    case 'hacker':
-                        for (let i = 0; i < 5; i++) {
-                            tapEffect = document.createElement('div');
-                            tapEffect.classList.add('hacker-tap-effect');
-                            tapEffect.style.left = `${clickX - 5}px`;
-                            tapEffect.style.top = `${clickY - 5}px`;
-                            const angle = Math.random() * Math.PI * 2;
-                            const distance = Math.random() * 80 + 20;
-                            tapEffect.style.setProperty('--spark-x', `${Math.cos(angle) * distance}px`);
-                            tapEffect.style.setProperty('--spark-y', `${Math.sin(angle) * distance}px`);
-                            circle.appendChild(tapEffect);
-                            setTimeout(() => tapEffect.remove(), 1000);
-                        }
-                        break;
-                    case 'legendary':
-                        for (let i = 0; i < 7; i++) {
-                            const spark = document.createElement('div');
-                            spark.classList.add('legendary-tap-effect');
-                            spark.style.left = `${clickX - 4}px`;
-                            spark.style.top = `${clickY - 4}px`;
-                            const angle = Math.random() * Math.PI * 2;
-                            const distance = Math.random() * 100 + 40;
-                            spark.style.setProperty('--spark-x', `${Math.cos(angle) * distance}px`);
-                            spark.style.setProperty('--spark-y', `${Math.sin(angle) * distance}px`);
-                            circle.appendChild(spark);
-                            setTimeout(() => spark.remove(), 800);
-                        }
-                        break;
-                    case 'blackhole':
-                         tapEffect = document.createElement('div');
-                         tapEffect.classList.add('blackhole-tap-effect');
-                         tapEffect.style.left = `${clickX}px`;
-                         tapEffect.style.top = `${clickY}px`;
-                         circle.appendChild(tapEffect);
-                         break;
-                    case 'crystalmania':
-                        for (let i = 0; i < 6; i++) {
-                            const shard = document.createElement('div');
-                            shard.classList.add('crystalmania-tap-effect');
-                            shard.style.left = `${clickX - 7.5}px`;
-                            shard.style.top = `${clickY - 7.5}px`;
-                            shard.style.borderColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
-                            shard.style.setProperty('--rot-end', `${(Math.random() - 0.5) * 720}deg`);
-                            circle.appendChild(shard);
-                            setTimeout(()=> shard.remove(), 700);
-                        }
-                        break;
-                    case 'vortex':
-                         tapEffect = document.createElement('div');
-                         tapEffect.classList.add('vortex-tap-effect');
-                         tapEffect.style.left = `${clickX - 5}px`;
-                         tapEffect.style.top = `${clickY - 5}px`;
-                         circle.appendChild(tapEffect);
-                         break;
-                    case 'glitch':
-                        ['a', 'b', 'c'].forEach(cls => {
-                            const bar = document.createElement('div');
-                            bar.classList.add('glitch-tap-effect', cls);
-                            bar.style.left = `${clickX - 40}px`;
-                            bar.style.top = `${clickY - 5 + (Math.random() - 0.5) * 30}px`;
-                            circle.appendChild(bar);
-                            setTimeout(() => bar.remove(), 400);
-                        });
-                        break;
-                    default: // For 'default', 'premium' and any other skin
-                        tapEffect = document.createElement('div');
-                        tapEffect.classList.add('tap-effect');
-                        tapEffect.style.setProperty('--tap-x', `${clickX}px`);
-                        tapEffect.style.setProperty('--tap-y', `${clickY}px`);
-                        circle.appendChild(tapEffect);
-                        break;
+                    case 'radiation': tapEffect = document.createElement('div'); tapEffect.classList.add('radiation-tap-effect'); tapEffect.style.left = `${clickX - 5}px`; tapEffect.style.top = `${clickY - 5}px`; circle.appendChild(tapEffect); break;
+                    case 'ocean': tapEffect = document.createElement('div'); tapEffect.classList.add('ocean-tap-effect'); tapEffect.style.left = `${clickX - 5}px`; tapEffect.style.top = `${clickY - 5}px`; circle.appendChild(tapEffect); break;
+                    case 'hacker': for (let i = 0; i < 5; i++) { tapEffect = document.createElement('div'); tapEffect.classList.add('hacker-tap-effect'); tapEffect.style.left = `${clickX - 5}px`; tapEffect.style.top = `${clickY - 5}px`; const angle = Math.random() * Math.PI * 2; const distance = Math.random() * 80 + 20; tapEffect.style.setProperty('--spark-x', `${Math.cos(angle) * distance}px`); tapEffect.style.setProperty('--spark-y', `${Math.sin(angle) * distance}px`); circle.appendChild(tapEffect); setTimeout(() => tapEffect.remove(), 1000); } break;
+                    case 'legendary': for (let i = 0; i < 7; i++) { const spark = document.createElement('div'); spark.classList.add('legendary-tap-effect'); spark.style.left = `${clickX - 4}px`; spark.style.top = `${clickY - 4}px`; const angle = Math.random() * Math.PI * 2; const distance = Math.random() * 100 + 40; spark.style.setProperty('--spark-x', `${Math.cos(angle) * distance}px`); spark.style.setProperty('--spark-y', `${Math.sin(angle) * distance}px`); circle.appendChild(spark); setTimeout(() => spark.remove(), 800); } break;
+                    case 'blackhole': tapEffect = document.createElement('div'); tapEffect.classList.add('blackhole-tap-effect'); tapEffect.style.left = `${clickX}px`; tapEffect.style.top = `${clickY}px`; circle.appendChild(tapEffect); break;
+                    case 'crystalmania': for (let i = 0; i < 6; i++) { const shard = document.createElement('div'); shard.classList.add('crystalmania-tap-effect'); shard.style.left = `${clickX - 7.5}px`; shard.style.top = `${clickY - 7.5}px`; shard.style.borderColor = `hsl(${Math.random() * 360}, 100%, 70%)`; shard.style.setProperty('--rot-end', `${(Math.random() - 0.5) * 720}deg`); circle.appendChild(shard); setTimeout(()=> shard.remove(), 700); } break;
+                    case 'vortex': tapEffect = document.createElement('div'); tapEffect.classList.add('vortex-tap-effect'); tapEffect.style.left = `${clickX - 5}px`; tapEffect.style.top = `${clickY - 5}px`; circle.appendChild(tapEffect); break;
+                    case 'glitch': ['a', 'b', 'c'].forEach(cls => { const bar = document.createElement('div'); bar.classList.add('glitch-tap-effect', cls); bar.style.left = `${clickX - 40}px`; bar.style.top = `${clickY - 5 + (Math.random() - 0.5) * 30}px`; circle.appendChild(bar); setTimeout(() => bar.remove(), 400); }); break;
+                    default: tapEffect = document.createElement('div'); tapEffect.classList.add('tap-effect'); tapEffect.style.setProperty('--tap-x', `${clickX}px`); tapEffect.style.setProperty('--tap-y', `${clickY}px`); circle.appendChild(tapEffect); break;
                 }
-
-
-                if (tapEffect && tapEffect.parentNode) {
-                     tapEffect.addEventListener('animationend', () => tapEffect.remove());
-                }
-
-
-                coins += clickValue;
-                createCoinEffect(event.clientX, event.clientY, `+${clickValue}Đ`);
-
-
-                if (Math.random() < crystalChance) {
-                    crystals++;
-                    createCrystalEffect(event.clientX, event.clientY, '+1✦');
-                }
-
-
-                saveGameData();
-                updateUI();
-                checkAutoclicker(event.timeStamp);
+                if (tapEffect && tapEffect.parentNode) tapEffect.addEventListener('animationend', () => tapEffect.remove());
             }
             
-            function checkAutoclicker(currentTime) {
-                if (currentTime - lastClickTime < 50) { 
-                    clickCount++;
-                    if (clickCount >= 10 && !banScreen.style.display.includes('flex')) { 
-                        showWarning();
-                        if (clickCount >= 20) { 
-                            showBanScreen();
-                        }
-                    }
-                } else {
-                    clickCount = 0; 
-                }
-                lastClickTime = currentTime;
-            }
-
-
+            function checkAutoclicker(currentTime) { if (currentTime - lastClickTime < 50) { clickCount++; if (clickCount >= 10 && !banScreen.style.display.includes('flex')) { showWarning(); if (clickCount >= 20) showBanScreen(); } } else { clickCount = 0; } lastClickTime = currentTime; }
             function startAutoclicker() {
                 if (autoclickerInterval) clearInterval(autoclickerInterval);
                 autoclickerInterval = setInterval(() => {
-                    const circleRect = circle.getBoundingClientRect();
-                    const centerX = circleRect.left + circleRect.width / 2;
-                    const centerY = circleRect.top + circleRect.height / 2;
-
-
+                    const circleRect = circle.getBoundingClientRect(); const centerX = circleRect.left + circleRect.width / 2; const centerY = circleRect.top + circleRect.height / 2;
                     coins += (1 * coinMultiplier);
-                    if (Math.random() < crystalChance) {
-                        crystals++;
-                        createCrystalEffect(centerX, centerY, '+1✦');
-                    }
-                    createCoinEffect(centerX, centerY, `+${1 * coinMultiplier}Đ`);
-                    saveGameData();
-                    updateUI();
+                    if (Math.random() < crystalChance) { crystals++; updateQuestProgress('crystalsEarned', 1); createCrystalEffect(centerX, centerY, '+1✦'); }
+                    createCoinEffect(centerX, centerY, `+${formatNumber(1 * coinMultiplier)}Đ`); saveGameData(); updateUI();
                 }, 200);
             }
 
-
-            // --- UI Effects ---
-            function createCoinEffect(x, y, text) {
-                const effect = document.createElement('div');
-                effect.classList.add('coin-effect');
-                effect.innerHTML = text;
-                effect.style.left = `${x}px`;
-                effect.style.top = `${y}px`;
-                document.body.appendChild(effect);
-                effect.addEventListener('animationend', () => effect.remove());
-            }
-            function createCrystalEffect(x, y, text) {
-                const effect = document.createElement('div');
-                effect.classList.add('crystal-effect');
-                effect.innerHTML = text;
-                effect.style.left = `${x}px`;
-                effect.style.top = `${y}px`;
-                document.body.appendChild(effect);
-                effect.addEventListener('animationend', () => effect.remove());
-            }
-            function showWarning() {
-                warning.style.display = 'block';
-                clearTimeout(warning.timeout);
-                warning.timeout = setTimeout(() => {
-                    warning.style.display = 'none';
-                }, 2000);
-            }
+            function createCoinEffect(x, y, text) { const e = document.createElement('div'); e.className = 'coin-effect'; e.innerHTML = text; e.style.left = `${x}px`; e.style.top = `${y}px`; document.body.appendChild(e); e.addEventListener('animationend', () => e.remove()); }
+            function createCrystalEffect(x, y, text) { const e = document.createElement('div'); e.className = 'crystal-effect'; e.innerHTML = text; e.style.left = `${x}px`; e.style.top = `${y}px`; document.body.appendChild(e); e.addEventListener('animationend', () => e.remove()); }
+            function showWarning() { warning.style.display = 'block'; clearTimeout(warning.timeout); warning.timeout = setTimeout(() => { warning.style.display = 'none'; }, 2000); }
             function showBanScreen() {
-                banScreen.style.display = 'flex';
-                coins = Math.floor(coins / 2);
-                saveGameData();
-                updateUI();
-                let timeLeft = 60;
-                banTimer.textContent = timeLeft;
-                circle.removeEventListener('click', handleCircleClick);
-                clearInterval(banInterval);
-                banInterval = setInterval(() => {
-                    timeLeft--;
-                    banTimer.textContent = timeLeft;
-                    if (timeLeft <= 0) {
-                        clearInterval(banInterval);
-                        banScreen.style.display = 'none';
-                        circle.addEventListener('click', handleCircleClick);
-                        clickCount = 0;
+                banScreen.style.display = 'flex'; coins = Math.floor(coins / 2); saveGameData(); updateUI(); let timeLeft = 60; banTimer.textContent = timeLeft; circle.removeEventListener('click', handleCircleClick);
+                clearInterval(banInterval); banInterval = setInterval(() => { timeLeft--; banTimer.textContent = timeLeft; if (timeLeft <= 0) { clearInterval(banInterval); banScreen.style.display = 'none'; circle.addEventListener('click', handleCircleClick); clickCount = 0; } }, 1000);
+            }
+
+            function renderQuests() {
+                questsList.innerHTML = '';
+                activeQuests.forEach((quest, index) => {
+                    const progress = Math.min(quest.currentProgress / quest.target, 1);
+                    const questItem = document.createElement('div'); questItem.className = 'quest-item';
+                    const rewardSymbol = quest.rewardType === 'crystals' ? '✦' : 'Đ';
+                    questItem.innerHTML = `
+                        <div class="quest-progress-circle" style="--progress-angle: ${progress * 360}deg"><span>${Math.floor(progress * 100)}%</span></div>
+                        <div class="quest-info"><div class="quest-desc">${quest.description}</div><div class="quest-reward">Награда: ${formatNumber(quest.rewardAmount)} ${rewardSymbol}</div></div>
+                        <button class="claim-quest-btn" data-index="${index}">Получить</button>`;
+                    const claimBtn = questItem.querySelector('.claim-quest-btn');
+                    claimBtn.disabled = progress < 1;
+                    claimBtn.addEventListener('click', () => claimQuestReward(index));
+                    questsList.appendChild(questItem);
+                });
+            }
+
+            function updateQuestProgress(type, amount) {
+                let changed = false;
+                activeQuests.forEach(quest => {
+                    if (quest.type === type && quest.currentProgress < quest.target) {
+                        quest.currentProgress = Math.min(quest.currentProgress + amount, quest.target);
+                        changed = true;
                     }
-                }, 1000);
+                });
+                if (changed) { saveGameData(); if (questsModal.style.display === 'block') renderQuests(); }
             }
             
+            function claimQuestReward(index) {
+                const quest = activeQuests[index];
+                if (!quest || quest.currentProgress < quest.target) return;
+                if (quest.rewardType === 'coins') coins += quest.rewardAmount; else crystals += quest.rewardAmount;
+                activeQuests.splice(index, 1);
+                const availableQuests = allQuests.filter(q => !activeQuests.some(aq => aq.id === q.id));
+                if (availableQuests.length > 0) activeQuests.push({ ...availableQuests[Math.floor(Math.random() * availableQuests.length)], currentProgress: 0 });
+                saveGameData(); updateUI(); renderQuests();
+            }
+
+            function generateNewQuests(isInitial = false) {
+                const refreshCost = 10;
+                if (!isInitial) { if (crystals < refreshCost) return; crystals -= refreshCost; }
+                activeQuests = [];
+                const shuffled = allQuests.sort(() => 0.5 - Math.random());
+                for(let i = 0; i < 3 && i < shuffled.length; i++) activeQuests.push({ ...shuffled[i], currentProgress: 0 });
+                saveGameData(); updateUI(); renderQuests();
+            }
+
             // --- Event Listeners ---
             circle.addEventListener('click', handleCircleClick);
             shopBtn.addEventListener('click', () => { shop.style.display = 'block'; updateUI(); });
             closeShop.addEventListener('click', () => { shop.style.display = 'none'; });
-            exchangeBtn.addEventListener('click', () => { exchangeModal.style.display = 'block'; });
+            exchangeBtn.addEventListener('click', () => { exchangeModal.style.display = 'block'; exchangeInput.value = ''; exchangeSubmit.disabled = true; });
             closeExchange.addEventListener('click', () => { exchangeModal.style.display = 'none'; });
             exchangeCancel.addEventListener('click', () => { exchangeModal.style.display = 'none'; });
             promocodeBtn.addEventListener('click', () => { promocodeModal.style.display = 'block'; });
             closePromocode.addEventListener('click', () => { promocodeModal.style.display = 'none'; promocodeMessage.textContent = ''; });
             closeAdminPanel.addEventListener('click', () => { adminPanel.style.display = 'none'; });
+            questsBtn.addEventListener('click', () => { questsModal.style.display = 'block'; renderQuests(); updateUI(); });
+            closeQuests.addEventListener('click', () => { questsModal.style.display = 'none'; });
+            refreshQuestsBtn.addEventListener('click', () => generateNewQuests(false));
 
+            themeToggle.addEventListener('click', function() { if (themeSwitcher.classList.contains('disabled')) return; const newTheme = this.classList.toggle('active') ? 'light' : 'dark'; localStorage.setItem('theme', newTheme); applyBackground('default'); });
 
-            themeToggle.addEventListener('click', function() {
-                if (themeSwitcher.classList.contains('disabled')) return;
-                const newTheme = this.classList.toggle('active') ? 'light' : 'dark';
-                applyBackground('default'); 
-                document.body.className = newTheme + '-theme';
-                localStorage.setItem('theme', newTheme);
-                localStorage.setItem('background', 'default');
-                updateUI();
-            });
-
-
-            shopTabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabName = this.getAttribute('data-tab');
-                    shopTabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    [skinsTab, boostsTab, backgroundsTab].forEach(t => t.style.display = 'none');
-                    document.getElementById(`${tabName}Tab`).style.display = 'block';
-                    updateUI();
-                });
-            });
-
-
-            exchangeInput.addEventListener('input', function() {
-                const value = parseInt(this.value);
-                exchangeSubmit.disabled = isNaN(value) || value <= 0 || value > crystals;
-            });
-
-
+            shopTabs.forEach(tab => { tab.addEventListener('click', function() { const tabName = this.dataset.tab; shopTabs.forEach(t => t.classList.remove('active')); this.classList.add('active'); [skinsTab, boostsTab, backgroundsTab].forEach(t => t.style.display = 'none'); document.getElementById(`${tabName}Tab`).style.display = 'block'; updateUI(); }); });
+            exchangeInput.addEventListener('input', function() { const value = parseInt(this.value); exchangeSubmit.disabled = isNaN(value) || value <= 0 || value > crystals; });
             exchangeSubmit.addEventListener('click', function() {
                 const amountToExchange = parseInt(exchangeInput.value);
-                if (amountToExchange > 0 && amountToExchange <= crystals) {
-                    crystals -= amountToExchange;
-                    coins += amountToExchange * 100;
-                    saveGameData();
-                    updateUI();
-                    exchangeModal.style.display = 'none';
-                    exchangeInput.value = '';
-                    exchangeSubmit.disabled = true;
-                }
+                if (amountToExchange > 0 && amountToExchange <= crystals) { crystals -= amountToExchange; coins += amountToExchange * 100; updateQuestProgress('crystalsExchanged', amountToExchange); saveGameData(); updateUI(); exchangeModal.style.display = 'none'; }
             });
-
 
             activatePromocodeBtn.addEventListener('click', function() {
-                const code = promocodeInput.value.trim().toUpperCase();
-                promocodeInput.value = '';
-
-
+                const code = promocodeInput.value.trim().toUpperCase(); promocodeInput.value = '';
                 if (promoCodes[code]) {
                     const promo = promoCodes[code];
-                    
-                    if (code === "ACTIVATEADMINPANNELCODETRUE") {
-                        adminPanel.style.display = 'block';
-                        promocodeMessage.textContent = promo.message;
-                        promocodeMessage.style.color = 'lightgreen';
-                        return; 
-                    }
-
-
-                    if (usedPromoCodes.includes(code)) {
-                        promocodeMessage.textContent = 'Промокод уже был использован.';
-                        promocodeMessage.style.color = 'red';
-                    } else {
-                        if (promo.type === 'coins') coins += promo.value;
-                        else if (promo.type === 'crystals') crystals += promo.value;
-                        
-                        usedPromoCodes.push(code);
-                        saveGameData();
-                        updateUI();
-                        promocodeMessage.textContent = promo.message;
-                        promocodeMessage.style.color = 'lightgreen';
-                    }
-                } else {
-                    promocodeMessage.textContent = 'Неверный промокод.';
-                    promocodeMessage.style.color = 'red';
-                }
+                    if (code === "ACTIVATEADMINPANNELCODETRUE") { adminPanel.style.display = 'block'; promocodeMessage.textContent = promo.message; promocodeMessage.style.color = 'lightgreen'; return; }
+                    if (usedPromoCodes.includes(code)) { promocodeMessage.textContent = 'Промокод уже был использован.'; promocodeMessage.style.color = 'red'; } 
+                    else { if (promo.type === 'coins') coins += promo.value; else if (promo.type === 'crystals') crystals += promo.value; usedPromoCodes.push(code); saveGameData(); updateUI(); promocodeMessage.textContent = promo.message; promocodeMessage.style.color = 'lightgreen'; }
+                } else { promocodeMessage.textContent = 'Неверный промокод.'; promocodeMessage.style.color = 'red'; }
             });
 
-
-            // Boost button listeners
-            multiplierBoostBtn.addEventListener('click', function() { activateBoost('multiplier', 60, 2, 500, this); });
-            luckBoostBtn.addEventListener('click', function() { activateBoost('luck', 30, 0.30, 300, this); });
-            autoclickerBoostBtn.addEventListener('click', function() { activateBoost('autoclicker', 30, 1, 400, this); });
+            document.body.addEventListener('click', (e) => {
+                if (e.target.matches('#multiplierBoostBtn')) activateBoost('multiplier', 60, 2, 500);
+                if (e.target.matches('#luckBoostBtn')) activateBoost('luck', 30, 0.30, 300);
+                if (e.target.matches('#autoclickerBoostBtn')) activateBoost('autoclicker', 30, 1, 400);
+            });
             
-            // Admin Panel Listeners
-            setCoinsBtn.addEventListener('click', () => { coins = parseInt(adminCoinsInput.value) || coins; saveGameData(); updateUI(); });
-            addCoinsBtn.addEventListener('click', () => { coins += parseInt(adminCoinsInput.value) || 0; saveGameData(); updateUI(); });
-            setCrystalsBtn.addEventListener('click', () => { crystals = parseInt(adminCrystalsInput.value) || crystals; saveGameData(); updateUI(); });
-            addCrystalsBtn.addEventListener('click', () => { crystals += parseInt(adminCrystalsInput.value) || 0; saveGameData(); updateUI(); });
+            setCoinsBtn.addEventListener('click', () => { coins = parseFloat(adminCoinsInput.value) || coins; saveGameData(); updateUI(); });
+            addCoinsBtn.addEventListener('click', () => { coins += parseFloat(adminCoinsInput.value) || 0; saveGameData(); updateUI(); });
+            setCrystalsBtn.addEventListener('click', () => { crystals = parseFloat(adminCrystalsInput.value) || crystals; saveGameData(); updateUI(); });
+            addCrystalsBtn.addEventListener('click', () => { crystals += parseFloat(adminCrystalsInput.value) || 0; saveGameData(); updateUI(); });
 
-
-            // Make Admin Panel Draggable
             let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-            adminPanelHeader.onmousedown = (e) => {
-                e.preventDefault();
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                document.onmouseup = () => { document.onmouseup = null; document.onmousemove = null; };
-                document.onmousemove = (e) => {
-                    e.preventDefault();
-                    pos1 = pos3 - e.clientX;
-                    pos2 = pos4 - e.clientY;
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    adminPanel.style.top = (adminPanel.offsetTop - pos2) + "px";
-                    adminPanel.style.left = (adminPanel.offsetLeft - pos1) + "px";
-                };
-            };
+            adminPanelHeader.onmousedown = (e) => { e.preventDefault(); pos3 = e.clientX; pos4 = e.clientY; document.onmouseup = () => { document.onmouseup = null; document.onmousemove = null; }; document.onmousemove = (e) => { e.preventDefault(); pos1 = pos3 - e.clientX; pos2 = pos4 - e.clientY; pos3 = e.clientX; pos4 = e.clientY; adminPanel.style.top = (adminPanel.offsetTop - pos2) + "px"; adminPanel.style.left = (adminPanel.offsetLeft - pos1) + "px"; }; };
             
-            // --- INITIALIZE ---
             initializeGame();
         });
     </script>
