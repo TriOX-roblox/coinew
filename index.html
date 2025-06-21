@@ -99,11 +99,13 @@
         .circle.crystalmania-skin { background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(0, 255, 255, 0.4); box-shadow: 0 0 30px rgba(0, 200, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.3); backdrop-filter: blur(5px); transition: transform 0.2s, box-shadow 0.2s; }
         .circle.crystalmania-skin:active { transform: scale(0.97); box-shadow: 0 0 50px rgba(255, 105, 180, 0.8), inset 0 0 30px rgba(255, 105, 180, 0.5); border-color: rgba(255, 105, 180, 0.6); }
         .circle.vortex-skin { background-image: url('https://i.postimg.cc/k5r9z5N6/vihr.png'); background-size: cover; background-position: center; animation: rotate-vortex 5s linear infinite; box-shadow: 0 0 30px #4169E1, inset 0 0 25px #00008B; }
-        .circle.glitch-skin { background-color: #111; position: relative; overflow: hidden; animation: glitch-bg-main 5s infinite steps(10); }
-        .circle.glitch-skin::before, .circle.glitch-skin::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #111; clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%); animation: glitch-move 1s infinite alternate steps(10); }
-        .circle.glitch-skin::after { clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%); animation-delay: -0.5s; }
+        
+        .circle.glitch-skin { background-color: #111; position: relative; overflow: visible; /* Allow aura to be visible */ animation: glitch-bg-main 5s infinite steps(10); }
+        .circle.glitch-skin::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #111; clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%); animation: glitch-move 1s infinite alternate steps(10); z-index: 1; }
+        .circle.glitch-skin::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient( to right, #f0f, #f0f 5px, #0ff 5px, #0ff 10px, #ff0 10px, #ff0 15px ); clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%); z-index: 0; animation: glitch-bg-main 3s infinite linear reverse; }
         @keyframes glitch-move { from { transform: translateX(0); } to { transform: translateX(10px); } }
         @keyframes glitch-bg-main { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+
         .circle.ocean-skin { background: radial-gradient(circle, #80d0c7 0%, #135d96 100%); border-color: #a4e5de; box-shadow: 0 0 30px rgba(128, 208, 199, 0.7), inset 0 0 20px #135d96; }
         .circle.ocean-skin::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 48%,rgba(255,255,255,0.4) 50%,rgba(255,255,255,0) 52%,rgba(255,255,255,0) 100%); background-size: 200% 100%; animation: ocean-caustic 4s linear infinite; mix-blend-mode: overlay; }
         .circle.ocean-skin::after { content: ''; position: absolute; width: 10px; height: 10px; background: rgba(255,255,255,0.3); border-radius: 50%; bottom: -20px; left: 30%; box-shadow: 20px -20px 0 2px rgba(255,255,255,0.2), 50px -50px 0 0 rgba(255,255,255,0.3), 80px -90px 0 2px rgba(255,255,255,0.2), 10px -120px 0 1px rgba(255,255,255,0.3); animation: ocean-bubbles 5s linear infinite; }
@@ -144,10 +146,25 @@
         @keyframes crystal-shatter { from { transform: rotate(0) scale(1); opacity: 1; } to { transform: rotate(var(--rot-end)) scale(3); opacity: 0; } }
         .vortex-tap-effect { position: absolute; width: 10px; height: 10px; border: 2px solid rgba(137, 207, 240, 0.8); border-radius: 50%; pointer-events: none; animation: vortex-ripple 0.8s linear forwards; }
         @keyframes vortex-ripple { from { transform: scale(0); opacity: 1; } to { transform: scale(25); opacity: 0; } }
-        .glitch-tap-effect { position: absolute; width: 80px; height: 10px; background: red; pointer-events: none; animation: glitch-flicker 0.4s steps(2, end) forwards; }
-        .glitch-tap-effect.b { background: cyan; animation-delay: 0.05s; }
-        .glitch-tap-effect.c { background: lime; animation-delay: 0.1s; }
-        @keyframes glitch-flicker { to { opacity: 0; transform: scaleX(2); } }
+        
+        .glitch-aura-effect {
+            position: fixed;
+            height: 3px;
+            width: 150px;
+            background: red;
+            pointer-events: none;
+            z-index: 20;
+            animation: glitch-aura-flicker 0.4s steps(2, end) forwards;
+        }
+        .glitch-aura-effect.b { background: cyan; animation-delay: 0.05s; }
+        .glitch-aura-effect.c { background: lime; animation-delay: 0.1s; }
+        @keyframes glitch-aura-flicker {
+            to {
+                opacity: 0;
+                transform: scaleX(2.5) translateX(var(--x-end));
+            }
+        }
+
         .ocean-tap-effect { position: absolute; border: 2px solid rgba(255, 255, 255, 0.8); width: 10px; height: 10px; border-radius: 50%; pointer-events: none; animation: ocean-ripple 0.7s linear forwards; }
         @keyframes ocean-ripple { from { transform: scale(0); opacity: 1; } to { transform: scale(20); opacity: 0; } }
         .hacker-tap-effect { position: absolute; width: 10px; height: 10px; background: #0f0; box-shadow: 0 0 5px #0f0; pointer-events: none; animation: hacker-square-fly 1s ease-out forwards; }
@@ -169,15 +186,16 @@
         .ban-timer { font-size: 48px; margin: 20px 0; color: red; }
         .warning { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background-color: rgba(255, 0, 0, 0.8); color: white; padding: 10px 20px; border-radius: 5px; z-index: 50; display: none; }
 
-        .shop-btn, .quests-btn { position: fixed; bottom: 20px; background-color: var(--currency-bg); color: var(--text-color); border: 1px solid var(--currency-border); border-radius: 50%; width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: transform 0.2s; }
+        .shop-btn, .quests-btn, .transfer-btn { position: fixed; bottom: 20px; background-color: var(--currency-bg); color: var(--text-color); border: 1px solid var(--currency-border); border-radius: 50%; width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: transform 0.2s; }
         .shop-btn { left: 20px; }
-        .quests-btn { left: 80px; } /* Располагаем справа от магазина */
-        .shop-btn:hover, .quests-btn:hover { transform: scale(1.1); }
+        .quests-btn { left: 80px; } 
+        .transfer-btn { left: 140px; }
+        .shop-btn:hover, .quests-btn:hover, .transfer-btn:hover { transform: scale(1.1); }
 
-        .shop, .quests-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--shop-bg); border-radius: 15px; padding: 20px; width: 340px; max-width: 90%; z-index: 100; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5); display: none; backdrop-filter: blur(10px); border: 1px solid var(--currency-border); }
-        .shop-header, .quests-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--currency-border); padding-bottom: 10px; }
-        .shop-title, .quests-title { font-size: 24px; font-weight: bold; }
-        .close-shop, .close-quests { font-size: 20px; cursor: pointer; padding: 5px; }
+        .shop, .quests-modal, .transfer-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--shop-bg); border-radius: 15px; padding: 20px; width: 340px; max-width: 90%; z-index: 100; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5); display: none; backdrop-filter: blur(10px); border: 1px solid var(--currency-border); }
+        .shop-header, .quests-header, .transfer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--currency-border); padding-bottom: 10px; }
+        .shop-title, .quests-title, .transfer-title { font-size: 24px; font-weight: bold; }
+        .close-shop, .close-quests, .close-transfer { font-size: 20px; cursor: pointer; padding: 5px; }
         .shop-tabs { display: flex; margin-bottom: 15px; border-bottom: 1px solid var(--currency-border); }
         .shop-tab { padding: 8px 15px; cursor: pointer; border-bottom: 2px solid transparent; }
         .shop-tab.active { border-bottom: 2px solid #00ffff; }
@@ -201,22 +219,22 @@
         .exchange-title, .promocode-title, .admin-title { font-size: 24px; font-weight: bold; }
         .close-exchange, .close-promocode, .close-admin { font-size: 20px; cursor: pointer; padding: 5px; }
         .exchange-rate { margin-bottom: 20px; text-align: center; }
-        .exchange-input, .promocode-input, .admin-input { width: 100%; padding: 10px; margin-bottom: 20px; background-color: rgba(255, 255, 255, 0.1); border: 1px solid var(--currency-border); border-radius: 5px; color: var(--text-color); font-size: 16px; box-sizing: border-box; }
+        .exchange-input, .promocode-input, .admin-input, .transfer-input { width: 100%; padding: 10px; margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.1); border: 1px solid var(--currency-border); border-radius: 5px; color: var(--text-color); font-size: 16px; box-sizing: border-box; }
         .exchange-action, .promocode-action, .admin-action { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .exchange-submit, .promocode-submit, .admin-submit-btn { flex-grow: 1; background-color: rgba(0, 200, 100, 0.3); border: 1px solid rgba(0, 200, 100, 0.5); color: white; padding: 10px; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; }
+        .exchange-submit, .promocode-submit, .admin-submit-btn, .transfer-submit { flex-grow: 1; background-color: rgba(0, 200, 100, 0.3); border: 1px solid rgba(0, 200, 100, 0.5); color: white; padding: 10px; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; }
         .promocode-submit { background-color: rgba(0, 200, 255, 0.3); border: 1px solid rgba(0, 200, 255, 0.5); }
         .admin-submit-btn { background-color: rgba(100, 100, 255, 0.3); border: 1px solid rgba(100, 100, 255, 0.5); width: calc(50% - 5px); margin-bottom: 10px; }
-        .exchange-submit:hover, .promocode-submit:hover, .admin-submit-btn:hover { background-color: rgba(0, 200, 100, 0.5); }
+        .exchange-submit:hover, .promocode-submit:hover, .admin-submit-btn:hover, .transfer-submit:hover { background-color: rgba(0, 200, 100, 0.5); }
         .promocode-submit:hover { background-color: rgba(0, 200, 255, 0.5); }
         .admin-submit-btn:hover { background-color: rgba(100, 100, 255, 0.5); }
-        .exchange-submit:disabled, .promocode-submit:disabled, .admin-submit-btn:disabled { background-color: rgba(100, 100, 100, 0.3); border-color: rgba(100, 100, 100, 0.5); cursor: not-allowed; }
+        .exchange-submit:disabled, .promocode-submit:disabled, .admin-submit-btn:disabled, .transfer-submit:disabled { background-color: rgba(100, 100, 100, 0.3); border-color: rgba(100, 100, 100, 0.5); cursor: not-allowed; }
         .exchange-cancel { background-color: rgba(200, 0, 0, 0.3); border: 1px solid rgba(200, 0, 0, 0.5); color: white; padding: 10px; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; }
         .exchange-cancel:hover { background-color: rgba(200, 0, 0, 0.5); }
 
         .boosts-container { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
         .boost-indicator { background-color: var(--currency-bg); border: 1px solid var(--currency-border); border-radius: 15px; padding: 5px 10px; font-size: 14px; display: flex; align-items: center; gap: 5px; }
         .boost-icon { font-size: 16px; }
-        .promocode-modal .promocode-message { margin-top: 15px; font-size: 14px; text-align: center; min-height: 20px; }
+        .promocode-modal .promocode-message, .transfer-modal .transfer-message { margin-top: 15px; font-size: 14px; text-align: center; min-height: 20px; }
         
         /* --- Quest System Styles --- */
         .quests-list { display: flex; flex-direction: column; gap: 15px; max-height: 350px; overflow-y: auto; padding-right: 5px; }
@@ -231,6 +249,14 @@
         .quests-footer { margin-top: 20px; text-align: center; border-top: 1px solid var(--currency-border); padding-top: 15px; }
         .refresh-quests-btn { background-color: rgba(0, 150, 255, 0.4); border-color: rgba(0, 150, 255, 0.6); }
         .refresh-quests-btn:hover:not(:disabled) { background-color: rgba(0, 150, 255, 0.6); }
+        
+        /* --- Transfer System Styles --- */
+        .transfer-section { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--currency-border); }
+        .transfer-section-title { font-size: 18px; margin-bottom: 10px; text-align: center; }
+        #playerIDDisplay { font-weight: bold; color: #00ffff; user-select: text; -webkit-user-select: text; -moz-user-select: text; }
+        #generatedCodeArea { width: 100%; height: 80px; resize: none; background-color: rgba(0,0,0,0.2); color: var(--text-color); border-radius: 5px; padding: 5px; box-sizing: border-box; }
+        .currency-selector { display: flex; justify-content: center; gap: 15px; margin-bottom: 15px; }
+
     </style>
 </head>
 <body>
@@ -249,6 +275,7 @@
 
     <div class="shop-btn" id="shopBtn">🛒</div>
     <div class="quests-btn" id="questsBtn">📜</div>
+    <div class="transfer-btn" id="transferBtn">→</div>
     <div class="exchange-btn" id="exchangeBtn">⇄</div>
 
     <div class="warning" id="warning">Слишком быстро! Прекратите кликать так часто!</div>
@@ -272,7 +299,6 @@
     <div class="circle default-skin" id="circle"></div>
     <div id="backgroundContainer"></div>
 
-    <!-- Modals -->
     <div class="promocode-modal" id="promocodeModal">
         <div class="promocode-header">
             <div class="promocode-title">Активировать промокод</div>
@@ -347,6 +373,34 @@
         </div>
     </div>
 
+    <div class="transfer-modal" id="transferModal">
+        <div class="transfer-header">
+            <div class="transfer-title">Перевод средств</div>
+            <div class="close-transfer" id="closeTransfer">✕</div>
+        </div>
+        <div style="text-align: center; margin-bottom: 10px;">Ваш ID: <span id="playerIDDisplay"></span></div>
+        
+        <div class="transfer-section">
+            <div class="transfer-section-title">Создать шифр-код</div>
+            <input type="text" id="recipientIdInput" class="transfer-input" placeholder="ID получателя">
+            <input type="number" id="transferAmountInput" class="transfer-input" placeholder="Количество">
+            <div class="currency-selector">
+                <label><input type="radio" name="currencyType" value="COIN" checked> Đ</label>
+                <label><input type="radio" name="currencyType" value="CRYS"> ✦</label>
+            </div>
+            <button id="generateCodeBtn" class="transfer-submit">Сгенерировать</button>
+            <textarea id="generatedCodeArea" readonly placeholder="Здесь появится шифр-код..."></textarea>
+        </div>
+
+        <div class="transfer-section">
+            <div class="transfer-section-title">Активировать шифр-код</div>
+            <input type="text" id="claimCodeInput" class="transfer-input" placeholder="Введите шифр-код">
+            <button id="claimCodeBtn" class="transfer-submit">Получить</button>
+        </div>
+        <div id="transferMessage" class="transfer-message"></div>
+    </div>
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // --- Element Selectors ---
@@ -395,6 +449,20 @@
             const questsList = document.getElementById('questsList');
             const refreshQuestsBtn = document.getElementById('refreshQuestsBtn');
 
+            // --- Transfer System Elements ---
+            const transferBtn = document.getElementById('transferBtn');
+            const transferModal = document.getElementById('transferModal');
+            const closeTransfer = document.getElementById('closeTransfer');
+            const playerIDDisplay = document.getElementById('playerIDDisplay');
+            const recipientIdInput = document.getElementById('recipientIdInput');
+            const transferAmountInput = document.getElementById('transferAmountInput');
+            const generateCodeBtn = document.getElementById('generateCodeBtn');
+            const generatedCodeArea = document.getElementById('generatedCodeArea');
+            const claimCodeInput = document.getElementById('claimCodeInput');
+            const claimCodeBtn = document.getElementById('claimCodeBtn');
+            const transferMessage = document.getElementById('transferMessage');
+
+
             // --- Game State ---
             let coins = parseFloat(localStorage.getItem('doolcoins')) || 0;
             let crystals = parseFloat(localStorage.getItem('crystals')) || 0;
@@ -405,7 +473,9 @@
             let ownedBackgrounds = JSON.parse(localStorage.getItem('ownedBackgrounds')) || ['default'];
             let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
             let activeQuests = JSON.parse(localStorage.getItem('activeQuests')) || [];
-            
+            let playerId = localStorage.getItem('doolcoin_player_id') || null;
+            let usedCipherCodes = JSON.parse(localStorage.getItem('usedCipherCodes')) || [];
+
             let activeBoosts = [];
             let coinMultiplier = 1;
             let crystalChance = 0.05;
@@ -440,6 +510,7 @@
             const promoCodes = { "FRESHSTART": { type: "coins", value: 1000, message: "Получено 1000 монет! Добро пожаловать!" }, "INEEDMONEY": { type: "coins", value: 50000, message: "Получено 50.000 монет! Удачи!" }, "CRYSTALINFECTION": { type: "crystals", value: 25, message: "Получено 25 кристаллов!" }, "IAMSUB": { type: "coins", value: 2500, message: "Спасибо за подписку! Получено 2.500 монет!" }, "500CRYSTALSECRETCODE": { type: "crystals", value: 500, message: "Найдено! Получено 500 кристаллов!" }, "ACTIVATEADMINPANNELCODETRUE": { type: "admin", message: "Админ-панель активирована!" }, "LUCKYDAY": { type: "crystals", value: 10, message: "Удачный день! +10 кристаллов." }, "BIGMONEY": { type: "coins", value: 100000, message: "Большой куш! +100,000 монет." }, "CRYSTALRUSH": { type: "crystals", value: 75, message: "Кристальная лихорадка! +75 кристаллов." }, "SECRETCODE2025": { type: "coins", value: 20250, message: "Секретный код найден! +20,250 монет." }, "HACKERMAN": { type: "coins", value: 77777, message: "Система взломана! +77,777 монет." }, };
             
             function initializeGame() {
+                generatePlayerId();
                 fillShopTabs(); 
                 applyBackground(currentBackground);
                 themeToggle.classList.toggle('active', currentTheme === 'light');
@@ -448,6 +519,19 @@
                 renderQuests();
                 updateUI();
                 startBoostManager();
+            }
+
+            function generatePlayerId() {
+                if (!playerId) {
+                    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                    let newId = '';
+                    for (let i = 0; i < 9; i++) {
+                        newId += chars.charAt(Math.floor(Math.random() * chars.length));
+                    }
+                    playerId = newId;
+                    localStorage.setItem('doolcoin_player_id', playerId);
+                }
+                playerIDDisplay.textContent = playerId;
             }
 
             function formatNumber(num) {
@@ -468,6 +552,7 @@
                 localStorage.setItem('ownedBackgrounds', JSON.stringify(ownedBackgrounds));
                 localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes));
                 localStorage.setItem('activeQuests', JSON.stringify(activeQuests));
+                localStorage.setItem('usedCipherCodes', JSON.stringify(usedCipherCodes));
             }
 
             function updateUI() {
@@ -621,7 +706,17 @@
                     case 'blackhole': tapEffect = document.createElement('div'); tapEffect.classList.add('blackhole-tap-effect'); tapEffect.style.left = `${clickX}px`; tapEffect.style.top = `${clickY}px`; circle.appendChild(tapEffect); break;
                     case 'crystalmania': for (let i = 0; i < 6; i++) { const shard = document.createElement('div'); shard.classList.add('crystalmania-tap-effect'); shard.style.left = `${clickX - 7.5}px`; shard.style.top = `${clickY - 7.5}px`; shard.style.borderColor = `hsl(${Math.random() * 360}, 100%, 70%)`; shard.style.setProperty('--rot-end', `${(Math.random() - 0.5) * 720}deg`); circle.appendChild(shard); setTimeout(()=> shard.remove(), 700); } break;
                     case 'vortex': tapEffect = document.createElement('div'); tapEffect.classList.add('vortex-tap-effect'); tapEffect.style.left = `${clickX - 5}px`; tapEffect.style.top = `${clickY - 5}px`; circle.appendChild(tapEffect); break;
-                    case 'glitch': ['a', 'b', 'c'].forEach(cls => { const bar = document.createElement('div'); bar.classList.add('glitch-tap-effect', cls); bar.style.left = `${clickX - 40}px`; bar.style.top = `${clickY - 5 + (Math.random() - 0.5) * 30}px`; circle.appendChild(bar); setTimeout(() => bar.remove(), 400); }); break;
+                    case 'glitch': 
+                        ['a', 'b', 'c'].forEach(cls => { 
+                            const bar = document.createElement('div'); 
+                            bar.classList.add('glitch-aura-effect', cls); 
+                            bar.style.left = `${event.clientX - 75}px`; // center the bar on cursor
+                            bar.style.top = `${event.clientY - 1.5 + (Math.random() - 0.5) * 40}px`; // random vertical offset
+                            bar.style.setProperty('--x-end', `${(Math.random() - 0.5) * 50}px`);
+                            document.body.appendChild(bar);
+                            setTimeout(() => bar.remove(), 400); 
+                        }); 
+                        break;
                     default: tapEffect = document.createElement('div'); tapEffect.classList.add('tap-effect'); tapEffect.style.setProperty('--tap-x', `${clickX}px`); tapEffect.style.setProperty('--tap-y', `${clickY}px`); circle.appendChild(tapEffect); break;
                 }
                 if (tapEffect && tapEffect.parentNode) tapEffect.addEventListener('animationend', () => tapEffect.remove());
@@ -693,6 +788,52 @@
                 saveGameData(); updateUI(); renderQuests();
             }
 
+            // --- Cipher System Logic ---
+            const cipherMap = {
+                '0': 'A', '1': 'B', '2': 'C', '3': 'D', '4': 'E', '5': 'F', '6': 'G', '7': 'H', '8': 'I', '9': 'J',
+                'a': 'K', 'b': 'L', 'c': 'M', 'd': 'N', 'e': 'O', 'f': 'P'
+            };
+            const decipherMap = Object.fromEntries(Object.entries(cipherMap).map(([key, value]) => [value, key]));
+
+            function stringToHex(str) {
+                let hex = '';
+                for (let i = 0; i < str.length; i++) {
+                    hex += '' + str.charCodeAt(i).toString(16);
+                }
+                return hex;
+            }
+
+            function hexToString(hex) {
+                let str = '';
+                for (let i = 0; i < hex.length; i += 2) {
+                    str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+                }
+                return str;
+            }
+            
+            function encrypt(text) {
+                const reversed = text.split('').reverse().join('');
+                const hex = stringToHex(reversed);
+                return hex.split('').map(char => cipherMap[char] || char).join('');
+            }
+
+            function decrypt(cipher) {
+                try {
+                    const hex = cipher.split('').map(char => decipherMap[char] || char).join('');
+                    if (!/^[0-9a-f]+$/.test(hex)) return null; // Invalid hex
+                    const reversed = hexToString(hex);
+                    return reversed.split('').reverse().join('');
+                } catch (e) {
+                    return null;
+                }
+            }
+            
+            function setTransferMessage(message, isError = false) {
+                transferMessage.textContent = message;
+                transferMessage.style.color = isError ? 'red' : 'lightgreen';
+                setTimeout(() => { transferMessage.textContent = ''}, 5000);
+            }
+
             // --- Event Listeners ---
             circle.addEventListener('click', handleCircleClick);
             shopBtn.addEventListener('click', () => { shop.style.display = 'block'; updateUI(); });
@@ -706,6 +847,87 @@
             questsBtn.addEventListener('click', () => { questsModal.style.display = 'block'; renderQuests(); updateUI(); });
             closeQuests.addEventListener('click', () => { questsModal.style.display = 'none'; });
             refreshQuestsBtn.addEventListener('click', () => generateNewQuests(false));
+            
+            // --- Transfer Listeners ---
+            transferBtn.addEventListener('click', () => { 
+                transferModal.style.display = 'block'; 
+                generatedCodeArea.value = '';
+                claimCodeInput.value = '';
+                transferMessage.textContent = '';
+            });
+            closeTransfer.addEventListener('click', () => { transferModal.style.display = 'none'; });
+
+            generateCodeBtn.addEventListener('click', () => {
+                const recipientId = recipientIdInput.value.trim().toUpperCase();
+                const amount = parseInt(transferAmountInput.value);
+                const currencyType = document.querySelector('input[name="currencyType"]:checked').value;
+
+                if (recipientId.length !== 9 || !/^[A-Z0-9]+$/.test(recipientId)) {
+                    setTransferMessage("ID получателя должен состоять из 9 букв и цифр.", true); return;
+                }
+                if (isNaN(amount) || amount <= 0) {
+                    setTransferMessage("Введите корректное количество.", true); return;
+                }
+                if (currencyType === 'COIN' && coins < amount) {
+                    setTransferMessage("Недостаточно монет.", true); return;
+                }
+                if (currencyType === 'CRYS' && crystals < amount) {
+                    setTransferMessage("Недостаточно кристаллов.", true); return;
+                }
+
+                const nonce = Date.now() + Math.floor(Math.random() * 10000000);
+                const plaintext = `${nonce}x${amount}x${currencyType}x${recipientId}`;
+                const cipherCode = encrypt(plaintext);
+                generatedCodeArea.value = cipherCode;
+                setTransferMessage("Шифр-код успешно сгенерирован!");
+            });
+
+            claimCodeBtn.addEventListener('click', () => {
+                const code = claimCodeInput.value.trim();
+                if (!code) {
+                    setTransferMessage("Введите шифр-код.", true); return;
+                }
+
+                const plaintext = decrypt(code);
+                if (!plaintext) {
+                    setTransferMessage("Неверный или поврежденный код.", true); return;
+                }
+
+                const parts = plaintext.split('x');
+                if (parts.length !== 4) {
+                    setTransferMessage("Неверный формат кода.", true); return;
+                }
+
+                const [nonce, amountStr, currencyType, recipientId] = parts;
+                const amount = parseInt(amountStr);
+
+                if (recipientId !== playerId) {
+                    setTransferMessage("Этот код предназначен для другого игрока.", true); return;
+                }
+
+                if (usedCipherCodes.includes(nonce)) {
+                    setTransferMessage("Этот код уже был использован.", true); return;
+                }
+                
+                // Note: In a real client-server architecture, the server would validate if the SENDER had the funds at the time of code generation.
+                // Here, we trust the code. The sender can't create a code for funds they don't have.
+
+                if (currencyType === 'COIN') {
+                    coins += amount;
+                    setTransferMessage(`Вы получили ${formatNumber(amount)} монет!`);
+                } else if (currencyType === 'CRYS') {
+                    crystals += amount;
+                    setTransferMessage(`Вы получили ${formatNumber(amount)} кристаллов!`);
+                } else {
+                    setTransferMessage("Неизвестный тип валюты в коде.", true); return;
+                }
+                
+                usedCipherCodes.push(nonce);
+                saveGameData();
+                updateUI();
+                claimCodeInput.value = '';
+            });
+
 
             themeToggle.addEventListener('click', function() { if (themeSwitcher.classList.contains('disabled')) return; const newTheme = this.classList.toggle('active') ? 'light' : 'dark'; localStorage.setItem('theme', newTheme); applyBackground('default'); });
 
