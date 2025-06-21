@@ -633,7 +633,7 @@
                 autoclickerInterval = setInterval(() => {
                     const circleRect = circle.getBoundingClientRect(); const centerX = circleRect.left + circleRect.width / 2; const centerY = circleRect.top + circleRect.height / 2;
                     coins += (1 * coinMultiplier);
-                    if (Math.random() < crystalChance) { crystals++; updateQuestProgress('crystalsEarned', 1); createCrystalEffect(centerX, centerY, '+1✦'); }
+                    if (Math.random() < crystalChance) { crystals++; updateQuestProgress('crystalsEarned', 1); createCrystalEffect(centerX, centerY, '✦'); }
                     createCoinEffect(centerX, centerY, `+${formatNumber(1 * coinMultiplier)}Đ`); saveGameData(); updateUI();
                 }, 200);
             }
